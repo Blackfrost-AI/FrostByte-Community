@@ -6,7 +6,8 @@
 - **Base URL:** `https://us-central1-blackfrost-ai-prod.cloudfunctions.net/hubApi`
 - **Firestore database:** `blackfrost-hub` (dedicated — **not** `(default)`)
 - **Architecture:** `docs/adr/002-hub-backend-firebase.md`
-- **Probe evidence:** `research/2026-10-18-backend-probe.md`
+- **Probe evidence:** private backend-probe record (maintainer repository; not
+  shipped in this source release).
 
 ## Endpoints
 

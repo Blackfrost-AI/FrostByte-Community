@@ -10,7 +10,7 @@
  *
  * Usage:
  *   node scripts/legacy-frostnet-export.mjs --base https://frostnet-si.web.app \
- *     --out research/legacy-frostnet-retirement/export.json
+ *     --out .receipts/legacy-frostnet-retirement/export.json
  *
  * The legacy store only emits recipe.published events (no withdraw route
  * exists in the legacy codebase); withdrawn[] is therefore normally empty but

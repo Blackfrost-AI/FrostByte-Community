@@ -75,10 +75,10 @@ Version comparisons handle numbered betas, stable versions, and a local build
 newer than the published release. Last-check time and known release metadata
 survive restart. Checking never downloads or installs executables.
 
-Get update opens the existing invite-protected download desk. The feed derives
-from the website's approved release manifest, not GitHub development commits.
-Publishing this source does not publish beta.9 binaries. Automatic installation
-and a community-wide content registry remain later work.
+Get update opens the official download destination. The feed derives
+from the maintainer-approved release manifest, not GitHub development commits.
+Official installers are published on this repository's GitHub Releases page.
+Automatic installation and a community-wide content registry remain later work.
 
 ## Verification
 

@@ -1,7 +1,9 @@
 # Community model discovery
 
-The proposed service is **Frost-Net**. See the [Frost-Net plan](FROST-NET-PLAN.md)
-for the website/API scope, hosting assessment, publication flow, and test milestones.
+The community discovery service is **FrostNet**. The deployed backend is
+documented in [hub-backend.md](hub-backend.md) and [hub-api.md](hub-api.md);
+the original hosting assessment lives in the maintainer's private planning
+records.
 
 Current scope: build a reliable community of people hosting and sharing model
 files. FrostByte opens torrents and magnets, searches HuggingFace in its own tab,

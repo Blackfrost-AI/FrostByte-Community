@@ -30,14 +30,17 @@ the number does not claim production readiness or platform signing.
 6. Merge the reviewed PR and create annotated tag `vVERSION` at the exact frozen
    source commit (which must be reachable from `main`). Never move a published
    tag or overwrite released bytes. A correction receives a new version.
-7. Upload the four binaries and checksums to new, private storage objects under
-   `releases/VERSION/`, with generation precondition zero and SHA-256 metadata.
-   Google/Firebase operations explicitly use `you@example.com`. Promote the
-   website's release manifest, version displays and notes together only after
-   artifact verification. Source code never goes to the public product repository.
-8. Verify the deployed site, update metadata, terms acceptance, all five complete
-   downloads against SHA-256, and session sign-out. Create the public product
-   release announcement with the official website link and matching notes.
+7. Publish the six native artifacts plus `SHA256SUMS-VERSION`, its OpenPGP
+   signature and the release public key to this repository's GitHub Releases
+   page for tag `vVERSION`. Verify every uploaded asset's SHA-256 against the
+   signed checksum list. Where the product website mirrors downloads, promote
+   its release manifest, version displays and notes together only after
+   artifact verification. Development history and private planning documents
+   never go to the public product repository.
+8. Verify the release page, update metadata, terms acceptance, all six complete
+   downloads against SHA-256 (and the OpenPGP signature over the checksum list),
+   and session sign-out. Create the public product
+   release announcement with the official release link and matching notes.
 9. **Then** update the owner's `/Applications/FrostByte.app` and per-user Windows
    installation, preserving profiles, device pairings and downloaded files.
    Launch both and verify installed versions. Keep rollback copies only until
@@ -72,34 +75,36 @@ someone remembering:
 - `npm run release:check` remains the release-time gate (package, lockfile and
   notes must agree).
 
-History this check was written against: `1.1.0` (`ad2283f`) and `1.1.1`
-(`68fa0df`) were both cut without a tag, and `1.1.1` shipped with no notes
-section, so `release:check` failed from `68fa0df` onward. `1.2.0` backfills the
-`1.1.1` section and the tags.
+History this check was written against (maintainer repository): `1.1.0` and
+`1.1.1` were both cut without a tag, and `1.1.1` shipped with no notes
+section, so `release:check` failed until `1.2.0` backfilled the `1.1.1` section
+and the tags. This repository's fresh history begins at the curated `v2.0.0`
+tag.
 
 ## V2.0 cross-surface version check
 
 V2.0 adds `scripts/sync-version.mjs`, invoked by `npm run version:sync` and
 `npm run release:check`. It keeps `package.json` as the single active product
 version and checks the lockfile root fields, the leading release-note section,
-runtime UI wiring, diagnostics, and the website release identity. `tests/version-sync.test.js`
+runtime UI wiring, diagnostics, and (only when a separate website checkout is
+present) the website release identity. `tests/version-sync.test.js`
 runs it from `npm test` and also guards the public-artifact boundary.
 
 Active UI labels derive from `app.getVersion()`; frozen site artifact records,
 dependency versions, protocol versions, and historical notes are not swept by a
-global replacement. `docs/VERSION-MATRIX.md` is the release-facing map. A public
-2.0.0 site release is created only from real signed artifacts and a separate
-owner-authorized release phase.
+global replacement. The release-facing version map is the GitHub Releases page
+and `docs/RELEASE-NOTES.md`. A public 2.0.0 release is created only from real
+signed artifacts and a separate owner-authorized release phase.
 
-## Local-install release record
+## Public 2.0.0 release record
 
-A local build that is installed on the owner's Mac but not published is recorded
-here rather than implied:
-
-| Version | Source commit | Artifacts | Status |
-|---|---|---|---|
-| 1.2.0 | see `v1.2.0` tag | private build workspace | local install verified; superseded by 2.0.0 |
-| 2.0.0 | uncommitted V2.0 work on root `HEAD` `3c659534adf9a08a16f6af3b26d99ada0df03d00`, site `HEAD` `0210a5914c0d3f7df6f7f36e13c0415f3e40b972` | `dist/signed-local/FrostByte-2.0.0-mac-arm64.dmg` | local Developer ID-signed install verified; SHA-256 in `research/frostbyte-v2-checks/v2-local-artifacts-post-legal.sha256`; not a public artifact |
+The public Community 2.0.0 release is published on this repository's GitHub
+Releases page: six native artifacts (macOS DMG/ZIP, Windows EXE/ZIP, Linux
+AppImage/deb), `SHA256SUMS-2.0.0` and its OpenPGP signature. The release was cut
+from the annotated tag `v2.0.0` in this repository; artifact hashes are in the
+signed checksum list attached to the release. Local, unpublished build and
+install records (including pre-publication Developer ID candidates) live in the
+maintainer's private repository and are not shipped here.
 
 Local installs follow a verify-before-delivered rule: build in a dedicated
 workspace, quit the installed app cleanly, keep a verified rollback bundle, and

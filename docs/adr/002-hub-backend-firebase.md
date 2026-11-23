@@ -7,7 +7,7 @@
   ETag/304, tombstones, verbatim quant tokens, tier names) remain in force.
   The `hub/` Prisma prototype stays in the tree as a reference implementation;
   it is not the deployed service.
-- **Decision owner:** repository owner (Craig).
+- **Decision owner:** repository owner (Blackfrost AI).
 
 ## Context
 

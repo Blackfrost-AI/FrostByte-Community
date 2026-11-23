@@ -474,7 +474,7 @@ test('recipe GET carries provenance + quoted sha256 ETag; manifest route honors 
   const h = await harness();
   const id = makePublisherIdentity();
   await bindKey(h.request, id);
-  await h.store.setHandle(h.uid, 'craig');
+  await h.store.setHandle(h.uid, 'alex');
   const manifest = recipeFixture(id.pubKey);
   const digest = canonicalDigest(manifest);
   assert.equal((await h.request({ method: 'POST', url: '/v1/recipes', body: signedBody(id, manifest) })).statusCode, 200);

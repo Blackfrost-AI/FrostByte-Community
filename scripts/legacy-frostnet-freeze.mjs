@@ -17,7 +17,7 @@
  *
  * Usage:
  *   node scripts/legacy-frostnet-freeze.mjs --base https://frostnet-si.web.app \
- *     --out research/legacy-frostnet-retirement/freeze-verification.json
+ *     --out .receipts/legacy-frostnet-retirement/freeze-verification.json
  */
 import path from 'node:path';
 import { getJson, writeArtifactWithReceipt } from './lib/legacy-frostnet.mjs';

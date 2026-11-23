@@ -30,7 +30,11 @@ credit is offered unless you prefer anonymity.
 - Model weights are data, not trusted code. Reports about malicious model
   distribution that bypass the integrity gates are in scope.
 - Release artifacts are authenticated by the OpenPGP-signed `SHA256SUMS` list
-  (key fingerprint `585A 5E6E D8E5 0B38 90A4 4CBB 5CFE 2F13 0753 BD6E`).
+  (primary key fingerprint `585A 5E6E D8E5 0B38 90A4 4CBB 5CFE 2F13 0753 BD6E`;
+  signatures are issued by its signing subkey
+  `EC8A 3607 7C1A 02F8 1AA4 44D1 85EC 02BE 2984 BF94` — `gpg --verify` reports the
+  subkey id, which chains to the primary above). The public key ships with each
+  release as `FrostByte-release-key.asc`.
   macOS artifacts are Developer ID signed; Apple notarization and Windows
   Authenticode signing are pending production-signing work, disclosed in the
   release notes.

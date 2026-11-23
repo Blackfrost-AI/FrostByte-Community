@@ -7,8 +7,8 @@ See [VERSIONING.md](VERSIONING.md) for provenance and immutable artifacts and
 
 Repository: https://github.com/Blackfrost-AI/FrostByte-Community
 
-Keep this repository private until the separately planned Community source
-publication on Friday, 16 October 2026. Do not expose private history, Founders
+Keep this repository private until the owner explicitly authorizes Community
+source publication. Do not expose private history, Founders
 artifacts, workflow logs, credentials, local profiles or unrestricted build
 directories on the product website. Public downloads consist only of the six
 approved, tested Community artifacts and public verification files.
@@ -74,10 +74,11 @@ Keep sandbox enforcement enabled in shipped Linux packages.
 
 ## Product page
 
-The canonical `blackfrostai.com/frostbyte` site lives in the separate private
-website repository, with its Blackfrost static pages and server download routes.
-The app repository's `website/` is the Firebase Hosting mirror and links to
-canonical downloads. Frostnet remains shelved and is not a deployment target.
+The product website is maintained in a separate private repository (domain
+migration in progress; the previous canonical host was
+`blackfrostai.com/frostbyte`). Official installers are published on this
+repository's GitHub Releases page. Frostnet remains shelved and is not a
+deployment target.
 
 FrostByte Community 2.0.0 downloads require no invite, account, acceptance form or browser
 session. Keep the artifact bucket private: allowlisted files receive short-lived,

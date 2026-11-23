@@ -6,7 +6,7 @@
  *   scripts/legacy-frostnet-convert.mjs  (re-validate + independent verify)
  *   scripts/legacy-frostnet-freeze.mjs   (verify the legacy write-freeze)
  *
- * Trust model (plans/2026-11-17-legacy-frostnet-retirement.md):
+ * Trust model (legacy FrostNet retirement runbook, private maintainer docs):
  *   - The ORIGINAL publisher key + signature are preserved end-to-end.
  *     Conversion NEVER re-signs or re-keys.
  *   - Every digest is recomputed from the manifest; stored claims are checked,

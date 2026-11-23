@@ -1,11 +1,11 @@
 # ADR 003 — Identity binding: Firebase uid ↔ publisher pubkey ↔ handle
 
 - **Status:** Accepted — 2026-11-17
-- **Decision owner:** repository owner (Craig), answering the release-gap review
-  ("keep it with alias", 2026-11-16/17).
+- **Decision owner:** repository owner (Blackfrost AI), answering the release-gap
+  review ("keep it with alias", 2026-11-16/17).
 - **Supersedes:** nothing. Constrains P1 (accounts), P2 (share loop / attribution)
-  and P3 (creators / follows) of
-  `plans/2026-11-16-frostnet-search-home-accounts-roadmap.md`.
+  and P3 (creators / follows) of the FrostNet search/home/accounts roadmap
+  (private planning record, maintainer repository).
 - **Related:** ADR 002 (deployed backend = Firebase hubApi on `blackfrost-ai-prod`;
   the `hub/` fixture is a reference, not the service).
 

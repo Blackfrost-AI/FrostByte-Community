@@ -9,8 +9,8 @@
  *
  * Usage:
  *   node scripts/legacy-frostnet-convert.mjs \
- *     --in research/legacy-frostnet-retirement/export.json \
- *     --out research/legacy-frostnet-retirement/converted.json
+ *     --in .receipts/legacy-frostnet-retirement/export.json \
+ *     --out .receipts/legacy-frostnet-retirement/converted.json
  *
  * Output: {converted[], refused[{id, code, message}], tombstones[]} + receipt.
  * The converted bundle is the ONLY input the admin import route accepts

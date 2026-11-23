@@ -34,9 +34,9 @@ test('First screen is User Dashboard (no steering/sidecar panels) and PKCE web s
     accounts: [
       {
         uid: 'usr_founder',
-        email: 'craig@blackfrost.ai',
+        email: 'alex@example.com',
         password: 'frostbyte-dev-password',
-        displayName: 'Craig',
+        displayName: 'Alex',
         tier: 'pro',
       },
     ],
@@ -126,8 +126,8 @@ test('First screen is User Dashboard (no steering/sidecar panels) and PKCE web s
             kind: 'identitytoolkit#VerifyCustomTokenResponse',
             idToken: mkJwt({
               user_id: 'usr_founder',
-              email: 'craig@blackfrost.ai',
-              name: 'Craig',
+              email: 'alex@example.com',
+              name: 'Alex',
               firebase: { tenant: 'frostbyte-0ji2f', sign_in_provider: 'custom' },
             }),
             refreshToken: 'refresh_founder_e2e_token_0001',
@@ -140,13 +140,13 @@ test('First screen is User Dashboard (no steering/sidecar panels) and PKCE web s
         }
 
         if (rawUrl === `${canonicalHubBase}/v1/me`) {
-          // Forward to fixture so observedAuth records /v1/me with Authorization header, then return Craig's Pro profile.
+          // Forward to fixture so observedAuth records /v1/me with Authorization header, then return Alex's Pro profile.
           await realFetch(`${fixtureOrigin}/v1/me`, init).catch(() => {});
           return new Response(JSON.stringify({
             uid: 'usr_founder',
-            email: 'craig@blackfrost.ai',
+            email: 'alex@example.com',
             emailVerified: true,
-            displayName: 'Craig',
+            displayName: 'Alex',
             entitlement: {
               tier: 'pro',
               source: 'admin',
@@ -220,10 +220,10 @@ test('First screen is User Dashboard (no steering/sidecar panels) and PKCE web s
       );
     }, pkceState);
 
-    // 5. Header + Dashboard personalize immediately with Craig + PRO tier badge
-    await expect(page.locator('#top-account-label')).toHaveText('Craig');
+    // 5. Header + Dashboard personalize immediately with Alex + PRO tier badge
+    await expect(page.locator('#top-account-label')).toHaveText('Alex');
     await expect(page.locator('#top-account-tier')).toContainText(/pro/i);
-    await expect(page.locator('#home-hero-title')).toContainText('Welcome home, Craig');
+    await expect(page.locator('#home-hero-title')).toContainText('Welcome home, Alex');
     await expect(page.locator('#home-account-card .home-tier-pill')).toContainText(/pro/i);
 
     // Public Hub search must never send the saved Bearer token
@@ -243,7 +243,7 @@ test('First screen is User Dashboard (no steering/sidecar panels) and PKCE web s
     // 6. Verify Settings Hub Account section reflects signed-in identity and Sign out revokes desktop session
     await page.locator('#nav [data-tab="settings"]').click();
     await page.locator('#settings-nav [data-sec="hub"]').click();
-    await expect(page.locator('#hub-account-summary')).toContainText('Craig');
+    await expect(page.locator('#hub-account-summary')).toContainText('Alex');
     await page.locator('#btn-hub-logout').click();
     await expect(page.locator('#top-account-label')).toHaveText('Sign in');
     const revokedSessions = await app.evaluate(() => globalThis.__fbDesktopAuthE2E.revokedSessions);

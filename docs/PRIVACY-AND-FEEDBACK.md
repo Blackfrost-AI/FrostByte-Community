@@ -41,8 +41,12 @@ Public repository issues may be visible to everyone. The app warns against
 including secrets or sensitive data. GitHub handles that browser request under
 its own privacy policy; not submitting feedback does not reduce functionality.
 
-Community source publication was announced for Friday 16 October 2026, with
-updates and pull requests regularly managed by Blackfrost AI/SI. FrostByte
+Community source publication is in preparation; the repository stays private
+until the owner explicitly authorizes opening it, with updates and pull
+requests regularly managed by Blackfrost AI/SI once open. (The immutable legal
+text in `src/shared/legal.json` still carries the earlier 16 October 2026
+announcement wording; it is deliberately kept byte-identical to the signed
+2.0.0 release pending an owner-approved legal revision.) FrostByte
 Community 2.0.0 is licensed under Apache-2.0. This does not make the repository public early or
 relicense private historical Founders releases, artifacts or documentation.
 

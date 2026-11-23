@@ -24,8 +24,8 @@ concurrency:
 jobs:
   package:
     if: github.event.repository.private == true
-    # FrostByte ships a single edition (Founders Edition retired — see
-    # docs/FOUNDERS-EDITION-RETIRED.md). Produces private Actions artifacts.
+    # FrostByte ships a single edition (Founders Edition retired; private
+    # retirement handoff). Produces private Actions artifacts.
     runs-on: windows-2025
     timeout-minutes: 40
     env:

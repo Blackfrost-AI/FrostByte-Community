@@ -176,8 +176,8 @@ Response: `{ ok, source, importedAt, total, imported, idempotent, refused,
 results: [{ id, outcome: imported|idempotent|refused, digest?, ownerUid?,
 code?, message? }] }`. Per-record refusals never abort the batch.
 
-Operator tooling (`scripts/legacy-frostnet-{export,convert,import,freeze}.mjs`,
-plan `plans/2026-11-17-legacy-frostnet-retirement.md`): enumerate → convert
+Operator tooling (`scripts/legacy-frostnet-{export,convert,freeze}.mjs`; the
+import stage runs from the private maintainer repository): enumerate → convert
 (independent verify) → import → freeze-verify, each stage writing a hashed
 receipt. The legacy freeze is `FROSTNET_FROZEN=1` on the legacy deployment
 (content writes → `410 legacy_frozen`; reads stay live); no DNS takedown or

@@ -191,7 +191,7 @@ test('ISO expiry and unknown expiry normalize safely on HUB_API_BASE without par
   assert.throws(() => store.setHubTokenExpiry({ hubTokenExpiresAt: 0, hubTokenExpiryOrigin: ORIGIN }), /expiry origin requires an expiry/);
 
   applyHubAccount(store, {
-    uid: 'usr_founder', email: 'craig@blackfrost.ai', displayName: 'Craig',
+    uid: 'usr_founder', email: 'alex@example.com', displayName: 'Alex',
     emailVerified: true, createdAt: 0, verifiedAt: Date.now(),
   }, ORIGIN);
   assert.equal(getHubConfig(store).hasToken, true);

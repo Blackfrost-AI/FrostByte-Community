@@ -28,7 +28,7 @@ import {
 } from '../src/main/desktop-auth.js';
 
 test('User Dashboard escapes untrusted fields, renders local initials only, and preserves unmeasured — honesty', () => {
-  assert.equal(accountInitials({ displayName: 'Craig Mac' }), 'CM');
+  assert.equal(accountInitials({ displayName: 'Alex Morgan' }), 'AM');
   assert.equal(accountInitials({ email: 'alice@example.com' }), 'AE');
   assert.equal(accountInitials({}), 'FB');
   assert.deepEqual(formatTierBadge({ tier: 'pro', status: 'active' }), { label: 'PRO', cls: 'tier-pro' });
@@ -38,8 +38,8 @@ test('User Dashboard escapes untrusted fields, renders local initials only, and 
       hubAccount: {
         signedIn: true,
         uid: 'u_1',
-        email: 'craig+<script>alert(1)</script>@blackfrost.ai',
-        displayName: 'Craig <img src=x onerror=alert(1)>',
+        email: 'alex+<script>alert(1)</script>@example.com',
+        displayName: 'Alex <img src=x onerror=alert(1)>',
         photoUrl: 'https://evil.example/track.png',
         origin: HUB_API_BASE,
       },
@@ -127,9 +127,9 @@ test('FrostNet browser PKCE sign-in, /v1/me, /v1/me/entitlement, and Store sessi
         status: 200,
         headers: { get: () => '' },
         text: async () => JSON.stringify({
-          uid: 'usr_craig',
-          email: 'craig@blackfrost.ai',
-          displayName: 'Craig Mac',
+          uid: 'usr_alex',
+          email: 'alex@example.com',
+          displayName: 'Alex Morgan',
           emailVerified: true,
           tenantId: 'frostbyte-0ji2f',
           isAdmin: true,
@@ -153,7 +153,7 @@ test('FrostNet browser PKCE sign-in, /v1/me, /v1/me/entitlement, and Store sessi
   assert.equal(typeof authedClient.logout, 'undefined');
 
   const meRes = await authedClient.me();
-  assert.equal(meRes.data.uid, 'usr_craig');
+  assert.equal(meRes.data.uid, 'usr_alex');
   assert.equal(meRes.data.entitlement.tier, 'pro');
 
   const entRes = await authedClient.entitlement();
@@ -176,7 +176,7 @@ test('FrostNet browser PKCE sign-in, /v1/me, /v1/me/entitlement, and Store sessi
     desktopSessionId: 'dsess_live_1',
   }, HUB_API_BASE), HUB_API_BASE);
   assert.equal(savedAcct.signedIn, true);
-  assert.equal(getHubAccount(store).displayName, 'Craig Mac');
+  assert.equal(getHubAccount(store).displayName, 'Alex Morgan');
   assert.equal(getHubAccount(store).desktopSessionId, 'dsess_live_1');
   assert.equal(store.getHubRefreshCredential().present, true);
   assert.ok(store.getHubTokenExpiry().expiresAt > 0);
