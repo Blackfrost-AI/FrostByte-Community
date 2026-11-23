@@ -1,0 +1,11 @@
+{
+  "name": "bare-path",
+  "version": "3.1.2",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-path.git"
+  },
+  "homepage": "https://github.com/holepunchto/bare-path#readme"
+}

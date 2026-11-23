@@ -1,0 +1,21 @@
+{
+  "name": "@thaunknown/simple-peer",
+  "version": "10.1.2",
+  "license": "MIT",
+  "author": {
+    "name": "ThaUnknown",
+    "email": "casistaken@gmail.com",
+    "url": "http://github.com/ThaUnknown"
+  },
+  "contributors": [
+    {
+      "name": "Feross Aboukhadijeh",
+      "email": "feross@feross.org",
+      "url": "https://feross.org"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thaunknown/simple-peer.git"
+  }
+}

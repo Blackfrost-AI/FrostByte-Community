@@ -1,0 +1,11 @@
+{
+  "name": "event-target-shim",
+  "version": "5.0.1",
+  "license": "MIT",
+  "author": "Toru Nagashima",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mysticatea/event-target-shim.git"
+  },
+  "homepage": "https://github.com/mysticatea/event-target-shim"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "node-domexception",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Jimmy Wärting",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmywarting/node-domexception.git"
+  },
+  "homepage": "https://github.com/jimmywarting/node-domexception#readme"
+}

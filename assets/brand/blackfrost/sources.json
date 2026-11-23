@@ -1,0 +1,9 @@
+[
+  {
+    "asset": "assets/brand/blackfrost/frozen-lake.png",
+    "source": "Generated with the built-in image_gen tool, 13 October 2026. Unbranded background for the Blackfrost theme; owner promo images used as palette/mood inspiration only.",
+    "sha256": "657a1988ec8dcbc075bdac47e71c592779cf42132fd9f361f91898a9260767d8",
+    "modified": false,
+    "prompt": "Use case: stylized-concept. Asset type: production desktop application background, wide 16:9 landscape. Create a new, unbranded icy-night background for a restrained frosted-glass software theme. A quiet expansive frozen lake, subtle translucent ice strata and distant low glacial ridgelines, delicate windblown frost, faint glacial cyan light diffused through dark ice. Deep midnight navy #050B12 and slate #102231 dominate; small soft accents of pale ice blue #78D9FF. Cinematic material realism with finely detailed ice but calm low-contrast composition; large dark negative space through the center and upper area for readable software controls; subtle detail near the outer/lower edges. Elegant and atmospheric, not a promotional poster. Absolutely no text, letters, numbers, logos, wordmarks, emblems, watermarks, tiers, castles, towers, central hero object, UI panels, frames, or interface mockup. No bright white hotspot or intense neon. This is only a background texture/landscape that should complement translucent glass cards without competing with their content."
+  }
+]

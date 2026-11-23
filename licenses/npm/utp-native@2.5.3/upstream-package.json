@@ -1,0 +1,11 @@
+{
+  "name": "utp-native",
+  "version": "2.5.3",
+  "license": "MIT",
+  "author": "Mathias Buus (@mafintosh)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mafintosh/utp-native.git"
+  },
+  "homepage": "https://github.com/mafintosh/utp-native#readme"
+}

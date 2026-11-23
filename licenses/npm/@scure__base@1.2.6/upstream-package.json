@@ -1,0 +1,11 @@
+{
+  "name": "@scure/base",
+  "version": "1.2.6",
+  "license": "MIT",
+  "author": "Paul Miller (https://paulmillr.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulmillr/scure-base.git"
+  },
+  "homepage": "https://paulmillr.com/noble/#scure"
+}

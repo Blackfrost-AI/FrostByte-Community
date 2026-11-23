@@ -1,0 +1,17 @@
+github.com/alexbrainman/goissue34681@v0.0.0-20191006012335-3fc7a47baff5/doc.go
+
+// Copyright 2019 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+github.com/alexbrainman/goissue34681@v0.0.0-20191006012335-3fc7a47baff5/main.go
+
+// Copyright 2019 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+github.com/alexbrainman/goissue34681@v0.0.0-20191006012335-3fc7a47baff5/main_windows.go
+
+// Copyright 2019 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.

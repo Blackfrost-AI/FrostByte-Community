@@ -1,0 +1,11 @@
+{
+  "name": "bare-addon-resolve",
+  "version": "1.10.1",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-addon-resolve.git"
+  },
+  "homepage": "https://github.com/holepunchto/bare-addon-resolve#readme"
+}

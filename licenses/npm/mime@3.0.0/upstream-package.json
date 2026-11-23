@@ -1,0 +1,15 @@
+{
+  "name": "mime",
+  "version": "3.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Robert Kieffer",
+    "url": "http://github.com/broofa",
+    "email": "robert@broofa.com"
+  },
+  "contributors": [],
+  "repository": {
+    "url": "https://github.com/broofa/mime",
+    "type": "git"
+  }
+}

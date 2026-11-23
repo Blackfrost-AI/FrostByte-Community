@@ -1,0 +1,11 @@
+{
+  "name": "end-of-stream",
+  "version": "1.4.5",
+  "license": "MIT",
+  "author": "Mathias Buus <mathiasbuus@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mafintosh/end-of-stream.git"
+  },
+  "homepage": "https://github.com/mafintosh/end-of-stream"
+}

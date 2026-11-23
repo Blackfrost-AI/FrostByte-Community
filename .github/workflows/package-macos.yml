@@ -1,0 +1,129 @@
+name: Package private macOS build
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+
+# This workflow only creates private Actions artifacts. It never creates a release
+# or publishes packages, and it does not require Apple or Spark credentials.
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-package-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    if: github.event.repository.private == true
+    # FrostByte ships a single edition (Founders Edition retired — see
+    # docs/FOUNDERS-EDITION-RETIRED.md). Produces private Actions artifacts.
+    # Standard ARM64 runner for private repositories:
+    # https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+    runs-on: macos-15
+    timeout-minutes: 40
+    env:
+      CI: 'true'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      FROSTBYTE_TEST_SPARK: ''
+      FROSTBYTE_EDITION: community
+    steps:
+      - name: Check out frozen source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.source_commit }}
+          persist-credentials: false
+      - name: Verify frozen source identity
+        shell: bash
+        env:
+          SOURCE_COMMIT: ${{ inputs.source_commit }}
+        run: |
+          [[ "$SOURCE_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Resolve package release profile
+        id: release
+        shell: bash
+        # Resolves for the edition (FROSTBYTE_EDITION) baked into the artifact.
+        run: node scripts/release.mjs profile >> "$GITHUB_OUTPUT"
+      - name: Require native Apple Silicon dependencies
+        run: node -e "if (process.platform !== 'darwin' || process.arch !== 'arm64') throw new Error('This package requires an Apple Silicon macOS runner')"
+      - name: Install npm with strict lifecycle-script enforcement
+        run: npm install --global npm@11.17.0 --ignore-scripts --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Enforce production dependency advisory policy
+        run: npm run audit:production
+      - name: Check companion fixtures
+        run: npm run test:spark
+      - name: Check release hardening configuration
+        run: npm run test:release
+      - name: Check saved-directory model discovery
+        run: node --test tests/model-library.test.js
+      - name: Build hardened app and installers
+        # dist:mac rebuilds branding and companion resources and passes --publish never.
+        run: npm run dist:mac
+      - name: Verify native IPFS transfers and AEON capabilities
+        run: npm run test:ipfs
+      - name: Verify packaged startup and source desktop fixtures
+        # Keep the allowlist explicit. spark-pairing.spec.js requires an interactive
+        # login Keychain, while app.spec.js and live Spark coverage need external services.
+        run: >-
+          npm run test:packaged --
+          ${{ steps.release.outputs.packaged_test_argument }}
+          "${{ steps.release.outputs.directory }}/mac-arm64/${{ steps.release.outputs.mac_app }}"
+          --installer ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-mac-arm64.dmg
+          tests/e2e/renderer-trust.spec.js
+          tests/e2e/device-approvals.spec.js
+          tests/e2e/model-scan.spec.js
+          tests/e2e/discovery-drop.spec.js
+          tests/e2e/aeon-ipfs.spec.js
+          tests/e2e/hf-picker.spec.js
+          tests/e2e/spark-onboarding.spec.js
+          tests/e2e/updates-hybrid.spec.js
+      - name: Verify edition gating
+        # community.spec.js asserts the retired Founders chrome is absent.
+        run: >-
+          npm run test:packaged --
+          ${{ steps.release.outputs.packaged_test_argument }}
+          "${{ steps.release.outputs.directory }}/mac-arm64/${{ steps.release.outputs.mac_app }}"
+          tests/e2e/community.spec.js
+      - name: Create and verify installer checksums
+        working-directory: ${{ steps.release.outputs.directory }}
+        run: |
+          shasum -a 256 ${{ steps.release.outputs.artifact_prefix }}-*-mac-arm64.dmg ${{ steps.release.outputs.artifact_prefix }}-*-mac-arm64.zip > SHA256SUMS
+          shasum -a 256 -c SHA256SUMS
+      - name: Save private installers
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ steps.release.outputs.artifact_prefix }}-mac-arm64-${{ github.run_number }}
+          path: |
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-mac-arm64.dmg
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-mac-arm64.zip
+            ${{ steps.release.outputs.directory }}/SHA256SUMS
+            ${{ steps.release.outputs.directory }}/build-info-darwin-arm64.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Save fixture diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: macos-fixture-diagnostics-${{ github.run_number }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14

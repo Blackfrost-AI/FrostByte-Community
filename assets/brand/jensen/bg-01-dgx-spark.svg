@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="glow1" cx="76%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#76b900" stop-opacity="0.16"/>
+      <stop offset="55%" stop-color="#c9a84c" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#0a0c09" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <!-- DGX Spark faceted acoustic mesh lattice -->
+  <g fill="none" stroke="#c9b47a" stroke-opacity="0.11" stroke-width="1">
+    <path d="M880 140L1020 140L950 250Z M1020 140L1160 140L1090 250Z M1160 140L1300 140L1230 250Z M1300 140L1440 140L1370 250Z"/>
+    <path d="M950 250L1090 250L1020 140Z M1090 250L1230 250L1160 140Z M1230 250L1370 250L1300 140Z"/>
+    <path d="M880 760L1020 760L950 870Z M1020 760L1160 760L1090 870Z M1160 760L1300 760L1230 870Z M1300 760L1440 760L1370 870Z"/>
+  </g>
+  <!-- GB10 Grace Blackwell Superchip Coherent Package -->
+  <g fill="none" stroke="#76b900" stroke-opacity="0.22" stroke-width="1.4">
+    <rect x="860" y="290" width="600" height="420" rx="18"/>
+    <rect x="884" y="314" width="552" height="372" rx="10" stroke-dasharray="6 4" stroke-opacity="0.14"/>
+    <!-- Grace 20-core ARM CPU Die -->
+    <rect x="920" y="352" width="210" height="296" rx="8"/>
+    <!-- Blackwell Tensor GPU Die -->
+    <rect x="1190" y="352" width="210" height="296" rx="8"/>
+    <!-- NVLink-C2C 600 GB/s Coherent Interconnect -->
+    <g stroke="#9be600" stroke-opacity="0.28" stroke-width="1.2">
+      <line x1="1130" y1="384" x2="1190" y2="384"/>
+      <line x1="1130" y1="412" x2="1190" y2="412"/>
+      <line x1="1130" y1="440" x2="1190" y2="440"/>
+      <line x1="1130" y1="468" x2="1190" y2="468"/>
+      <line x1="1130" y1="496" x2="1190" y2="496"/>
+      <line x1="1130" y1="524" x2="1190" y2="524"/>
+      <line x1="1130" y1="552" x2="1190" y2="552"/>
+      <line x1="1130" y1="580" x2="1190" y2="580"/>
+      <line x1="1130" y1="608" x2="1190" y2="608"/>
+    </g>
+    <!-- Internal Core Grids -->
+    <g stroke-opacity="0.13" stroke-width="1">
+      <path d="M944 384H1106 M944 432H1106 M944 480H1106 M944 528H1106 M944 576H1106 M944 620H1106"/>
+      <path d="M984 370V632 M1025 370V632 M1066 370V632"/>
+      <path d="M1214 384H1376 M1214 420H1376 M1214 456H1376 M1214 492H1376 M1214 528H1376 M1214 564H1376 M1214 600H1376"/>
+      <path d="M1250 370V632 M1295 370V632 M1340 370V632"/>
+    </g>
+  </g>
+</svg>

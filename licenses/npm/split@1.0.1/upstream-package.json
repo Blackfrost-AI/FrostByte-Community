@@ -1,0 +1,11 @@
+{
+  "name": "split",
+  "version": "1.0.1",
+  "license": "MIT",
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://bit.ly/dominictarr)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/split.git"
+  },
+  "homepage": "http://github.com/dominictarr/split"
+}

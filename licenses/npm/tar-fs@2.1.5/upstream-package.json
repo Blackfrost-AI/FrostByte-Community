@@ -1,0 +1,11 @@
+{
+  "name": "tar-fs",
+  "version": "2.1.5",
+  "license": "MIT",
+  "author": "Mathias Buus",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/tar-fs.git"
+  },
+  "homepage": "https://github.com/mafintosh/tar-fs"
+}

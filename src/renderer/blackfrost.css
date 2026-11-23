@@ -1,0 +1,122 @@
+/* BLACKFROST / FROSTED GLASS
+   Bounded glass surfaces reveal the landscape; data tables stay opaque.
+   Fonts and unbranded landscape artwork are bundled; no remote resources. */
+@font-face {
+  font-family: 'BlackfrostUI';
+  src: url('../../assets/fonts/Manrope.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+[data-theme="blackfrost"] {
+  color-scheme: dark;
+  --lime: #78D9FF;
+  --lime-dim: #45B4DE;
+  --lime-glow: #78D9FF14;
+  --lime-line: #78D9FF48;
+  --abyss: #050B12;
+  --surface: #0A1420;
+  --surface-hi: #102231;
+  --border: #203343;
+  --border-strong: #355366;
+  --text: #EDF7FF;
+  --text-dim: #C2D2DE;
+  --text-faint: #A9BFCF;
+  --warn: #F0C27B;
+  --danger: #FF9EA9;
+  --info: #8FBDFF;
+  --up: #83E0C3;
+  --down: #78D9FF;
+  --ui: 'BlackfrostUI', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --display: var(--ui);
+  --radius-panel: 14px;
+  --radius-ctl: 8px;
+  --blackfrost-glass: linear-gradient(125deg, #182B38DE, #09151DD6);
+  --blackfrost-glass-edge: #D5EFFF38;
+}
+[data-theme="blackfrost"] { --blackfrost-artwork: url('../../assets/brand/blackfrost/frozen-lake.png'); }
+[data-theme="blackfrost"] body { font-weight: 450; }
+[data-theme="blackfrost"] .app { background: linear-gradient(120deg, #050B12EB, #081521B8 60%, #050B12EB), var(--blackfrost-artwork) center / cover; }
+[data-theme="blackfrost"] .main { background: #050B12B8; }
+[data-theme="blackfrost"] :is(button, input, select, textarea) { font-family: var(--ui); }
+[data-theme="blackfrost"] :is(code, pre, kbd, .mono, .omnisearch input, .search input) { font-family: var(--mono); }
+[data-theme="blackfrost"] .titlebar {
+  background: #101F2ADB;
+  border-bottom-color: #D5EFFF28;
+  box-shadow: inset 0 1px #FFFFFF12;
+  backdrop-filter: blur(24px);
+}
+[data-theme="blackfrost"] .brand { font-family: var(--display); font-size: 13px; letter-spacing: .13em; }
+[data-theme="blackfrost"] .brand b { font-weight: 800; }
+[data-theme="blackfrost"] .brand s { font-weight: 450; }
+[data-theme="blackfrost"] .brand i { padding: 0 4px; }
+[data-theme="blackfrost"] .brand-blackfrost { color: var(--lime); width: 25px; height: 29px; filter: drop-shadow(0 0 6px #78D9FF40); }
+[data-theme="blackfrost"] .sidebar { background: linear-gradient(170deg, #192D3BCD, #08111BEB); backdrop-filter: blur(28px); border-right-color: #D5EFFF26; }
+[data-theme="blackfrost"] .nav { height: 33px; font-size: 12px; margin: 2px 8px; padding: 0 11px; border-radius: 8px; }
+[data-theme="blackfrost"] .nav.on { background: linear-gradient(115deg, #C4E9FF24, #78D9FF0C); box-shadow: inset 0 1px #E8F8FF2E, 0 4px 12px #0002; border-left-color: transparent; }
+[data-theme="blackfrost"] .nav.on .ic { color: var(--lime); opacity: 1; }
+[data-theme="blackfrost"] .navlabel { font: 650 9px var(--ui); letter-spacing: .15em; padding-top: 15px; padding-bottom: 9px; }
+[data-theme="blackfrost"] .sb-footer { padding: 12px 14px 6px; color: var(--text-faint); font-size: 10px; line-height: 1.9; }
+[data-theme="blackfrost"] .sb-footer b { color: var(--text-dim); font-family: var(--display); font-weight: 750; letter-spacing: .14em; font-size: 9px; }
+[data-theme="blackfrost"] .viewhead { background: #182B388C; backdrop-filter: blur(20px); border-bottom-color: #D5EFFF26; }
+[data-theme="blackfrost"] .viewhead h2 { font-family: var(--display); font-size: 16px; letter-spacing: -.025em; font-weight: 750; }
+[data-theme="blackfrost"] #devices-overview-head { justify-content: flex-start; flex-wrap: wrap; gap: 10px; }
+[data-theme="blackfrost"] #devices-count { margin: 0 6px 0 0; }
+[data-theme="blackfrost"] .btn { border-radius: 8px; font-weight: 650; }
+[data-theme="blackfrost"] .btn.primary { background: linear-gradient(130deg, #E3F6FF, #9BDEFA); border-color: #DDF5FF; color: #06121C; box-shadow: inset 0 1px #FFF9, 0 3px 12px #0002; }
+[data-theme="blackfrost"] .btn.primary:hover { background: #C8F1FF; border-color: #E6F8FF; }
+[data-theme="blackfrost"] .btn.danger:hover { background: #FF8D9B12; }
+[data-theme="blackfrost"] .btn:disabled { box-shadow: none; }
+[data-theme="blackfrost"] :is(.omnisearch, .search) { background: #050D16; border-color: var(--border-strong); }
+[data-theme="blackfrost"] :is(input, select, textarea, button):focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+[data-theme="blackfrost"] table.grid thead th { background: #0B1722; color: var(--text-dim); font-family: var(--mono); letter-spacing: .06em; }
+[data-theme="blackfrost"] :is(table.grid, .transfer-content, .library-content) { background: var(--abyss); }
+[data-theme="blackfrost"] table.grid tbody tr { border-bottom-color: #162633; }
+[data-theme="blackfrost"] table.grid tbody tr:nth-child(even) { background: #09121C; }
+[data-theme="blackfrost"] table.grid tbody tr:hover { background: var(--surface-hi); }
+[data-theme="blackfrost"] :is(.chip.q.hi, .chip.mine) { color: var(--lime); border-color: var(--lime-line); background: var(--lime-glow); }
+[data-theme="blackfrost"] :is(.chip.lic.permissive, .gatechip.open) { color: var(--up); border-color: #83E0C340; background: #83E0C30A; }
+[data-theme="blackfrost"] :is(.bar, .cellbar) { background: var(--border); }
+[data-theme="blackfrost"] .settings-nav { background: #122330CC; backdrop-filter: blur(24px); border-right-color: #D5EFFF26; }
+[data-theme="blackfrost"] .settings-body { padding: 22px; background: linear-gradient(145deg, #050B1280, #050B12B0 55%, #050B12E0), var(--blackfrost-artwork) center top / cover; }
+[data-theme="blackfrost"] .snav { padding: 9px 10px; font-size: 11.5px; }
+[data-theme="blackfrost"] .snav.on { border-color: transparent; border-radius: 8px; background: linear-gradient(115deg, #C4E9FF28, #78D9FF0D); box-shadow: inset 0 1px #E8F8FF30, 0 4px 12px #0002; }
+[data-theme="blackfrost"] .ssec { max-width: 1000px; gap: 14px; }
+[data-theme="blackfrost"] :is(.card, .device-card, .device-metric, .device-panel, .home-hero, .home-shortcut-card, .home-runtime-card) {
+  background: var(--blackfrost-glass);
+  border: 1px solid var(--blackfrost-glass-edge);
+  border-radius: 14px;
+  backdrop-filter: blur(24px) saturate(115%);
+  box-shadow: inset 0 1px #F0FAFF24, inset 0 -1px #03091155, 0 8px 24px #0002;
+}
+[data-theme="blackfrost"] .card { padding: 18px; }
+[data-theme="blackfrost"] .card h4 { color: var(--text); font: 750 12px var(--ui); letter-spacing: .01em; margin-bottom: 12px; }
+[data-theme="blackfrost"] .note { line-height: 1.7; }
+[data-theme="blackfrost"] .setting select { min-height: 36px; font-family: var(--ui); }
+[data-theme="blackfrost"] .statusbar { background: #101F2AE8; border-top-color: #D5EFFF26; backdrop-filter: blur(24px); }
+[data-theme="blackfrost"] ::-webkit-scrollbar-thumb { background: #2A4355; }
+[data-theme="blackfrost"] ::-webkit-scrollbar-thumb:hover { background: #476A81; }
+[data-theme="blackfrost"] .device-card.selected { border-color: #A8E1FAA8; box-shadow: inset 0 1px #F0FAFF40, 0 0 0 2px #78D9FF12, 0 8px 24px #0002; }
+[data-theme="blackfrost"] .aeon-device-space { background: linear-gradient(135deg, #78D9FF0F, transparent 60%), var(--surface); }
+[data-theme="blackfrost"] .aeon-device-space:after { border-color: var(--lime-line); box-shadow: 0 0 0 28px #78D9FF05, 0 0 0 56px #78D9FF03; }
+[data-theme="blackfrost"] .studio-v2 { --studio-reading-font: var(--ui); }
+[data-theme="blackfrost"] .studio-rail-brand { color: var(--text); }
+[data-theme="blackfrost"] .studio-chat-panel { background: radial-gradient(ellipse at 100% 0, #78D9FF06, transparent 50%), var(--abyss); }
+[data-theme="blackfrost"] #welcome { background: var(--blackfrost-glass); border-color: var(--blackfrost-glass-edge); border-radius: 20px; backdrop-filter: blur(28px); box-shadow: inset 0 1px #F0FAFF30, 0 24px 80px #0006; }
+[data-theme="blackfrost"] #welcome::backdrop { background: #030913E8; }
+[data-theme="blackfrost"] #welcome h2 { font-family: var(--display); font-size: clamp(26px, 3.5vw, 37px); font-weight: 750; line-height: 1.15; letter-spacing: -.045em; }
+
+/* No transparency dependency: accessibility and older renderers get solid,
+   high-contrast panels. Decoration never lowers the opacity of text. */
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="blackfrost"] :is(.titlebar, .sidebar, .settings-nav, .viewhead, .statusbar, .card, .device-card, .device-metric, .device-panel, .home-hero, .home-shortcut-card, .home-runtime-card, #welcome) { background: #102231; backdrop-filter: none; }
+  [data-theme="blackfrost"] :is(.app, .main, .settings-body) { background: #050B12; }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  [data-theme="blackfrost"] :is(.titlebar, .sidebar, .settings-nav, .viewhead, .statusbar, .card, .device-card, .device-metric, .device-panel, .home-hero, .home-shortcut-card, .home-runtime-card, #welcome) { background: #102231; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="blackfrost"] *, [data-theme="blackfrost"] *::before, [data-theme="blackfrost"] *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

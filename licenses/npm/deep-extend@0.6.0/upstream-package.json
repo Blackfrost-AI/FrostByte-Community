@@ -1,0 +1,29 @@
+{
+  "name": "deep-extend",
+  "version": "0.6.0",
+  "license": "MIT",
+  "author": "Viacheslav Lotsmanov <lotsmanov89@gmail.com>",
+  "contributors": [
+    {
+      "name": "Romain Prieto",
+      "url": "https://github.com/rprieto"
+    },
+    {
+      "name": "Max Maximov",
+      "url": "https://github.com/maxmaximov"
+    },
+    {
+      "name": "Marshall Bowers",
+      "url": "https://github.com/maxdeviant"
+    },
+    {
+      "name": "Misha Wakerman",
+      "url": "https://github.com/mwakerman"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/unclechu/node-deep-extend.git"
+  },
+  "homepage": "https://github.com/unclechu/node-deep-extend"
+}

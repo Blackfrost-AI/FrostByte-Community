@@ -1,0 +1,11 @@
+{
+  "name": "netmask",
+  "version": "2.1.1",
+  "license": "MIT",
+  "author": "Olivier Poitrey <rs@rhapsodyk.net>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rs/node-netmask.git"
+  },
+  "homepage": "https://github.com/rs/node-netmask"
+}

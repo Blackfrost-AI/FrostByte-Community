@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Creator {
+  pubkey    String   @id // hex64 ed25519 pubkey
+  username  String?
+  profileCid String?
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  recipes   Recipe[]
+  @@map("creators")
+}
+
+model Recipe {
+  id        String
+  version   Int       @default(1)
+  pubkey    String
+  creator   Creator   @relation(fields: [pubkey], references: [pubkey], onDelete: Cascade)
+  title     String
+  kind      String    // tmux|docker|compose|native
+  body      Json      // full validated manifest (canonical)
+  bodySha256 String   // sha256(canonicalJson(body))
+  signature String?   // base64 ed25519
+  licenseId String
+  modelRef  Json?
+  engineRef Json?
+  visibility String  @default("public") // public|private|unlisted
+  createdAt DateTime @default(now())
+  @@id([id, version])
+  @@map("recipes")
+}
+
+model RecipeHead {
+  id             String   @id
+  currentVersion Int
+  visibility     String   @default("public")
+  updatedAt      DateTime @updatedAt
+  @@map("recipe_heads")
+}
+
+model HubModel {
+  repoId       String   @id
+  revision     String?
+  publisher    String?
+  task         String?
+  family       String?
+  licenseId    String?
+  files        Json?
+  totalBytes   BigInt?
+  hfMeta       Json?
+  lastVerified DateTime?
+  @@map("models")
+}
+
+model Engine {
+  name        String
+  version     String
+  channel     String   @default("stable")
+  image       String?
+  digest      String?
+  releaseNotes String? @db.Text
+  cveId       String?
+  releasedAt  DateTime?
+  @@id([name, version])
+  @@map("engines")
+}
+
+model Follow {
+  followerPubkey String
+  followedPubkey String
+  createdAt      DateTime @default(now())
+  @@id([followerPubkey, followedPubkey])
+  @@map("follows")
+}
+
+model Entitlement {
+  userId           String   @id @default(uuid())
+  tier             String   // free|plus|pro|offline
+  status           String   @default("active")
+  currentPeriodEnd DateTime?
+  entitlements     Json?    @default("{}")
+  updatedAt        DateTime @updatedAt
+  @@map("entitlements")
+}
+
+model ChangeEvent {
+  id        BigInt   @id @default(autoincrement())
+  kind      String   // recipe.published|recipe.withdrawn|model.updated|engine.released
+  payload   Json
+  createdAt DateTime @default(now())
+  @@map("events")
+}

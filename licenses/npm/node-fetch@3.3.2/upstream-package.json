@@ -1,0 +1,11 @@
+{
+  "name": "node-fetch",
+  "version": "3.3.2",
+  "license": "MIT",
+  "author": "David Frank",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/node-fetch/node-fetch.git"
+  },
+  "homepage": "https://github.com/node-fetch/node-fetch"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@webtorrent/http-node",
+  "version": "1.3.0",
+  "license": "MIT",
+  "author": {
+    "name": "Jan Schär",
+    "email": "jscissr@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/http-node.git"
+  }
+}

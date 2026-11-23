@@ -1,0 +1,14 @@
+{
+  "name": "magnet-uri",
+  "version": "7.0.10",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/magnet-uri.git"
+  }
+}

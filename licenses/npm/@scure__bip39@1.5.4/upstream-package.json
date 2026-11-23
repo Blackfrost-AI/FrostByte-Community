@@ -1,0 +1,21 @@
+{
+  "name": "@scure/bip39",
+  "version": "1.5.4",
+  "license": "MIT",
+  "author": "Paul Miller (https://paulmillr.com)",
+  "contributors": [
+    {
+      "name": "Patricio Palladino",
+      "email": "patricio@nomiclabs.io"
+    },
+    {
+      "name": "Paul Miller",
+      "url": "https://paulmillr.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulmillr/scure-bip39.git"
+  },
+  "homepage": "https://paulmillr.com/"
+}

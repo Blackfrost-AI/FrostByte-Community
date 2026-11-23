@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="glow7" cx="75%" cy="50%" r="48%">
+      <stop offset="0%" stop-color="#76b900" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0c09" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#glow7)"/>
+  <!-- Grace Blackwell GB200 Superchip Board Blueprint (1x Grace + 2x Dual-Reticle Blackwell B200) -->
+  <g fill="none" stroke="#76b900" stroke-opacity="0.21" stroke-width="1.3">
+    <rect x="830" y="180" width="660" height="640" rx="20"/>
+    <!-- Left Dual-Reticle Blackwell B200 -->
+    <rect x="874" y="226" width="256" height="240" rx="10"/>
+    <line x1="1002" y1="226" x2="1002" y2="466" stroke="#9be600" stroke-dasharray="5 3" stroke-opacity="0.3"/>
+    <!-- Right Dual-Reticle Blackwell B200 -->
+    <rect x="1190" y="226" width="256" height="240" rx="10"/>
+    <line x1="1318" y1="226" x2="1318" y2="466" stroke="#9be600" stroke-dasharray="5 3" stroke-opacity="0.3"/>
+    <!-- Center Grace 72-Core CPU Package -->
+    <rect x="1032" y="544" width="256" height="224" rx="10" stroke="#d8ded2" stroke-opacity="0.24"/>
+    <!-- 900 GB/s NVLink-C2C Traces -->
+    <g stroke="#9be600" stroke-opacity="0.24" stroke-width="1.2">
+      <path d="M980 466 V512 H1090 V544"/>
+      <path d="M1010 466 V500 H1120 V544"/>
+      <path d="M1340 466 V512 H1230 V544"/>
+      <path d="M1310 466 V500 H1200 V544"/>
+      <path d="M1130 326 H1190 M1130 346 H1190 M1130 366 H1190"/>
+    </g>
+  </g>
+</svg>

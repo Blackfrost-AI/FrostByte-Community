@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" data-active-tab="dashboard">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; font-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'" />
+<title>Frost/Byte</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="u1tra-instinct.css" />
+<link rel="stylesheet" href="blackfrost.css" />
+<link rel="stylesheet" href="assistant.css" />
+<link rel="stylesheet" href="jensen.css" />
+</head>
+<body data-edition="community">
+<div class="app" inert>
+
+  <!-- ============================ TITLE BAR ============================ -->
+  <header class="titlebar" id="titlebar">
+    <div class="brand"><img class="brand-icon brand-frost" src="../../assets/brand/app-icon.png" alt="" /><img class="brand-icon brand-orb" src="../../assets/brand/aeon-orb.png" alt="Aeon Magick Orb" hidden /><img class="brand-icon brand-keys" src="../../assets/brand/keys-vial.svg" alt="Keys vial" hidden /><svg class="brand-icon brand-blackfrost" viewBox="0 0 28 32" fill="none" aria-hidden="true" hidden><path d="M14 1 23 16 14 31 5 16Z" stroke="currentColor"/><path d="m14 1 2 15-2 15-2-15ZM5 16h18M3 8l-2 8 2 8M25 8l2 8-2 8" stroke="currentColor" opacity=".55"/></svg><svg class="brand-icon brand-jensen" viewBox="130 27 62 46" aria-hidden="true" hidden><path fill="currentColor" d="m 160.352,41.684 v -4.227 c 0.408,-0.029 0.816,-0.058 1.224,-0.058 11.307,-0.35 18.722,9.712 18.722,9.712 0,0 -8.008,11.084 -16.597,11.084 -1.14,0 -2.25,-0.175 -3.32,-0.525 V 44.842 c 4.398,0.525 5.285,2.479 7.916,6.881 l 5.886,-4.931 c 0,0 -4.31,-5.63 -11.55,-5.63 -0.758,-0.029 -1.516,0.029 -2.28,0.117 m 0,-13.94 v 6.312 c 0.408,-0.029 0.816,-0.058 1.224,-0.087 15.753,-0.525 26.035,12.915 26.035,12.915 0,0 -11.801,14.32 -24.098,14.32 -1.068,0 -2.102,-0.087 -3.133,-0.292 v 3.909 c 0.861,0.109 1.751,0.175 2.606,0.175 11.453,0 19.737,-5.85 27.762,-12.75 1.329,1.068 6.76,3.645 7.882,4.768 -7.608,6.387 -25.333,11.535 -35.366,11.535 -0.962,0 -1.882,-0.058 -2.799,-0.146 v 5.498 H 203.62 V 27.34 Z m 0,30.331 v 3.33 C 149.567,59.479 146.58,48.279 146.58,48.279 c 0,0 5.185,-5.733 13.772,-6.667 v 3.645 h -0.029 c -4.514,-0.551 -8.05,3.674 -8.05,3.674 0,0 1.992,7.089 8.079,9.132 M 141.712,47.8 c 0,0 6.381,-9.42 18.651,-10.383 v -3.389 c -13.602,1.094 -25.52,12.594 -25.52,12.594 0,0 6.746,19.542 25.509,21.325 v -3.586 c -13.76,-1.721 -18.64,-16.561 -18.64,-16.561 z"/></svg><b>FROST</b><i>/</i><s>BYTE</s><small class="brand-jensen-tag" hidden>Jensen is NVIDIA</small></div>
+
+    <label class="omnisearch">
+      <span class="mag">⌕</span>
+      <input id="omni" type="search" aria-label="Search transfers and downloaded files" placeholder="Search your downloads, or paste a magnet or IPFS link…" spellcheck="false" autocomplete="off" />
+      <kbd id="omni-shortcut">Ctrl+F</kbd>
+    </label>
+
+    <div class="netstat">
+      <span class="stat"><span class="dot"></span><span id="stat-torrents">0</span> transfers</span>
+      <span class="stat mono"><span class="up">↑ <span id="stat-up">—</span></span> <span class="down">↓ <span id="stat-down">—</span></span></span>
+    </div>
+
+    <button type="button" class="assistant-toggle" id="assistant-toggle" title="AI assistant" aria-label="Open AI assistant" aria-controls="assistant-panel" aria-expanded="false"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z" stroke="currentColor" stroke-width="1.5"/><path d="m20 2 .7 2.3L23 5l-2.3.7L20 8l-.7-2.3L17 5l2.3-.7L20 2Z" fill="currentColor"/></svg></button>
+    <button type="button" class="account-chip" id="btn-account" aria-label="FrostByte Hub account">
+      <span class="account-chip-avatar" id="top-account-avatar" aria-hidden="true">FB</span>
+      <span class="account-chip-label" id="top-account-label">Sign in</span>
+      <span class="account-chip-tier" id="top-account-tier" hidden>FREE</span>
+    </button>
+  </header>
+
+  <!-- ============================== BODY ============================== -->
+  <div class="body">
+
+    <!-- ---------------------------- SIDEBAR --------------------------- -->
+    <aside class="sidebar">
+      <nav class="sidenav" id="nav">
+        <div class="navlabel">Overview</div>
+        <div class="nav on" data-tab="dashboard"><span class="ic">⌂</span>Dashboard</div>
+        <div class="navlabel">Network</div>
+        <div class="nav" data-tab="discover" aria-disabled="true" title="FrostNet community home — coming soon"><span class="ic">◉</span>FrostNet<span class="ct" id="ct-discover">soon</span></div>
+        <div class="nav" data-tab="transfers"><span class="ic">⇅</span>Transfers<span class="ct" id="ct-transfers">0</span></div>
+        <div class="nav" data-tab="library"><span class="ic">▣</span>My Models<span class="ct" id="ct-library">0</span></div>
+        <div class="nav" data-tab="catalog"><span class="ic">▤</span>Torrents<span class="ct" id="ct-catalog">0</span></div>
+                <div class="nav" data-tab="hf"><span class="ic">⇱</span>Search</div>
+        <div class="nav" data-tab="spark"><span class="ic">◇</span>Devices</div>
+        <div class="navlabel">This box</div>
+        <div class="nav" data-tab="settings"><span class="ic">⚙</span>Settings</div>
+      </nav>
+
+      <div class="boxstat">
+        <div class="navlabel">Sharing</div>
+        <div class="row"><span>Sharing</span><span class="v" id="box-sharing">0 items</span></div>
+        <div class="row"><span>Uploaded</span><span class="v up" id="box-up">0 B</span></div>
+        <div class="row"><span>Downloaded</span><span class="v down" id="box-down">0 B</span></div>
+        <div class="row"><span>Peers</span><span class="v" id="box-peers">0</span></div>
+      </div>
+      <div class="keys-theme-credit"><img src="../../assets/brand/u1tra-instinct-avatar.jpg" alt="Keys pixel avatar" /><span><b>keys 🧪</b><small>@u1tra_instinct</small></span></div>
+      <div class="sb-footer"><b>FROST/BYTE</b> <span id="ver"></span><br/>by Blackfrost_AI</div>
+    </aside>
+
+    <!-- ----------------------------- MAIN ----------------------------- -->
+    <main class="main">
+
+      <!-- ===== USER DASHBOARD (Always-First Screen) ===== -->
+      <section class="view" id="view-dashboard" aria-label="User Dashboard">
+        <div class="dashboard-scroll" id="user-dashboard-mount"></div>
+      </section>
+
+      <!-- ===== FROSTNET (community home) ===== -->
+      <section class="view" id="view-discover" hidden>
+        <div class="viewhead"><div><h2>FrostNet</h2><p class="view-description">The FrostByte community home — updates, shared recipes, and creators.</p></div><div class="headacts"><span class="hf-help" id="hub-tier-note"></span><button class="btn sm" id="fn-home-refresh">Refresh</button><button class="btn sm primary" id="hub-coming-search">Open Search</button></div></div>
+        <div class="fn-home">
+          <div class="hf-help" id="fn-home-status" role="status" hidden></div>
+          <div class="fn-home-migrate" id="fn-home-migrate" hidden>
+            <span class="hf-help" id="fn-home-migrate-note"></span>
+            <button class="btn sm" id="fn-home-migrate-btn">Add to my account</button>
+            <button class="btn sm" id="fn-home-migrate-dismiss">Not now</button>
+          </div>
+          <div class="fn-home-cols">
+            <div class="fn-home-main">
+              <section class="fn-home-section" id="fn-home-news" hidden>
+                <h3>News &amp; updates</h3>
+                <div id="fn-home-news-list"></div>
+              </section>
+              <section class="fn-home-section">
+                <h3>Recently shared</h3>
+                <div id="fn-home-recent"><p class="hf-help">Loading community shares…</p></div>
+              </section>
+              <section class="fn-home-section" id="fn-home-following" hidden>
+                <h3>From creators you follow</h3>
+                <div id="fn-home-following-list"></div>
+              </section>
+            </div>
+            <aside class="fn-home-side">
+              <section class="fn-home-section">
+                <h3>Creators</h3>
+                <div id="fn-home-creators"><p class="hf-help">Follow creators from Search to see them here.</p></div>
+              </section>
+              <section class="fn-home-section">
+                <h3>App updates</h3>
+                <div id="fn-home-updates"><p class="hf-help">—</p></div>
+              </section>
+              <section class="fn-home-section">
+                <h3>Community</h3>
+                <div class="community-links">
+                  <a class="community-link" data-community="app"><strong>Star FrostByte on GitHub ↗</strong><span>Official page · downloads · bugs &amp; ideas</span></a>
+                  <a class="community-link" data-community="github"><strong>Follow us on GitHub ↗</strong><span>Blackfrost_AI</span></a>
+                  <a class="community-link" data-community="x"><strong>Follow us on X ↗</strong><span>@blackfrost_ai</span></a>
+                  <a class="community-link" data-community="support"><strong>Contact support ↗</strong><span>support@blackfrostai.com</span></a>
+                </div>
+              </section>
+              <div class="hub-bundle-card">
+                <h4>Offline bundle seed</h4>
+                <p class="hf-help" id="hub-bundle-note">No bundle imported. A bundle is a signed catalog seed for NAS/air-gap machines — importing it stores the seed reference; offline browsing arrives with FrostNet.</p>
+                <button class="btn" id="hub-bundle-import">Import bundle seed</button>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <div class="statusline"><span class="hf-help">Shares come from the community recipe plane — every recipe is signed by its creator's key.</span></div>
+      </section>
+
+      <!-- ===== TRANSFERS ===== -->
+      <section class="view" id="view-transfers" hidden>
+        <div class="viewhead">
+          <div><h2>Transfers</h2><p class="view-description">Downloads on this computer and your devices.</p></div>
+          <div class="headacts">
+            <label class="transfer-device">Device <select id="transfers-device" aria-label="Transfer device"><option value="all">All devices</option><option value="local">This computer</option><option value="spark">Remote devices</option></select></label>
+            <button class="btn" id="btn-pauseall">Pause all</button>
+            <button class="btn" id="btn-resumeall">Resume all</button>
+            <button class="btn" id="btn-openfolder">Local folder</button>
+            <button class="btn" id="btn-ipfs">IPFS</button><button class="btn" data-lv-switch aria-pressed="false" aria-label="Toggle one-line sheet view">☰ Sheet</button><button class="btn primary" id="btn-add">＋ Add download</button>
+          </div>
+        </div>
+        <div class="transfer-search-summary" id="transfer-search-summary" hidden><span id="transfer-search-count" role="status"></span><button class="btn sm" id="transfer-search-clear">Clear search</button></div>
+        <div class="transfer-notice" id="transfers-spark-notice" hidden><span id="transfers-spark-message" role="status"></span><button class="btn sm" id="transfers-refresh">Refresh devices</button></div>
+        <div class="transfer-content">
+          <div class="sheet-head sheet-head-transfers" id="transfers-sheet-head" hidden>
+            <button type="button" class="sheet-col cell-name" data-sort-key="name" aria-pressed="false">Name <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-dev" data-sort-key="device" aria-pressed="false">Device <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-size" data-sort-key="size" aria-pressed="false">Size <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-progress" data-sort-key="progress" aria-pressed="false">Progress <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-status" data-sort-key="status" aria-pressed="false">Status <span class="sort-arrow" aria-hidden="true"></span></button>
+            <span class="sheet-col cell-rate">Rate</span>
+            <span class="sheet-col cell-acts"><span class="sr-only">Actions</span></span>
+          </div>
+          <div id="ipfs-transfers"></div><div class="transfers" id="transfers"></div><section id="transfer-inventory-results" hidden><h3 class="library-heading">Downloaded files</h3>
+          <div class="sheet-head sheet-head-inv" id="transfer-inventory-sheet-head" hidden>
+            <span class="sheet-col cell-name">Name</span><span class="sheet-col cell-dev">Device</span><span class="sheet-col cell-size">Size</span><span class="sheet-col cell-status">Status</span><span class="sheet-col cell-share">Sharing</span><span class="sheet-col cell-acts"><span class="sr-only">Actions</span></span>
+          </div>
+          <div class="downloaded-inventory" id="transfer-inventory"></div></section>
+        <div class="empty" id="empty-transfers" hidden>
+          <h3>Nothing moving</h3>
+          <p>No transfers for the selected device. Choose a model in <b>Models</b>, or add a torrent.</p>
+        </div></div>
+      </section>
+
+      <!-- ===== OWNED FILES ===== -->
+      <section class="view" id="view-library" hidden>
+        <div class="viewhead"><div><h2>My Models</h2><p class="view-description">Your models, wherever you keep them.</p></div><div class="headacts"><button class="btn" id="models-find">Find a model</button><button class="btn" id="models-import">Import folder…</button><button class="btn" id="btn-share2">⇪ Share a local folder</button><button class="btn primary" id="models-scan">Scan all saved directories</button></div></div>
+        <div class="library-toolbar"><input type="search" id="library-query" aria-label="Search My Models" placeholder="Find a model…" /><label for="library-device">Device</label><select id="library-device"><option value="all">All devices</option><option value="local">This computer</option><option value="spark">Remote devices</option></select><select id="library-sort" aria-label="Sort My Models"><option value="recent">Recently added</option><option value="name">Name A–Z</option><option value="size">Largest first</option><option value="device">Device A–Z</option></select><span id="library-summary" aria-live="polite"></span><button class="btn sm" data-lv-switch aria-pressed="false" aria-label="Toggle one-line sheet view">☰ Sheet</button></div>
+        <div class="library-content"><p class="hint model-scan-status" id="models-scan-status" role="status" aria-live="polite" hidden></p><p class="hint" id="library-spark-message"></p>
+          <div class="sheet-head sheet-head-inv" id="library-sheet-head" hidden>
+            <button type="button" class="sheet-col cell-name" data-sort-key="name" aria-pressed="false">Name <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-dev" data-sort-key="device" aria-pressed="false">Device <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-size" data-sort-key="size" aria-pressed="false">Size <span class="sort-arrow" aria-hidden="true"></span></button>
+            <span class="sheet-col cell-status">Status</span><span class="sheet-col cell-share">Sharing</span><span class="sheet-col cell-acts"><span class="sr-only">Actions</span></span>
+          </div>
+          <div class="downloaded-inventory" id="library-downloads"></div><div class="empty" id="empty-downloads" hidden><h3>No models here yet</h3><p>Use Scan all saved directories to find models already on disk, download from HuggingFace, or add a model torrent.</p></div></div>
+      </section>
+
+      <section class="view" id="view-catalog" hidden>
+        <div class="viewhead"><div><h2>Torrents</h2><p class="view-description">Documents, videos, software, and everything else.</p></div><div class="headacts"><button class="btn" id="torrents-share">⇪ Share a file or folder</button><button class="btn primary" id="torrents-add">＋ Add torrent</button></div></div>
+        <div class="library-toolbar"><input type="search" id="torrents-query" aria-label="Search Torrents" placeholder="Find a download…" /><label for="torrents-device">Device</label><select id="torrents-device"><option value="all">All devices</option><option value="local">This computer</option><option value="spark">Remote devices</option></select><select id="torrents-type" aria-label="Torrent file type"><option value="">All types</option><option>Documents</option><option>Video</option><option>Software</option><option>Audio</option><option>Archive</option><option>Files</option></select><select id="torrents-sort" aria-label="Sort Torrents"><option value="recent">Recently added</option><option value="name">Name A–Z</option><option value="size">Largest first</option><option value="device">Device A–Z</option></select><span id="torrents-summary" aria-live="polite"></span><button class="btn sm" data-lv-switch aria-pressed="false" aria-label="Toggle one-line sheet view">☰ Sheet</button></div>
+        <div class="library-content"><p class="hint" id="torrents-spark-message"></p>
+          <div class="sheet-head sheet-head-inv" id="torrents-sheet-head" hidden>
+            <button type="button" class="sheet-col cell-name" data-sort-key="name" aria-pressed="false">Name <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-dev" data-sort-key="device" aria-pressed="false">Device <span class="sort-arrow" aria-hidden="true"></span></button>
+            <button type="button" class="sheet-col cell-size" data-sort-key="size" aria-pressed="false">Size <span class="sort-arrow" aria-hidden="true"></span></button>
+            <span class="sheet-col cell-status">Status</span><span class="sheet-col cell-share">Sharing</span><span class="sheet-col cell-acts"><span class="sr-only">Actions</span></span>
+          </div>
+          <div class="downloaded-inventory" id="torrents-inventory"></div><div class="empty" id="empty-torrents" hidden><h3>No torrents here yet</h3><p>Drop a .torrent file or magnet link, or add a download. Model torrents appear in My Models.</p><button class="btn primary" id="torrents-add-empty">＋ Add torrent</button></div></div>
+        <details class="saved-links" id="saved-links"><summary>Manage saved links</summary><div class="saved-links-tools"><span>Torrent links you saved. Open a link to view its details or download it.</span><button class="btn sm" id="btn-import">Import list URL</button><button class="btn sm" id="btn-newentry">＋ Save a link</button></div><div class="gridwrap"><table class="grid" id="grid-catalog"><thead><tr><th>Name</th><th>Params</th><th>Quant</th><th>Size</th><th>License</th><th>Source</th><th>Infohash</th><th class="num">Actions</th></tr></thead><tbody></tbody></table></div></details>
+      </section>
+
+      <!-- ===== HUGGINGFACE ===== -->
+      <section class="view" id="view-hf" hidden>
+        <div class="searchbar">
+          <div class="hf-provider-switch" id="hf-provider-switch" role="tablist" aria-label="Model discovery source">
+            <button class="hf-provider-btn active" type="button" role="tab" data-hf-provider="hf" aria-selected="true">HuggingFace</button>
+            <button class="hf-provider-btn" type="button" role="tab" data-hf-provider="frostnet" aria-selected="false">FrostNet</button>
+            <button class="hf-provider-btn" type="button" role="tab" data-hf-provider="pirateface" aria-selected="false">Pirate Face</button>
+          </div>
+          <label class="search">
+            <span class="mag">⌕</span>
+            <input id="hf-q" placeholder="Search models, or paste a huggingface.co link — qwen3, llama 3.3 exl3, nvidia/…-NVFP4" spellcheck="false" />
+          </label>
+          <button class="btn primary" id="hf-go">Search</button>
+          <span class="hf-tokenstate" id="hf-tokenstate"></span>
+        </div>
+        <div class="hf-browsebar" id="hf-browsebar">
+          <label>Sort across HuggingFace <select id="hf-sort" aria-label="Sort across HuggingFace">
+            <option value="downloads">Most downloaded</option><option value="trendingScore">Trending</option>
+            <option value="likes">Most liked</option><option value="lastModified">Recently updated</option><option value="createdAt">Newest models</option>
+          </select></label>
+          <button class="btn sm" id="hf-direction" aria-label="Reverse Hub sort order">↓ Descending</button>
+          <button class="btn sm" id="hf-filter-toggle" aria-expanded="false" aria-controls="hf-filters">Filters</button>
+          <span id="hf-sort-scope" class="hf-help">Sorted across the Hub</span>
+        </div>
+        <div class="hf-chips" id="hf-format-chips" role="group" aria-label="Filter by weight format"></div>
+        <div class="hf-filters" id="hf-filters" hidden>
+          <label>Publisher<input id="hf-author" placeholder="e.g. Qwen" /></label>
+          <label>Task<select id="hf-task"><option value="">Any task</option><option value="text-generation">Text generation</option><option value="image-text-to-text">Image + text</option></select></label>
+          <label>Format<select id="hf-search-format"><option value="">Any format</option><option value="exl3">EXL3</option><option value="nvfp4">NVFP4</option><option value="exl2">EXL2</option><option value="mxfp4">MXFP4</option><option value="awq">AWQ</option><option value="gptq">GPTQ</option><option value="gguf">GGUF</option><option value="safetensors">Safetensors</option><option value="pytorch">PyTorch</option><option value="onnx">ONNX</option><option value="mlx">MLX</option></select></label>
+          <label>Library<select id="hf-library"><option value="">Any library</option><option value="transformers">Transformers</option><option value="diffusers">Diffusers</option></select></label>
+          <label>License<select id="hf-license"><option value="">Any license</option><option value="apache-2.0">Apache 2.0</option><option value="mit">MIT</option></select></label>
+          <label>Language<select id="hf-language"><option value="">Any language</option><option value="en">English</option></select></label>
+          <label>Access<select id="hf-access-filter"><option value="">Any access</option><option value="false">No access request</option><option value="true">Gated</option></select></label>
+          <div class="hf-filter-actions"><button class="btn sm" id="hf-apply-filters">Apply filters</button><button class="hf-link" id="hf-reset-filters">Clear filters</button></div>
+        </div>
+        <div class="fn-browsebar" id="fn-browsebar" hidden>
+          <label>Quant<input id="fn-quant" placeholder="Q4_K_M (exact case)" spellcheck="false" /></label>
+          <label>Format<select id="fn-format"><option value="">Any format</option><option value="gguf">GGUF</option><option value="safetensors">Safetensors</option><option value="exl3">EXL3</option><option value="awq">AWQ</option><option value="gptq">GPTQ</option></select></label>
+          <label>Kind<select id="fn-kind"><option value="">Any kind</option><option value="tmux">tmux session</option><option value="docker">Docker</option><option value="compose">Compose</option><option value="native">Native</option></select></label>
+          <button class="btn sm" id="fn-apply">Apply</button>
+          <button class="btn sm primary" id="btn-fn-publish">Publish a recipe</button>
+          <span class="hf-help">Community recipes · signed by their publishers · quant tokens match exact case</span>
+        </div>
+        <div class="pf-browsebar" id="pf-browsebar" hidden>
+          <div class="pf-quickchips" role="group" aria-label="Suggested Pirate Face searches">
+            <span class="pf-quick-label">Quick search</span>
+            <button class="hf-chip" type="button" data-pf-quick="qwen3">qwen3</button>
+            <button class="hf-chip" type="button" data-pf-quick="mlx">mlx</button>
+            <button class="hf-chip" type="button" data-pf-quick="gguf">gguf</button>
+            <button class="hf-chip" type="button" data-pf-quick="gemma">gemma</button>
+            <button class="hf-chip" type="button" data-pf-quick="deepseek">deepseek</button>
+          </div>
+          <span class="hf-help" id="pf-provenance-note">External index · pirateface.co · Peer discovery uses local DHT &amp; trackers</span>
+          <div class="pf-dht-banner" id="pf-dht-banner" hidden>
+            <span>DHT and custom trackers are off — enable one in Network Settings so peer magnets can discover swarms.</span>
+            <button class="btn sm" type="button" id="pf-open-net-settings">Network Settings</button>
+          </div>
+        </div>
+        <div class="hf-wrap" data-provider="frostnet" id="fn-wrap" hidden>
+          <div class="hf-results">
+            <div class="fn-status" id="fn-status" role="status"></div>
+            <div class="gridwrap">
+              <table class="grid" id="grid-fn">
+                <thead>
+                  <tr>
+                    <th>Recipe</th>
+                    <th>Kind</th>
+                    <th>License</th>
+                    <th>Publisher</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <div class="empty" id="empty-fn" hidden>
+                <h3>Search FrostNet recipes</h3>
+                <p>Community-shared serving recipes, signed by their publishers. Search by name, quant (exact case, e.g. Q4_K_M), or format — or publish your own from a model you've downloaded.</p>
+              </div>
+            </div>
+            <div class="hf-pagination" id="fn-pagination" hidden><button class="btn sm" id="fn-more">Load more</button><span>Continue these results</span></div>
+          </div>
+          <aside class="hf-detail" id="fn-detail" aria-label="Recipe details" hidden></aside>
+          <aside class="hf-detail fn-publish" id="fn-publish" aria-label="Publish a recipe" hidden></aside>
+        </div>
+
+        <div class="hf-wrap" id="hf-wrap" data-provider="hf">
+          <div class="hf-results">
+            <div class="gridwrap">
+              <table class="grid" id="grid-hf">
+                <thead>
+                  <tr>
+                    <th data-k="id">Model</th>
+                    <th data-k="downloads" class="num">Downloads</th>
+                    <th data-k="likes" class="num">Likes</th>
+                    <th data-k="license">License</th>
+                    <th data-k="pipelineTag">Task</th>
+                    <th data-k="lastModified">Updated</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <div class="empty" id="empty-hf" hidden>
+                <h3>Find a model</h3>
+                <p>Search Hugging Face by name or publisher, or paste a huggingface.co link to open a model directly.</p>
+              </div>
+            </div>
+            <div class="hf-pagination" id="hf-pagination" hidden><button class="btn sm" id="hf-more">Load more</button><span>Continue these search results</span></div>
+          </div>
+
+          <aside class="hf-detail" id="hf-detail" aria-label="Model download options" hidden></aside>
+        </div>
+
+        <div class="statusline">
+          <span id="hf-count">0 results</span><span class="sep">·</span>
+          <span>Choose a model version or just the files you need</span>
+        </div>
+      </section>
+
+      <section class="view" id="view-spark" hidden>
+        <div class="viewhead" id="devices-overview-head"><h2>Devices</h2><span class="hf-help" id="devices-count"></span><button class="btn primary sm" id="device-add">＋ Add device</button><button class="btn sm" id="devices-discover">Find devices</button><div class="spark-inventory-links"><button class="btn sm" id="spark-open-transfers">Transfers</button><button class="btn sm" id="spark-open-library">My Models</button><button class="btn sm" id="spark-open-torrents">Torrents</button></div></div>
+        <div class="devices-intro" id="devices-intro"><span class="device-eyebrow">YOUR FROSTBYTE NETWORK</span><h3>Every device. Its own command center.</h3><p>Open a device to see its transfer activity, resources, models and storage.</p></div>
+        <div class="device-cards" id="device-cards" aria-label="Your devices"></div>
+        <div class="spark-setup" id="spark-setup" aria-label="Set up a device"></div>
+        <div id="device-dashboard" hidden aria-labelledby="device-dashboard-title">
+        <div class="dashboard-nav"><button class="btn sm" id="devices-back">← All devices</button><span>Devices <span aria-hidden="true">/</span> Overview</span></div>
+        <section class="device-details" id="device-details"></section>
+        <section class="aeon-device-space" id="aeon-device-panel" hidden></section>
+        <section class="dashboard-connection" id="dashboard-connection"><h3>Connection & companion</h3>
+        <div class="spark-connect" id="spark-saved-connection" hidden><label for="spark-host">Saved connection</label><input id="spark-host" placeholder="SSH alias or user@hostname" spellcheck="false" /><button class="btn primary" id="spark-connect">Connect</button><button class="btn" id="spark-refresh" disabled>Refresh</button><button class="btn" id="spark-setup-open">Pair or update companion</button></div>
+        <p class="spark-message" id="spark-message" aria-live="polite">Connect a Mac, DGX or Raspberry Pi to download and share files directly from it.</p>
+        </section>
+        <div class="spark-content" id="spark-content" hidden>
+          <div class="spark-stats" id="spark-stats"></div>
+          <div class="spark-section" id="spark-storage-section"><div class="spark-files-title"><h3>Download destination</h3><button class="btn sm" id="spark-storage-add">Add folder…</button></div><p class="hf-help">Your default for new downloads on this device. Each download goes to one folder.</p><label class="spark-root-label">Save to <select id="spark-download-destination" aria-label="Default download folder on this device"></select></label><p class="hf-help" id="spark-storage-summary" role="status"></p></div>
+          <details class="spark-section" id="spark-files-section"><summary>Browse files on this device</summary><div class="spark-files-title"><label class="spark-root-label">Browsing folder <select id="spark-library-root" aria-label="Device library folder"></select></label><button class="btn sm" id="spark-up">Up one folder</button></div><p class="mono hf-help" id="spark-path"></p><div id="spark-files" aria-live="polite"></div></details>
+        </div>
+        </div>
+      </section>
+
+      <!-- ===== SETTINGS (uTorrent-grade) ===== -->
+      <section class="view" id="view-settings" hidden>
+        <div class="viewhead"><h2>Settings</h2></div>
+        <div class="settings-wrap">
+
+          <nav class="settings-nav" id="settings-nav">
+            <button class="snav on" data-sec="connection">⇄ Connection</button>
+            <button class="snav" data-sec="network">◇ LAN &amp; WireGuard</button>
+            <button class="snav" data-sec="bandwidth">▮ Bandwidth</button>
+            <button class="snav" data-sec="queue">⧗ Queueing &amp; Seeding</button>
+            <button class="snav" data-sec="folders">▤ Folders</button>
+            <button class="snav" data-sec="hftoken">⇱ HuggingFace</button>
+            <button class="snav" data-sec="publisher">✎ Publisher</button>
+            <button class="snav" data-sec="hub">◉ FrostNet</button>
+            <button class="snav" data-sec="interface">◐ Interface</button>
+            <button class="snav" data-sec="updates">↻ Updates <span id="update-badge" hidden>●</span></button>
+            <button class="snav" data-sec="privacy">◇ Privacy &amp; Feedback</button>
+            <button class="snav" data-sec="about">ⓘ About &amp; Support</button>
+          </nav>
+
+          <div class="settings-body">
+            <div class="ssec" id="sec-network" hidden>
+              <div class="card">
+                <h4>Your networks</h4>
+                <p>Find computers and NAS devices on a network you own or administer. Discovery does not log in, pair devices, read files, or change seeding.</p>
+                <button class="btn" id="network-refresh">Find networks &amp; WireGuard</button>
+                <p id="network-message" role="status">Start by reading this computer’s interfaces. No network scan runs automatically.</p>
+              </div>
+              <div class="card">
+                <h4>WireGuard overlays</h4>
+                <p id="wireguard-status">Existing tunnels stay managed by WireGuard.</p>
+                <div id="wireguard-overlays"></div>
+                <p class="note">Adding an overlay saves its name so you can check an exact peer address. FrostByte never reads private keys, imports configurations, starts tunnels, or changes VPN routes. This is not a torrent VPN binding or kill switch; connections follow operating-system routes.</p>
+              </div>
+              <div class="card">
+                <h4>Find a device</h4>
+                <label class="network-field">Network<select id="network-interface" aria-label="Discovery network"><option value="">Find networks first</option></select></label>
+                <label class="network-field">Hostname or private IPv4 address<input id="network-host" maxlength="253" autocomplete="off" spellcheck="false" placeholder="Optional: desktop-128.local or a private IP" /></label>
+                <p class="hint">Leave the address blank to check up to one local /24 for SSH and file sharing. WireGuard always requires an exact peer address; overlay ranges are never swept.</p>
+                <div class="headacts"><button class="btn primary" id="network-scan" disabled>Review and scan</button><button class="btn" id="network-cancel" hidden>Stop scan</button></div>
+                <p id="network-scan-progress" role="status">No scan has run. Nothing is scanned automatically.</p>
+                <div id="network-results" aria-live="polite"></div>
+              </div>
+            </div>
+            <div class="ssec" id="sec-updates" hidden>
+              <div class="card">
+                <h4>App updates</h4>
+                <p id="updates-version"></p>
+                <p id="updates-status" role="status">Check for the latest published build.</p>
+                <p class="hint" id="updates-checked"></p>
+                <label class="check" id="updates-auto-control"><input type="checkbox" id="set-auto-updates" /> Automatically check for updates</label>
+                <p class="hint" id="updates-check-privacy">Checks at most once a day while FrostByte is open. Checking sends no model, file, or search information. The website receives ordinary connection information such as your IP address.</p>
+                <p class="hint" id="updates-download-help">You choose when to download and install. Downloads use the official website after reviewing the terms.</p>
+                <div class="headacts"><button class="btn" id="updates-check">Check now</button><button class="btn primary" id="updates-download" hidden>Get update</button></div>
+                <p id="updates-notes" style="white-space:pre-wrap"></p>
+              </div>
+            </div>
+
+            <!-- CONNECTION -->
+            <div class="ssec" id="sec-connection">
+              <div class="card">
+                <h4>Port mapping</h4>
+                <div class="kv"><span class="k">Listen port</span><span class="v mono" id="con-port">—</span></div>
+                <div class="kv"><span class="k">UPnP / NAT-PMP</span><span class="v" id="con-upnp">—</span></div>
+                <label class="check"><input type="checkbox" id="set-upnp" /> Automatically map the port on the router</label>
+                <p class="note">WebTorrent binds the next free port; we map whatever it bound on the router so peers can reach this box. If mapping fails, forward the port shown above by hand.</p>
+              </div>
+              <div class="card">
+                <h4>Connections</h4>
+                <div class="setting">
+                  <label class="slab">Max peer connections per torrent</label>
+                  <input type="number" id="set-maxconns" min="1" max="1000" step="1" />
+                </div>
+                <label class="check"><input type="checkbox" id="set-dht" /> Use the DHT (mainline) for peer discovery <span class="rr" data-for="set-dht">restart required</span></label>
+                <p class="note">This limits peers per torrent, not the number of items you can share.</p>
+              </div>
+              <div class="card">
+                <h4>Extra trackers</h4>
+                <textarea id="set-trackers" rows="3" placeholder="udp://tracker.opentrackr.org:1337/announce"></textarea>
+                <p class="note">Optional supported tracker: udp://tracker.opentrackr.org:1337/announce. Other tracker addresses are rejected to protect local networks.</p>
+              </div>
+            </div>
+
+            <!-- BANDWIDTH -->
+            <div class="ssec" id="sec-bandwidth" hidden>
+              <div class="card">
+                <h4>Active bandwidth · this computer</h4>
+                <label class="setting"><span class="slab">Mode</span><select id="set-bandwidth-mode"><option value="normal">Normal — ignore ALT schedule</option><option value="alt">ALT — use alternative limits</option><option value="schedule">Scheduled — switch at saved times</option></select></label>
+                <p id="effective-limits" role="status"></p>
+                <button class="btn" id="set-unlimited">Use unlimited sharing…</button>
+                <p class="note">Your mode is saved across restarts. These controls affect this computer, not Spark or other devices. Unlimited removes software rate and queue caps; network speed, available peers, and hardware still matter.</p>
+              </div>
+              <div class="card">
+                <h4>Global limits (KB/s · 0 = unlimited)</h4>
+                <div class="grid2">
+                  <div class="setting"><label class="slab">Download</label><input type="number" id="set-down" min="0" step="50" /></div>
+                  <div class="setting"><label class="slab">Upload</label><input type="number" id="set-up" min="0" step="50" /></div>
+                </div>
+                <p class="note">Caps apply to the whole client instantly. Set an upload cap if sharing competes with anything else on the line.</p>
+              </div>
+              <div class="card">
+                <h4>Alternative limits <span class="rr" id="alt-state" hidden>active now</span></h4>
+                <div class="grid2">
+                  <div class="setting"><label class="slab">Alt download</label><input type="number" id="set-altdown" min="0" step="50" /></div>
+                  <div class="setting"><label class="slab">Alt upload</label><input type="number" id="set-altup" min="0" step="50" /></div>
+                </div>
+                <label class="check"><input type="checkbox" id="set-sched" /> Use the schedule below (selects Scheduled mode)</label>
+                <div class="grid2">
+                  <div class="setting"><label class="slab">From</label><input type="time" id="set-schedfrom" /></div>
+                  <div class="setting"><label class="slab">To</label><input type="time" id="set-schedto" /></div>
+                </div>
+                <div class="daypick" id="daypick"></div>
+                <p class="note">Windows that cross midnight belong to the day they start on. Normal mode ignores this schedule until you explicitly select Scheduled again. Turning ALT on from the status bar asks for confirmation.</p>
+              </div>
+            </div>
+
+            <!-- QUEUEING & SEEDING -->
+            <div class="ssec" id="sec-queue" hidden>
+              <div class="card">
+                <h4>Queueing</h4>
+                <div class="setting"><label class="slab">Max active downloads (0 = unlimited)</label><input type="number" id="set-maxdl" min="0" step="1" /></div>
+                <p class="note">Pulls beyond the limit are parked as <b>queued</b> and resume on their own as slots free. Pausing something yourself keeps it paused.</p>
+                <p class="note">There is no active-item queue limit for completed seeds or models you explicitly share. Peer connection limits are separate. Settings here apply to this computer only.</p>
+                <p class="note" id="sharing-capacity"></p>
+              </div>
+              <div class="card">
+                <h4>Seeding goals</h4>
+                <div class="grid2">
+                  <div class="setting"><label class="slab">Stop at ratio (0 = never)</label><input type="number" id="set-ratio" min="0" step="0.1" /></div>
+                  <div class="setting"><label class="slab">Stop after minutes (0 = never)</label><input type="number" id="set-seedmin" min="0" step="10" /></div>
+                </div>
+                <label class="check"><input type="checkbox" id="set-seed" /> Keep sharing a torrent after it finishes downloading</label>
+                <p class="note">Goals stop things this box <i>pulled</i> — models you explicitly share from My Models are never auto-stopped. Stopped files stay on disk.</p>
+              </div>
+            </div>
+
+            <!-- FOLDERS -->
+            <div class="ssec" id="sec-folders" hidden>
+              <div class="card">
+                <h4>Where models go</h4>
+                <div class="setting">
+                  <input id="set-dir" readonly />
+                  <button class="btn" id="btn-changedir">Change</button>
+                  <button class="btn" id="btn-opendir">Open</button>
+                </div>
+                <p class="note">Pulled models land here. Sharing works from anywhere on disk.</p>
+              </div>
+              <div class="card">
+                <h4>When finished</h4>
+                <label class="check"><input type="checkbox" id="set-move" /> Move completed pulls to a different folder</label>
+                <div class="setting">
+                  <input id="set-completed" readonly placeholder="Pick a folder…" />
+                  <button class="btn" id="btn-changecompleted">Change</button>
+                </div>
+                <p class="note">Moves the model folder after it finishes. Cross-volume moves fall back to copy-then-delete.</p>
+              </div>
+              <div class="card">
+                <h4>Catalog source</h4>
+                <div class="setting">
+                  <input id="set-caturl" placeholder="https://…/models.json" />
+                  <button class="btn" id="btn-savecaturl">Load</button>
+                </div>
+                <p class="note">Use a public HTTPS JSON list. Private-network addresses are blocked; imports are limited to 2 MB and 2,000 entries.</p>
+              </div>
+            </div>
+
+            <!-- HUGGINGFACE -->
+            <div class="ssec" id="sec-hftoken" hidden>
+              <div class="card">
+                <h4>Access token</h4>
+                <div class="setting">
+                  <input id="set-hftoken" type="password" placeholder="hf_…" autocomplete="off" />
+                  <button class="btn primary" id="btn-hftoken">Save &amp; validate</button>
+                </div>
+                <p class="note" id="hftoken-status">No token set.</p>
+                <p class="note">Needed for gated models (Llama, Gemma…). Create one at
+                  <b>huggingface.co/settings/tokens</b> with <i>read</i> access. The token is validated
+                  against whoami, stored with OS-level encryption where available, and only ever sent
+                  to huggingface.co as a Bearer header.</p>
+              </div>
+              <div class="card">
+                <h4>Gated models</h4>
+                <p class="note">Gated repos (auto or manual) need both a token <i>and</i> accepted access
+                  on the model page. A 401 means no token; a 403 means the token is fine but access
+                  wasn't granted — we link you to the request page when that happens.</p>
+                <div class="setting">
+                  <button class="btn" id="btn-hfclear">Remove token</button>
+                </div>
+              </div>
+              <div class="card">
+                <h4>Model cards</h4>
+                <label class="check"><input type="checkbox" id="set-cardimages" /> Show images in model cards</label>
+                <p class="note">Model cards are rendered on this computer as plain text. No scripts or embedded pages run. FrostByte fetches images on your behalf from Hugging Face. Images hosted on other sites load only when you click them, because loading them shares your IP address with that site. Turn this off to show no images.</p>
+              </div>
+            </div>
+
+            <!-- PUBLISHER -->
+            <div class="ssec" id="sec-publisher" hidden>
+              <div class="card">
+                <h4>Publisher identity</h4>
+                <p class="note" id="publisher-status">No publisher identity yet.</p>
+                <p class="note">This optional identity is for future community publishing, which is still in development. Creating it does not share files.
+                  Your password and this computer’s key store protect its saved key.</p>
+              </div>
+              <div class="card" id="publisher-create-card">
+                <h4>Create</h4>
+                <div class="setting"><label class="slab" for="pub-create-name">Display name</label><input id="pub-create-name" maxlength="64" autocomplete="off" /></div>
+                <div class="setting"><label class="slab" for="pub-create-pass">Password</label><input id="pub-create-pass" type="password" autocomplete="new-password" /></div>
+                <div class="setting"><label class="slab" for="pub-create-pass2">Confirm password</label><input id="pub-create-pass2" type="password" autocomplete="new-password" /></div>
+                <div class="setting"><button class="btn primary" id="btn-pub-create">Create publisher</button></div>
+              </div>
+              <div class="card" id="publisher-import-card">
+                <h4>Import</h4>
+                <div class="setting"><label class="slab" for="pub-import-mnemonic">Recovery phrase (24 words)</label>
+                  <textarea id="pub-import-mnemonic" rows="3" spellcheck="false" autocomplete="off"></textarea></div>
+                <div class="setting"><label class="slab" for="pub-import-name">Display name</label><input id="pub-import-name" maxlength="64" autocomplete="off" /></div>
+                <div class="setting"><label class="slab" for="pub-import-pass">Password</label><input id="pub-import-pass" type="password" autocomplete="new-password" /></div>
+                <div class="setting"><button class="btn" id="btn-pub-import">Import publisher</button></div>
+              </div>
+              <div class="card" id="publisher-reveal-card" hidden>
+                <h4>Back up your recovery phrase</h4>
+                <p class="note"><b>Write this phrase down or store it offline now.</b>
+                  FrostByte cannot recover it. Anyone with this phrase can publish as you.
+                  Losing it means you cannot restore this publisher identity on another machine or after a wipe.</p>
+                <textarea id="pub-reveal-mnemonic" rows="4" readonly spellcheck="false"></textarea>
+                <div class="setting">
+                  <button class="btn" id="btn-pub-copy">Copy phrase</button>
+                </div>
+                <p class="hint">The phrase hides after one minute or when you leave this view. Copying it may retain it in clipboard history.</p>
+                <label class="check"><input type="checkbox" id="pub-backup-ack" /> I saved a backup of this recovery phrase</label>
+                <div class="setting"><button class="btn primary" id="btn-pub-reveal-done" disabled>Continue</button></div>
+              </div>
+              <div class="card" id="publisher-session-card" hidden>
+                <h4>Session</h4>
+                <p class="note" id="publisher-backup-note" hidden></p>
+                <div class="setting">
+                  <input id="pub-unlock-pass" type="password" placeholder="Publisher password" aria-label="Publisher password" autocomplete="current-password" />
+                  <button class="btn primary" id="btn-pub-unlock">Unlock</button>
+                  <button class="btn" id="btn-pub-lock">Lock</button>
+                </div>
+                <div class="setting">
+                  <button class="btn" id="btn-pub-export">Export recovery phrase</button>
+                  <button class="btn" id="btn-pub-clear">Remove publisher</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="ssec" id="sec-privacy" hidden>
+              <div class="card">
+                <h4>Your app. Your data.</h4>
+                <p class="note" id="privacy-product-version-note">FrostByte does not collect analytics, diagnostics, or automatic feedback. There is no reporting switch to enable. Your library, settings, and device history stay on your devices.</p>
+                <p class="note">Peer-to-peer transfers reveal your network address to peers. Services you choose to use, including Hugging Face, update checks, and GitHub, receive ordinary connection information.</p>
+                <p class="note" id="diagnostics-status" aria-live="polite"></p>
+              </div>
+              <div class="card">
+                <h4>Tell us what could work better</h4>
+                <p class="note">Feedback is optional and goes through GitHub. Nothing is attached or submitted by FrostByte. You choose what to post; GitHub issues are public.</p>
+                <button class="btn primary" id="btn-feedback">Feedback on GitHub ↗</button>
+              </div>
+              <div class="card">
+                <h4>Terms and privacy</h4>
+                <p class="note" id="privacy-accepted"></p>
+                <button class="btn" id="btn-legal">Read terms and privacy notice</button>
+              </div>
+            </div>
+
+            <!-- INTERFACE -->
+            <div class="ssec" id="sec-hub" hidden>
+              <div class="card">
+                <h4>FrostByte Account &amp; Sign-In</h4>
+                <p class="note" id="hub-account-summary">Not signed in. Local downloads and HuggingFace model fit checks work without an account. Sign in to use FrostNet Plus/Pro features.</p>
+                <div class="setting">
+                  <button class="btn primary" id="btn-hub-browser-login">Sign in with FrostNet</button>
+                  <button class="btn" id="btn-hub-sync">Sync account</button>
+                  <button class="btn" id="btn-hub-logout">Sign out</button>
+                  <span id="hub-login-status" role="status" class="hint"></span>
+                </div>
+                <p class="note">Email/password, account creation, password reset, and Google sign-in all happen on <strong>frostbyte.si</strong> in your system browser. FrostByte never receives your password; the website passes back a short-lived one-time code and your session is encrypted in the OS keychain.</p>
+              </div>
+              <div class="card" id="hub-profile-card" hidden>
+                <h4>Public profile</h4>
+                <p class="note">Your handle is your public alias on FrostNet (creators stay identified by publisher key). Display name and bio appear on your creator page. Changes are saved to your FrostByte account and confirmed by the Hub.</p>
+                <div class="setting"><label class="slab" for="set-hub-handle">Handle</label><input id="set-hub-handle" placeholder="frost_crafter (3–24: letters, numbers, _)" maxlength="24" spellcheck="false" autocomplete="off" /></div>
+                <div class="setting"><button class="btn primary" id="btn-hub-handle-save">Save handle</button><button class="btn" id="btn-hub-handle-release">Release handle</button></div>
+                <div class="setting"><label class="slab" for="set-hub-displayname">Display name</label><input id="set-hub-displayname" placeholder="How your name appears publicly" maxlength="64" autocomplete="off" /></div>
+                <div class="setting"><label class="slab" for="set-hub-bio">Bio</label><textarea id="set-hub-bio" rows="3" maxlength="280" placeholder="Up to 280 characters about you and what you craft"></textarea></div>
+                <div class="setting"><button class="btn primary" id="btn-hub-profile-save">Save profile</button><span id="hub-profile-status" role="status" class="hint"></span></div>
+                <h4>Publisher binding</h4>
+                <p class="note" id="hub-publisher-binding-note">Sign in and unlock your publisher identity to bind it to this account. Binding proves you own the key — the Hub issues a one-time challenge signed on this device.</p>
+                <div class="setting"><button class="btn primary" id="btn-hub-bind-publisher">Bind publisher key</button><span id="hub-bind-status" role="status" class="hint"></span></div>
+                <div id="hub-bound-keys"></div>
+              </div>
+              <div class="card">
+                <h4>FrostNet Connection &amp; API Token</h4>
+                <p class="note">FrostByte is pinned to the live production FrostNet Hub API. There is no localhost fallback and no editable Hub URL. FrostNet community browsing is coming soon; meanwhile Search (Hugging Face) needs no account. Offline bundle seeding needs no account either: import a signed bundle seed from a NAS or community mirror.</p>
+                <div class="setting"><label class="slab" for="set-hubtoken">Hub token (Plus/Pro)</label><input id="set-hubtoken" type="password" placeholder="Paste token — only sent to the FrostByte Hub" autocomplete="off" spellcheck="false" /></div>
+                <div class="setting"><button class="btn primary" id="btn-save-hubtoken">Save token</button><button class="btn" id="btn-clear-hubtoken">Clear token</button><span id="hub-token-status" role="status" class="hint"></span></div>
+                <p class="note" id="hub-entitlement-note">Tier: —</p>
+                <p class="note">Plus and Pro are granted by your FrostByte account and confirmed by the Hub server. They cannot be switched on locally. Offline bundle seeding is always free.</p>
+                <div class="setting"><button class="btn" id="btn-hub-check">Check Hub</button><button class="btn" id="btn-hub-bundle-check">Check bundle</button><button class="btn" id="btn-hub-offline">Use offline mode</button></div>
+                <p class="note" id="hub-updates-note-settings"></p>
+              </div>
+              <div class="card">
+                <h4>Follow</h4>
+                <p class="note">Follow creators by publisher pubkey (64 hex). Your list is local; the Hub validates on publish. Creator profiles and feeds arrive with FrostNet — following never auto-downloads; you still review every transfer.</p>
+                <div class="setting"><input id="set-hub-follow" placeholder="a1b2… (64 hex) or empty to clear" spellcheck="false" /><button class="btn" id="btn-hub-follow">Add</button></div>
+                <div id="hub-follows"></div>
+              </div>
+              <div class="card">
+                <h4>Bundle</h4>
+                <p class="note" id="hub-bundle-note-settings">No bundle imported. A bundle is a signed catalog seed for NAS/air-gap machines — importing it stores the seed reference; offline browsing arrives with FrostNet.</p>
+              </div>
+            </div>
+
+            <div class="ssec" id="sec-interface" hidden>
+              <div class="card">
+                <h4>Appearance</h4>
+                <div class="setting">
+                  <select id="set-theme" aria-label="Application theme">
+                    <option value="frost">Frost — the classic, lime on dark</option>
+                    <option value="abyss">Abyss — pure black</option>
+                    <option value="malachite">Malachite — green room</option>
+                    <option value="aeon">AEON Orbit - a space theme for everyone</option>
+                    <option value="u1tra_instinct">u1tra_instinct — keys 🧪 / pixel laboratory</option>
+                    <option value="blackfrost">Blackfrost — frosted glass</option>
+                    <option value="jensen">Founders Leather — Jensen tribute</option>
+                  </select>
+                </div>
+                <p class="note">Choose your atmosphere. AEON Orbit is available to everyone; device tools depend on the connected machine.</p>
+                <button class="hf-link" id="theme-credit" hidden></button>
+              </div>
+              <div class="card jensen-tribute-card" id="jensen-tribute-card" hidden></div>
+              <div class="card"><h4>List density</h4><div class="setting"><button class="dens" data-d="comfortable">Comfortable</button><button class="dens on" data-d="cozy">Cozy</button><button class="dens" data-d="compact">Compact</button><button class="dens" data-d="ultra">Ultra</button></div></div>
+              <div class="card"><h4>List view</h4><div class="setting"><button class="lv" data-lv="cards" aria-pressed="true">Cards</button><button class="lv" data-lv="sheet" aria-pressed="false">Sheet</button></div><p class="hint">Sheet shows transfers and libraries as one-line rows with sortable columns — a dense, classic download-manager grid. Click a row's ▸ to see its details.</p></div>
+              <div class="card">
+                <h4>IPFS storage</h4><p class="note">IPFS keeps a receive cache and a separate cache for explicit sharing. Clearing the receive cache preserves completed downloads and shared collections.</p><button class="btn" id="ipfs-clear-cache">Clear local receive cache</button></div><div class="card"><h4>Confirmations</h4>
+                <label class="check"><input type="checkbox" id="set-bigpull" /> Confirm large downloads</label>
+                <div class="setting"><label class="slab">Ask before pulls larger than (GB)</label><input type="number" id="set-bigpull-gb" min="0" step="10" /></div>
+                <label class="check"><input type="checkbox" id="set-confirmexit" /> Ask before quitting while sharing</label>
+                <p class="note">Choose “Never show again” in a routine confirmation to remember that choice. Device access, sharing, deletion, and privacy changes still ask.</p>
+                <p class="note" id="confirmations-status" role="status">No remembered confirmations.</p>
+                <button class="btn" id="reset-confirmations" disabled>Reset remembered confirmations</button>
+              </div>
+              <div class="card">
+                <h4>Startup</h4>
+                <label class="check"><input type="checkbox" id="set-login" /> Start Frost/Byte when the computer starts</label>
+              </div>
+              <div class="card">
+                <h4>Where things live</h4>
+                <div class="setting">
+                  <input id="set-appdir" readonly />
+                  <button class="btn" id="btn-openappdir">Open</button>
+                </div>
+                <p class="note">Settings and your catalog, as plain JSON you can read and edit.</p>
+              </div>
+            </div>
+
+            <div class="ssec" id="sec-about" hidden>
+              <div class="card">
+                <img class="brand-about" src="../../assets/brand/logo-dark.png" alt="Frost/Byte by Blackfrost_AI" />
+                <h4>About</h4>
+                <p class="note" id="about-line"></p>
+              </div>
+              <div class="card">
+                <h4>Community &amp; support</h4>
+                <p class="note">Follow the project, share an idea, or get help.</p>
+                <div class="community-links">
+                  <a class="community-link" data-community="app"><strong>Star FrostByte on GitHub ↗</strong><span>Official page · downloads · bugs &amp; ideas</span></a>
+                  <a class="community-link" data-community="github"><strong>Follow us on GitHub ↗</strong><span>Blackfrost_AI</span></a>
+                  <a class="community-link" data-community="x"><strong>Follow us on X ↗</strong><span>@blackfrost_ai</span></a>
+                  <a class="community-link" data-community="support"><strong>Contact support ↗</strong><span>support@blackfrostai.com</span></a>
+                </div>
+                <p class="note">GitHub feedback is public. Use the support email for private questions. Never post credentials or private files.</p>
+              </div>
+              <div class="card">
+                <h4 id="about-product-version-line">FrostByte · Built for the swarm</h4>
+                <p class="note">Community source publication is in preparation on GitHub. Updates and pull requests will be managed regularly by Blackfrost AI/SI.</p>
+                <p class="note">No analytics, diagnostics, or automatic feedback collection.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================ STATUS BAR ============================ -->
+  <footer class="statusbar">
+    <div class="grp"><span class="lbl">Swarm</span><span class="mono" id="sb-peers">0 peers</span></div>
+    <div class="grp"><span class="lbl">Sharing</span><span class="mono ok" id="sb-sharing">0 items</span></div>
+    <div class="grp"><span class="lbl">DHT</span><span class="mono" id="sb-dht">—</span></div>
+    <div class="grp"><span class="lbl">Port</span><span class="mono" id="sb-port">—</span></div>
+    <div class="grp"><span class="lbl">Disk</span><span class="mono" id="sb-dir">—</span></div>
+    <div class="grp"><button class="turtle" id="turtle" title="Bandwidth mode"><span class="ico">↕</span> Normal</button></div>
+    <div class="r">
+      <div class="grp"><span class="lbl">Uploaded</span><span class="mono" id="sb-up">0 B</span></div>
+      <div class="grp"><span class="lbl">Downloaded</span><span class="mono" id="sb-down">0 B</span></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================== DIALOGS ============================== -->
+<dialog id="welcome" aria-labelledby="welcome-title">
+  <form id="welcome-form">
+    <div class="welcome-brand"><img src="../../assets/brand/app-icon.png" width="40" height="40" alt="" /><span>FROST/BYTE</span><small id="welcome-version">VERSION</small></div>
+    <div class="welcome-hero">
+      <div><p class="welcome-eyebrow">YOUR FILES. YOUR DEVICES. YOUR SWARM.</p><h2 id="welcome-title">Welcome to FrostByte <span id="welcome-version-number"></span>.</h2><p class="welcome-intro">Find it. Pull it. Share it. Keep it alive.<br />Models, torrents, and the files worth passing on.</p></div>
+      <div class="welcome-swarm" aria-hidden="true"><span class="swarm-orbit orbit-one"></span><span class="swarm-orbit orbit-two"></span><span class="swarm-core">F/B</span><span class="swarm-node node-one">SEED</span><span class="swarm-node node-two">PEER</span><span class="swarm-node node-three">SHARE</span><span class="swarm-caption">PEER TO PEER</span></div>
+    </div>
+    <div class="welcome-principles">
+      <section><span class="welcome-number">01 / PRIVATE</span><h3>No data collection.</h3><p>No analytics, diagnostics, or automatic feedback. Your library stays on your devices.</p></section>
+      <section><span class="welcome-number">02 / CONNECTED</span><h3>Built for your swarm.</h3><p>Share across your computers and connected devices. You choose what stays available.</p></section>
+      <section><span class="welcome-number">03 / COMMUNITY</span><h3>Your feedback matters.</h3><p>GitHub feedback is optional and public. Nothing is attached or sent automatically.</p></section>
+    </div>
+    <div class="welcome-source"><span class="welcome-source-date">16 OCT 2026</span><div><strong>Source code goes public on Friday.</strong><p>Friday, 16 October 2026 · Updates and pull requests managed regularly by Blackfrost AI/SI.</p></div><button type="button" class="btn" id="welcome-feedback">GitHub feedback ↗</button></div>
+    <p class="welcome-network-note">P2P sharing exposes your network address to peers and can upload while downloading. Only share files you have permission to share. Connected devices may keep sharing after this app closes. Services you choose to contact receive normal connection information.</p>
+    <p id="welcome-status" role="status">Loading terms and privacy…</p>
+    <details><summary>Read the full terms</summary><pre class="legal-document" id="welcome-terms"></pre></details>
+    <details><summary>Read the full privacy notice</summary><pre class="legal-document" id="welcome-privacy"></pre></details>
+    <label class="check welcome-accept"><input type="checkbox" id="accept-terms" required disabled /> I agree to the terms and acknowledge the privacy notice above.</label>
+    <p id="welcome-error" class="inventory-error" role="alert" hidden></p>
+    <div class="modal-acts"><span class="welcome-local">Acceptance is saved on this device only.</span><button type="button" class="btn" id="welcome-quit">Quit</button><button type="submit" class="btn primary" id="welcome-continue" disabled>Agree and start FrostByte →</button></div>
+  </form>
+</dialog>
+<div class="scrim" id="modal" hidden>
+  <div class="modal" id="modal-body" role="dialog" aria-modal="true"></div>
+</div>
+
+<div class="drawer" id="drawer" hidden></div>
+<div class="ctxmenu" id="ctxmenu" hidden></div>
+<div class="toasts" id="toasts"></div>
+<div class="sr-only" id="sheet-sort-announce" aria-live="polite"></div>
+
+<aside class="assistant-panel" id="assistant-panel" aria-label="AI assistant" hidden>
+  <header class="assistant-header"><div><h2>AI Assistant <span class="assistant-beta">Beta Testing</span></h2><p>General chat · runs on your devices</p></div><button type="button" class="btn sm ghost" id="assistant-close" aria-label="Close assistant">×</button></header>
+  <div class="assistant-runtime"><label for="assistant-model-select">Model</label><select id="assistant-model-select"><option>Discovering local models…</option></select><div class="assistant-runtime-meta"><span id="assistant-model-state" role="status">Looking for runtimes on this computer and paired devices…</span><button type="button" class="btn sm ghost" id="assistant-refresh" title="Refresh model discovery">↻</button></div></div>
+  <div class="assistant-body"><div class="assistant-messages" id="assistant-messages" aria-live="polite"><div class="assistant-empty"><span class="assistant-empty-icon">✦</span><h3>Your local AI, ready to chat.</h3><p>Models are found automatically. Choose one to start a general conversation.</p><p class="assistant-caveat">AI can make mistakes. Check important information.</p></div></div><aside class="assistant-history-panel"><h3>On this computer</h3><div id="assistant-history"></div><button type="button" class="btn sm" id="assistant-new">New conversation</button></aside></div>
+  <footer class="assistant-compose"><div id="assistant-error" class="assistant-error" role="alert" hidden></div><textarea id="assistant-input" maxlength="8192" rows="3" placeholder="Ask a local model…" aria-label="Message to local model"></textarea><div class="assistant-compose-actions"><span id="assistant-conversation-label">Local only · no cloud account</span><button type="button" class="btn sm danger" id="assistant-stop" hidden>Stop</button><button type="button" class="btn sm" id="assistant-clear">Clear</button><button type="button" class="btn sm primary" id="assistant-send">Send ↑</button></div></footer>
+</aside>
+<script src="app.js" type="module"></script>
+</body>
+</html>

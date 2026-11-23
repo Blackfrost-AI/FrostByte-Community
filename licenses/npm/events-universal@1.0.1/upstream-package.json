@@ -1,0 +1,11 @@
+{
+  "name": "events-universal",
+  "version": "1.0.1",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/events-universal.git"
+  },
+  "homepage": "https://github.com/holepunchto/events-universal#readme"
+}

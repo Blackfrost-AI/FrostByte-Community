@@ -1,0 +1,11 @@
+{
+  "name": "ip-set",
+  "version": "3.0.0",
+  "license": "MIT",
+  "author": "Travis Fischer <fisch0920@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fisch0920/ip-set.git"
+  },
+  "homepage": "http://webtorrent.io"
+}

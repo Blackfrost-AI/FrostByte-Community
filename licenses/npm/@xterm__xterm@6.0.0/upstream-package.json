@@ -1,0 +1,6 @@
+{
+  "name": "@xterm/xterm",
+  "version": "6.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/xtermjs/xterm.js"
+}

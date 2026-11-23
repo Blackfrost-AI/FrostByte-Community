@@ -1,0 +1,21 @@
+FrostByte Community
+Copyright 2026 Blackfrost Softwares Corp (Blackfrost AI/SI)
+
+Original software distributed as FrostByte Community, including its bundled
+device companion, is licensed under the Apache License, Version 2.0.
+See LICENSE for the full license.
+
+This distribution contains third-party components and fonts with their own
+licenses. See THIRD_PARTY_NOTICES.md and the licenses directory for preserved
+copyright notices, license texts and source locations.
+
+The FrostByte and Blackfrost names and logos identify their respective owner.
+Apache-2.0 does not grant trademark rights beyond those stated in section 6.
+
+Private historical Founders releases, artifacts and documentation are not part
+of this Community distribution and remain under the terms supplied with them.
+This notice does not change rights previously granted for other releases.
+
+Community source publication is prepared in this repository; it becomes public
+when release readiness gates close. Updates and pull requests are managed
+regularly by Blackfrost AI/SI.

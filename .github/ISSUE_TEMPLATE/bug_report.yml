@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in FrostByte misbehaves
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Security issues: do NOT file here** — see SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: FrostByte version
+      placeholder: "2.0.0 (Settings → About)"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [macOS (Apple Silicon), macOS (Intel), Windows x64, Linux x64, Spark/companion]
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs / screenshots
+      description: Redact tokens, SSH keys, and personal paths before pasting.
+    validations:
+      required: false

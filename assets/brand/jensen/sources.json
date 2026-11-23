@@ -1,0 +1,134 @@
+[
+  {
+    "asset": "assets/brand/jensen/jensen-stage-gpu.jpg",
+    "title": "Jensen Huang at SC18 holding NVIDIA GPU accelerator",
+    "author": "Raysonho @ Open Grid Scheduler / Grid Engine",
+    "license": "CC0 1.0 Universal (Public Domain Dedication)",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:JensenHuangSC18.jpg",
+    "sha256": "fc84c836a736b01902b8ddbb9795c3a5eaae7aca6ba6e20b2a58a5fd1a5722b8",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/jensen-leather-jacket.jpg",
+    "title": "Jensen Huang speaking in black leather jacket (2023)",
+    "author": "Office of the President, Republic of China (Taiwan)",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Jensen_Huang_20231109_(cropped2).jpg",
+    "sha256": "b37086e9c07e592e63cdd253df9ac264faf03ba83726591b2756cf7ae3b96f8f",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/jensen-portrait-2024.jpg",
+    "title": "Jensen Huang portrait in black leather jacket (2024)",
+    "author": "Peter Dasilva / European Union, 2024",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Jensen_Huang_(cropped)_(2024).jpg",
+    "sha256": "3ec77a7667c1d74bb0533f70822c47de26e03c3c52c5c74564193baa8c554338",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/jensen-signature.svg",
+    "title": "Jensen Huang vector signature",
+    "author": "Jen-Hsun Huang (vectorized on Wikimedia Commons)",
+    "license": "Public Domain (ineligible for copyright; simple signature)",
+    "source": "https://commons.wikimedia.org/wiki/File:Jensen_Huang_signature.svg",
+    "sha256": "438a15e9a1e81256e3e6abe35426fb1331c8ad42809706fd6d16868e24550ac0",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/leather-grain.svg",
+    "title": "Founders Leather seamless pebble grain tile",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector artwork",
+    "sha256": "d1603d16039ea43ffd52f676e66b898318e26ca3a94e31bca74708b696618137",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-01-dgx-spark.svg",
+    "title": "Dashboard backdrop — DGX Spark & GB10 Coherent Superchip",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "efda8378803dc893f98cc4c2e6336135c2776370504ffe7736d60f1be8c73f6d",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-02-nvlink-fabric.svg",
+    "title": "Discover backdrop — NVLink & Spectrum-X Switch Fabric",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "ece8aa4a56e85e11a94865a720f26228d4d7d803fa1518ac5672a7f283607516",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-03-gpudirect-hbm.svg",
+    "title": "Transfers backdrop — GPUDirect RDMA & HBM3e Tensor Dataflow",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "bda2fe113bd372ec3e5036fc302b6453007357a82a4a1a6558b9de48b1a3e8d5",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-04-nemotron-open.svg",
+    "title": "My Models backdrop — Nemotron & NeMo Open-Weights Architecture",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "80a33d82a342e388217168e886e3f3bcc7c9014f14ea1fa55eb669dbed126c45",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-05-cuda-grid.svg",
+    "title": "Torrents backdrop — CUDA SIMT Parallel Thread Grid",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "2a02c366b87b179b40c7aec09a0e69da1867d6212577c7f71df1ad1a591767b3",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-06-tensor-core.svg",
+    "title": "Models backdrop — Hopper / Blackwell Systolic Tensor Core Array",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "e0ee72545e9d8828e975a08124aed5372271d4097022d0d50f5ed073fa23f291",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-07-grace-blackwell.svg",
+    "title": "Devices backdrop — Grace Hopper & Grace Blackwell Superchips",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "7a545f13f665ab6c1cd18001911dff4b44cd9f4a27984cf551056654294869f7",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/bg-08-omniverse-grid.svg",
+    "title": "Settings backdrop — Omniverse, OpenUSD & RTX Ray-Tracing Grid",
+    "author": "FrostByte contributors",
+    "license": "Apache-2.0",
+    "source": "Original FrostByte vector architectural diagram",
+    "sha256": "573e1af32d3a7cc517f3ac1abf83436f25dae6486991b02b992331a318db5da9",
+    "modified": false
+  },
+  {
+    "asset": "assets/brand/jensen/nvidia-logo.svg",
+    "sha256": "a57774b9491f75b7ac057a0c666952c8882fb0c8cda8e7cced454702491a9c56",
+    "title": "NVIDIA logo (eye + wordmark)",
+    "author": "NVIDIA Corporation (vectorized by Althair on Wikimedia Commons)",
+    "source": "https://commons.wikimedia.org/wiki/File:NVIDIA_logo.svg",
+    "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/NVIDIA_logo.svg",
+    "license": "Public domain (below threshold of originality; simple geometric shapes and text)",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "trademark": "The NVIDIA name, eye device and logo are trademarks of NVIDIA Corporation. Shown in the community Jensen tribute theme for identification and homage only; no rights are claimed and no affiliation or endorsement is implied.",
+    "modifications": "XML prolog and DOCTYPE declaration removed (no external DTD fetch); artwork paths unchanged. Rendered with a CSS brightness filter in the dark theme."
+  }
+]

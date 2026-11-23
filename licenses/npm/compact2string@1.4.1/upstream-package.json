@@ -1,0 +1,10 @@
+{
+  "name": "compact2string",
+  "version": "1.4.1",
+  "license": "BSD",
+  "author": "Ben Evans <ben@bensbit.co.uk> (http://bensbit.co.uk)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bencevans/node-compact2string.git"
+  }
+}

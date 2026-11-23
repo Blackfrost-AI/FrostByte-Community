@@ -1,0 +1,52 @@
+import { StringDecoder } from 'node:string_decoder';
+import { randomBytes } from 'node:crypto';
+
+export const ASSISTANT_CAPABILITY = 1;
+const streamId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{8,80}$/.test(value) ? value : null;
+
+/** Delimited, ordered companion frames. A remote peer cannot supply transport or credentials. */
+export function validateRemoteFrame(frame) {
+  if (!frame || typeof frame !== 'object' || Array.isArray(frame)) throw new Error('Invalid assistant stream.');
+  if (!streamId(frame.stream) || !Number.isSafeInteger(frame.seq) || frame.seq < 1 || frame.seq > 1_000_000) throw new Error('Invalid assistant stream.');
+  if (!['delta', 'reasoning', 'done', 'error', 'cancelled'].includes(frame.type)) throw new Error('Invalid assistant stream.');
+  const carriesText = frame.type === 'delta' || frame.type === 'reasoning';
+  if (carriesText && (typeof frame.text !== 'string' || !frame.text.length || frame.text.length > 16384)) throw new Error('Invalid assistant stream.');
+  const allowed = carriesText ? ['stream', 'seq', 'type', 'text'] : ['stream', 'seq', 'type'];
+  if (Object.keys(frame).some(key => !allowed.includes(key))) throw new Error('Invalid assistant stream.');
+  return { stream: frame.stream, seq: frame.seq, type: frame.type, ...(carriesText ? { text: frame.text } : {}) };
+}
+
+export function newStreamId() { return `s_${randomBytes(18).toString('base64url')}`; }
+
+export class RemoteChatStream {
+  constructor({ stream, send, maxBytes = 4 * 1024 * 1024, maxDurationMs = 600000, idleMs = 90000, onTimeout = () => {} }) {
+    if (!streamId(stream) || typeof send !== 'function') throw new Error('Invalid assistant stream.');
+    this.id = stream; this.send = send; this.expected = 1; this.buffer = ''; this.bytes = 0; this.maxBytes = maxBytes; this.done = false;
+    this.decoder = new StringDecoder('utf8'); this.idleMs = idleMs; this.onTimeout = onTimeout;
+    this.totalTimer = setTimeout(() => { this.done = true; this.onTimeout('The model took too long.'); }, maxDurationMs); this.totalTimer.unref?.();
+    this.idle();
+  }
+  idle() {
+    clearTimeout(this.idleTimer);
+    this.idleTimer = setTimeout(() => { this.done = true; this.onTimeout('The model stopped responding.'); }, this.idleMs); this.idleTimer.unref?.();
+  }
+  push(bytes, onEvent) {
+    if (this.done) return;
+    this.idle(); this.bytes += bytes.length;
+    if (this.bytes > this.maxBytes) { this.done = true; throw new Error('The model response is too large.'); }
+    this.buffer += this.decoder.write(bytes);
+    while (this.buffer.includes('\n')) {
+      const end = this.buffer.indexOf('\n'); const raw = this.buffer.slice(0, end); this.buffer = this.buffer.slice(end + 1);
+      if (!raw.trim()) continue;
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch { this.done = true; throw new Error('Invalid assistant stream.'); }
+      const frame = validateRemoteFrame(parsed);
+      if (frame.stream !== this.id || frame.seq !== this.expected) { this.done = true; throw new Error('Assistant stream is out of order.'); }
+      this.expected += 1;
+      if (frame.type === 'delta' || frame.type === 'reasoning') onEvent({ type: frame.type, text: frame.text });
+      else { this.done = true; this.terminal = true; this.close(); onEvent({ type: frame.type }); return; }
+    }
+  }
+  async cancel() { if (!this.done || !this.terminal) { this.done = true; await this.send({ action: 'assistant:chat:cancel', stream: this.id }); } this.close(); }
+  close() { clearTimeout(this.totalTimer); clearTimeout(this.idleTimer); this.buffer = ''; }
+}

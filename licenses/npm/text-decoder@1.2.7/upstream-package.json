@@ -1,0 +1,11 @@
+{
+  "name": "text-decoder",
+  "version": "1.2.7",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/text-decoder.git"
+  },
+  "homepage": "https://github.com/holepunchto/text-decoder#readme"
+}

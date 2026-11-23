@@ -1,0 +1,11 @@
+{
+  "name": "which-runtime",
+  "version": "1.4.0",
+  "license": "Apache-2.0",
+  "author": "Holepunch Inc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holepunchto/which-runtime.git"
+  },
+  "homepage": "https://github.com/holepunchto/which-runtime"
+}

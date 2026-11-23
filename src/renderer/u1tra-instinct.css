@@ -1,0 +1,95 @@
+/* u1tra_instinct — Keys' pixel laboratory. All artwork and type are local. */
+.keys-welcome, .keys-theme-credit { display: none; }
+[data-theme="u1tra_instinct"] {
+  --lime: #C4FF00;
+  --lime-dim: #A5D900;
+  --lime-glow: #C4FF0018;
+  --lime-line: #C4FF0045;
+  --abyss: #080D06;
+  --surface: #131B0D;
+  --surface-hi: #1C2613;
+  --border: #2A361D;
+  --border-strong: #465833;
+  --text: #F4F1E6;
+  --text-dim: #B0BA9C;
+  --text-faint: #87956F;
+  --warn: #E4BC75;
+  --danger: #FF806C;
+  --info: #9BCBC3;
+  --up: #C4FF00;
+  --down: #9BCBC3;
+  --ui: 'KeysPixel', monospace;
+  --mono: 'KeysPixel', monospace;
+  --radius-panel: 3px;
+  --radius-ctl: 2px;
+  font-synthesis: none;
+}
+[data-theme="u1tra_instinct"] body { font-size: 12px; }
+[data-theme="u1tra_instinct"] :is(button, input, textarea, select, option, pre, code, kbd) { font-family: var(--ui); }
+[data-theme="u1tra_instinct"] .studio-v2 { --studio-reading-font: var(--ui); font-size: 11px; }
+[data-theme="u1tra_instinct"] .titlebar { background: var(--abyss); border-bottom-color: var(--lime-line); }
+[data-theme="u1tra_instinct"] .brand { font-size: 13px; gap: 5px; letter-spacing: .02em; }
+[data-theme="u1tra_instinct"] .brand-icon { width: 22px; height: 28px; border-radius: 0; image-rendering: pixelated; object-fit: contain; }
+[data-theme="u1tra_instinct"] .brand small { font-size: 9px; }
+[data-theme="u1tra_instinct"] .sidebar,
+[data-theme="u1tra_instinct"] .studio-session-rail { background: var(--abyss); }
+[data-theme="u1tra_instinct"] .nav { border-radius: 2px; font-size: 11px; }
+[data-theme="u1tra_instinct"] .nav.on { background: var(--lime); color: var(--abyss); border-left-color: var(--lime); }
+[data-theme="u1tra_instinct"] .nav.on .ct { color: var(--abyss); }
+[data-theme="u1tra_instinct"] .navlabel { color: var(--text-faint); font-size: 10px; letter-spacing: .08em; }
+[data-theme="u1tra_instinct"] .btn,
+[data-theme="u1tra_instinct"] .search,
+[data-theme="u1tra_instinct"] .omnisearch { border-radius: 2px; }
+[data-theme="u1tra_instinct"] .btn.primary { color: var(--abyss); background: var(--lime); border-color: var(--lime); }
+[data-theme="u1tra_instinct"] .keys-theme-credit { display: flex; align-items: center; gap: 10px; padding: 14px; border-top: 1px solid var(--border); }
+.keys-theme-credit img { width: 34px; height: 34px; image-rendering: pixelated; }
+.keys-theme-credit > span { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.keys-theme-credit b { font-size: 11px; color: var(--text); font-weight: 400; }
+.keys-theme-credit small { font-size: 8px; color: var(--text-dim); }
+[data-theme="u1tra_instinct"] .studio-rail-brand { gap: 7px; }
+[data-theme="u1tra_instinct"] .studio-rail-heading strong { font-size: 11px; }
+[data-theme="u1tra_instinct"] .studio-rail-heading small { font-size: 8px; letter-spacing: .02em; }
+[data-theme="u1tra_instinct"] .studio-brand-mark { border: none; background: url('../../assets/brand/keys-vial.svg') center / 16px 24px no-repeat; }
+[data-theme="u1tra_instinct"] .studio-brand-mark svg { visibility: hidden; }
+[data-theme="u1tra_instinct"] .studio-new-thread { min-height: 34px; border-radius: 2px; border-color: var(--lime-line); }
+[data-theme="u1tra_instinct"] .studio-new-thread.is-active { color: var(--abyss); background: var(--lime); }
+[data-theme="u1tra_instinct"] .studio-status-dot { border-radius: 0; box-shadow: none; }
+[data-theme="u1tra_instinct"] .studio-chat-panel {
+  container-type: inline-size;
+  container-name: keys-chat;
+  background-image: linear-gradient(#C4FF0005 1px, transparent 1px), linear-gradient(90deg, #C4FF0005 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+[data-theme="u1tra_instinct"] .studio-chat-welcome { max-width: 720px; margin-top: min(5vh, 44px); }
+[data-theme="u1tra_instinct"] .studio-chat-welcome > :is(.studio-welcome-mark, h2, p) { display: none; }
+[data-theme="u1tra_instinct"] .keys-welcome { display: flex; align-items: center; justify-content: center; gap: 24px; width: 100%; margin-bottom: 30px; text-align: left; }
+.keys-welcome-avatar { width: 144px; height: 144px; flex: 0 0 auto; image-rendering: pixelated; border: 1px solid var(--lime); box-shadow: 8px 8px 0 var(--lime-glow); }
+.keys-welcome-copy { min-width: 0; }
+.keys-welcome-copy > span { color: var(--text-dim); font-size: 11px; letter-spacing: .08em; }
+.keys-welcome-copy h2 { font-size: 33px; line-height: 1.35; font-weight: 400; letter-spacing: 0; white-space: nowrap; margin: 8px 0 !important; }
+.keys-welcome-copy p { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 16.5px; margin: 8px 0 18px; }
+.keys-welcome-copy p img { width: 16px; height: 24px; image-rendering: pixelated; }
+.keys-welcome-copy small { display: block; max-width: 34ch; font-size: 11px; line-height: 1.7; color: var(--text-dim); }
+[data-theme="u1tra_instinct"] .studio-capability-grid > span { border-color: var(--lime-line); background: var(--abyss); border-radius: 2px; }
+[data-theme="u1tra_instinct"] .studio-capability-grid b { font-size: 11px; }
+[data-theme="u1tra_instinct"] .studio-capability-grid small { font-size: 10px; }
+[data-theme="u1tra_instinct"] .studio-composer { border-color: var(--lime-line); border-radius: 3px; box-shadow: none; }
+[data-theme="u1tra_instinct"] .studio-composer:focus-within { border-color: var(--lime); box-shadow: 0 0 0 1px var(--lime-line); }
+[data-theme="u1tra_instinct"] .studio-composer textarea { font-size: 14px; line-height: 1.75; }
+[data-theme="u1tra_instinct"] .studio-composer-note { display: inline-flex; align-items: center; gap: 8px; }
+[data-theme="u1tra_instinct"] .studio-composer-note::before { content: ''; width: 12px; height: 18px; background: url('../../assets/brand/keys-vial.svg') center / contain no-repeat; }
+[data-theme="u1tra_instinct"] .studio-rich-text { font-size: 14px; line-height: 1.85; }
+[data-theme="u1tra_instinct"] .studio-message.is-user .studio-message-content { border-radius: 4px; border: 1px solid var(--border-strong); }
+[data-theme="u1tra_instinct"] .studio-reasoning { font-size: 11px; }
+[data-theme="u1tra_instinct"] .studio-send-button { border-radius: 2px; }
+[data-theme="u1tra_instinct"] .studio-statusbar { font-size: 9px; }
+@container keys-chat (max-width: 620px) {
+  [data-theme="u1tra_instinct"] .keys-welcome { flex-direction: column; gap: 22px; text-align: center; }
+  [data-theme="u1tra_instinct"] .keys-welcome-copy h2 { font-size: 33px; }
+  [data-theme="u1tra_instinct"] .keys-welcome-copy p { justify-content: center; }
+  [data-theme="u1tra_instinct"] .keys-welcome-avatar { width: 120px; height: 120px; }
+}
+@container keys-chat (max-width: 430px) {
+  [data-theme="u1tra_instinct"] .keys-welcome-copy h2 { font-size: 22px; }
+  [data-theme="u1tra_instinct"] .studio-capability-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,8 @@
+{
+  "_readme": [
+    "Frost/Byte catalog. Starts empty; add your own magnet links or import a catalog URL.",
+    "Bundled demo entries have been removed. Development fixtures live in scripts/preview.html."
+  ],
+  "version": 1,
+  "models": []
+}

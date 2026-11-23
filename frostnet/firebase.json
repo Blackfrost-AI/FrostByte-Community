@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "site": "frostnet-si",
+    "public": "public",
+    "ignore": ["**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {"source": "/v1/**", "function": {"functionId": "frostnetApi", "region": "us-central1"}},
+      {"source": "/releases/**", "destination": "/index.html"}
+    ],
+    "headers": [{"source": "**", "headers": [
+      {"key": "X-Content-Type-Options", "value": "nosniff"},
+      {"key": "Referrer-Policy", "value": "no-referrer"},
+      {"key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"},
+      {"key": "Cache-Control", "value": "public, max-age=300"}
+    ]}]
+  },
+  "functions": [{"source": "functions", "codebase": "frostnet", "runtime": "nodejs22", "ignore": ["node_modules", ".git", "*.log", ".env.local"]}],
+  "firestore": [{"database": "frostnet", "rules": "firestore.rules", "indexes": "firestore.indexes.json"}],
+  "emulators": {"hosting": {"port": 5180}, "functions": {"port": 5181}, "firestore": {"port": 8180}, "singleProjectMode": true}
+}

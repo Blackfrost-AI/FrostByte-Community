@@ -1,0 +1,10 @@
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import { onRequest } from 'firebase-functions/v2/https';
+import { defineString } from 'firebase-functions/params';
+import { createApi } from './api.js';
+import { FirestoreDirectory } from './firestore-directory.js';
+initializeApp();
+const tokenHash = defineString('FROSTNET_PUBLISHER_TOKEN_SHA256', { default: '', description: 'SHA-256 of an owner-generated Frostnet token; empty disables publishing.' });
+const directory = new FirestoreDirectory(getFirestore('frostnet'));
+export const frostnetApi = onRequest({ region: 'us-central1', maxInstances: 2, minInstances: 0, concurrency: 20, memory: '256MiB', timeoutSeconds: 30, cors: false, invoker: 'public' }, createApi({ storage: directory, tokenHash: () => tokenHash.value() }));

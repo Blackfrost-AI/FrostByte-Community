@@ -1,0 +1,14 @@
+{
+  "name": "string2compact",
+  "version": "2.0.2",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent, LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/string2compact.git"
+  }
+}

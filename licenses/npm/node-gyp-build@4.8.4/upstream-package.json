@@ -1,0 +1,11 @@
+{
+  "name": "node-gyp-build",
+  "version": "4.8.4",
+  "license": "MIT",
+  "author": "Mathias Buus (@mafintosh)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prebuild/node-gyp-build.git"
+  },
+  "homepage": "https://github.com/prebuild/node-gyp-build"
+}

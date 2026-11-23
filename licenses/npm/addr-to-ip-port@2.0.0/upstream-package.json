@@ -1,0 +1,15 @@
+{
+  "name": "addr-to-ip-port",
+  "version": "2.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent, LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/addr-to-ip-port.git"
+  },
+  "homepage": "https://github.com/webtorrent/addr-to-ip-port"
+}

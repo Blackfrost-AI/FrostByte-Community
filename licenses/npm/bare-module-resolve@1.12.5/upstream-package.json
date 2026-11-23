@@ -1,0 +1,11 @@
+{
+  "name": "bare-module-resolve",
+  "version": "1.12.5",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-module-resolve.git"
+  },
+  "homepage": "https://github.com/holepunchto/bare-module-resolve#readme"
+}

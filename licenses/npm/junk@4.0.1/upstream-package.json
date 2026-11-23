@@ -1,0 +1,11 @@
+{
+  "name": "junk",
+  "version": "4.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com"
+  },
+  "repository": "sindresorhus/junk"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "chrome-net",
+  "version": "3.3.4",
+  "license": "MIT",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org"
+  },
+  "contributors": [
+    "John Hiesey <john@hiesey.com>",
+    "Jan Schär <jscissr@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/chrome-net.git"
+  },
+  "homepage": "https://github.com/feross/chrome-net"
+}

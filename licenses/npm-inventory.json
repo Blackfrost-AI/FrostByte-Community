@@ -1,0 +1,1190 @@
+[
+  {
+    "name": "@scure/base@1.2.6",
+    "license": "MIT",
+    "notices": "licenses/npm/@scure__base@1.2.6",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@scure/bip39@1.5.4",
+    "license": "MIT",
+    "notices": "licenses/npm/@scure__bip39@1.5.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@noble/hashes@1.7.2",
+    "license": "MIT",
+    "notices": "licenses/npm/@noble__hashes@1.7.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@silentbot1/nat-api@0.4.9",
+    "license": "MIT",
+    "notices": "licenses/npm/@silentbot1__nat-api@0.4.9",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@thaunknown/simple-peer@10.1.2",
+    "license": "MIT",
+    "notices": "licenses/npm/@thaunknown__simple-peer@10.1.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "streamx@2.28.1",
+    "license": "MIT",
+    "notices": "licenses/npm/streamx@2.28.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@thaunknown/simple-websocket@9.1.5",
+    "license": "MIT",
+    "notices": "licenses/npm/@thaunknown__simple-websocket@9.1.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "streamx@2.28.1",
+    "license": "MIT",
+    "notices": "licenses/npm/streamx@2.28.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@thaunknown/thirty-two@1.0.6",
+    "license": "MIT",
+    "notices": "licenses/npm/@thaunknown__thirty-two@1.0.6",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@webtorrent/http-node@1.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/@webtorrent__http-node@1.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@xterm/addon-fit@0.11.0",
+    "license": "MIT",
+    "notices": "licenses/npm/@xterm__addon-fit@0.11.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "@xterm/xterm@6.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/@xterm__xterm@6.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "abort-controller@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/abort-controller@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "addr-to-ip-port@2.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/addr-to-ip-port@2.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "asn1@0.2.6",
+    "license": "MIT",
+    "notices": "licenses/npm/asn1@0.2.6",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "b4a@1.8.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/b4a@1.8.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-addon-resolve@1.10.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-addon-resolve@1.10.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-events@2.9.2",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-events@2.9.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-fs@4.8.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-fs@4.8.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-module-resolve@1.12.5",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-module-resolve@1.12.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-path@3.1.2",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-path@3.1.2",
+    "originalNoticeFiles": 2
+  },
+  {
+    "name": "bare-semver@1.1.0",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-semver@1.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-stream@2.13.4",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-stream@2.13.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "streamx@2.28.1",
+    "license": "MIT",
+    "notices": "licenses/npm/streamx@2.28.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bare-url@2.5.4",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/bare-url@2.5.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "base64-js@1.5.1",
+    "license": "MIT",
+    "notices": "licenses/npm/base64-js@1.5.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bcrypt-pbkdf@1.0.2",
+    "license": "BSD-3-Clause",
+    "notices": "licenses/npm/bcrypt-pbkdf@1.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bencode@4.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/bencode@4.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bep53-range@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/bep53-range@2.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bitfield@5.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/bitfield@5.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bittorrent-dht@11.0.12",
+    "license": "MIT",
+    "notices": "licenses/npm/bittorrent-dht@11.0.12",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bittorrent-lsd@2.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/bittorrent-lsd@2.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bittorrent-peerid@2.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/bittorrent-peerid@2.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bittorrent-protocol@5.0.9",
+    "license": "MIT",
+    "notices": "licenses/npm/bittorrent-protocol@5.0.9",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bittorrent-tracker@11.2.3",
+    "license": "MIT",
+    "notices": "licenses/npm/bittorrent-tracker@11.2.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bl@4.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/bl@4.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "block-iterator@1.1.2",
+    "license": "MIT",
+    "notices": "licenses/npm/block-iterator@1.1.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "buffer@5.7.1",
+    "license": "MIT",
+    "notices": "licenses/npm/buffer@5.7.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bufferutil@4.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/bufferutil@4.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "buildcheck@0.0.7",
+    "license": "MIT",
+    "notices": "licenses/npm/buildcheck@0.0.7",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "cache-chunk-store@3.2.2",
+    "license": "MIT",
+    "notices": "licenses/npm/cache-chunk-store@3.2.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "chownr@1.1.4",
+    "license": "ISC",
+    "notices": "licenses/npm/chownr@1.1.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "chrome-dgram@3.0.6",
+    "license": "MIT",
+    "notices": "licenses/npm/chrome-dgram@3.0.6",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "chrome-dns@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/chrome-dns@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "chrome-net@3.3.4",
+    "license": "MIT",
+    "notices": "licenses/npm/chrome-net@3.3.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "chunk-store-iterator@1.0.4",
+    "license": "MIT",
+    "notices": "licenses/npm/chunk-store-iterator@1.0.4",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "compact2string@1.4.1",
+    "license": "BSD",
+    "notices": "licenses/npm/compact2string@1.4.1",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "cpu-features@0.0.10",
+    "license": "MIT",
+    "notices": "licenses/npm/cpu-features@0.0.10",
+    "originalNoticeFiles": 2
+  },
+  {
+    "name": "cpus@1.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/cpus@1.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "create-torrent@6.1.3",
+    "license": "MIT",
+    "notices": "licenses/npm/create-torrent@6.1.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "cross-fetch-ponyfill@1.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/cross-fetch-ponyfill@1.0.3",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "cross-spawn@7.0.6",
+    "license": "MIT",
+    "notices": "licenses/npm/cross-spawn@7.0.6",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "data-uri-to-buffer@4.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/data-uri-to-buffer@4.0.1",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "debug@4.4.3",
+    "license": "MIT",
+    "notices": "licenses/npm/debug@4.4.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "decompress-response@6.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/decompress-response@6.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "mimic-response@3.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/mimic-response@3.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "deep-extend@0.6.0",
+    "license": "MIT",
+    "notices": "licenses/npm/deep-extend@0.6.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "default-gateway@7.2.2",
+    "license": "BSD-2-Clause",
+    "notices": "licenses/npm/default-gateway@7.2.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "detect-libc@2.1.2",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/detect-libc@2.1.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "end-of-stream@1.4.5",
+    "license": "MIT",
+    "notices": "licenses/npm/end-of-stream@1.4.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "err-code@3.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/err-code@3.0.1",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "escape-html@1.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/escape-html@1.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "event-target-shim@5.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/event-target-shim@5.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "events-universal@1.0.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/events-universal@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "execa@7.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/execa@7.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "get-stream@6.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/get-stream@6.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "expand-template@2.0.3",
+    "license": "(MIT OR WTFPL)",
+    "notices": "licenses/npm/expand-template@2.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "fast-fifo@1.3.2",
+    "license": "MIT",
+    "notices": "licenses/npm/fast-fifo@1.3.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "fast-readable-async-iterator@2.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/fast-readable-async-iterator@2.0.0",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "fetch-blob@3.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/fetch-blob@3.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "filename-reserved-regex@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/filename-reserved-regex@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "formdata-polyfill@4.0.10",
+    "license": "MIT",
+    "notices": "licenses/npm/formdata-polyfill@4.0.10",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "freelist@1.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/freelist@1.0.3",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "fs-chunk-store@5.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/fs-chunk-store@5.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "fs-constants@1.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/fs-constants@1.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "fs-native-extensions@1.5.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/fs-native-extensions@1.5.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "fsa-chunk-store@1.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/fsa-chunk-store@1.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "get-stdin@10.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/get-stdin@10.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "github-from-package@0.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/github-from-package@0.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "http-parser-js@0.4.13",
+    "license": "MIT",
+    "notices": "licenses/npm/http-parser-js@0.4.13",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "human-signals@4.3.1",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/human-signals@4.3.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ieee754@1.2.1",
+    "license": "BSD-3-Clause",
+    "notices": "licenses/npm/ieee754@1.2.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "immediate-chunk-store@2.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/immediate-chunk-store@2.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "inherits@2.0.4",
+    "license": "ISC",
+    "notices": "licenses/npm/inherits@2.0.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ini@1.3.8",
+    "license": "ISC",
+    "notices": "licenses/npm/ini@1.3.8",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ip@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/ip@2.0.1",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "ip-address@10.7.4",
+    "license": "MIT",
+    "notices": "licenses/npm/ip-address@10.7.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ip-set@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/ip-set@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ipaddr.js@2.5.0",
+    "license": "MIT",
+    "notices": "licenses/npm/ipaddr.js@2.5.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "is-file@1.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/is-file@1.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "is-stream@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/is-stream@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "isexe@2.0.0",
+    "license": "ISC",
+    "notices": "licenses/npm/isexe@2.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "join-async-iterator@1.1.1",
+    "license": "MIT",
+    "notices": "licenses/npm/join-async-iterator@1.1.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "junk@4.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/junk@4.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "k-bucket@5.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/k-bucket@5.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "k-rpc@5.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/k-rpc@5.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "k-rpc-socket@1.11.1",
+    "license": "MIT",
+    "notices": "licenses/npm/k-rpc-socket@1.11.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "bencode@2.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/bencode@2.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "last-one-wins@1.0.4",
+    "license": "MIT",
+    "notices": "licenses/npm/last-one-wins@1.0.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "limiter@1.1.5",
+    "license": "MIT",
+    "notices": "licenses/npm/limiter@1.1.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "load-ip-set@3.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/load-ip-set@3.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "lru@3.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/lru@3.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "lt_donthave@2.0.7",
+    "license": "MIT",
+    "notices": "licenses/npm/lt_donthave@2.0.7",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "magnet-uri@7.0.10",
+    "license": "MIT",
+    "notices": "licenses/npm/magnet-uri@7.0.10",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "memory-chunk-store@1.3.5",
+    "license": "MIT",
+    "notices": "licenses/npm/memory-chunk-store@1.3.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "merge-stream@2.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/merge-stream@2.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "mime@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/mime@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "mimic-fn@4.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/mimic-fn@4.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "minimist@1.2.8",
+    "license": "MIT",
+    "notices": "licenses/npm/minimist@1.2.8",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "mkdirp-classic@0.5.3",
+    "license": "MIT",
+    "notices": "licenses/npm/mkdirp-classic@0.5.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "monaco-editor@0.53.0",
+    "license": "MIT",
+    "notices": "licenses/npm/monaco-editor@0.53.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ms@2.1.3",
+    "license": "MIT",
+    "notices": "licenses/npm/ms@2.1.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "multiformats@14.0.5",
+    "license": "Apache-2.0 OR MIT",
+    "notices": "licenses/npm/multiformats@14.0.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "nan@2.28.0",
+    "license": "MIT",
+    "notices": "licenses/npm/nan@2.28.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "napi-build-utils@2.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/napi-build-utils@2.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "napi-macros@2.2.2",
+    "license": "MIT",
+    "notices": "licenses/npm/napi-macros@2.2.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "netmask@2.1.1",
+    "license": "MIT",
+    "notices": "licenses/npm/netmask@2.1.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "node-abi@3.96.0",
+    "license": "MIT",
+    "notices": "licenses/npm/node-abi@3.96.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "node-datachannel@0.32.3",
+    "license": "MPL 2.0",
+    "notices": "licenses/npm/node-datachannel@0.32.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "node-domexception@1.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/node-domexception@1.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "node-fetch@3.3.2",
+    "license": "MIT",
+    "notices": "licenses/npm/node-fetch@3.3.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "node-gyp-build@4.8.4",
+    "license": "MIT",
+    "notices": "licenses/npm/node-gyp-build@4.8.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "npm-run-path@5.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/npm-run-path@5.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "path-key@4.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/path-key@4.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "once@1.4.0",
+    "license": "ISC",
+    "notices": "licenses/npm/once@1.4.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "onetime@6.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/onetime@6.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "parse-torrent@11.0.24",
+    "license": "MIT",
+    "notices": "licenses/npm/parse-torrent@11.0.24",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "path-key@3.1.1",
+    "license": "MIT",
+    "notices": "licenses/npm/path-key@3.1.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "piece-length@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/piece-length@2.0.1",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "prebuild-install@7.1.3",
+    "license": "MIT",
+    "notices": "licenses/npm/prebuild-install@7.1.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "pump@3.0.4",
+    "license": "MIT",
+    "notices": "licenses/npm/pump@3.0.4",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "queue-microtask@1.2.3",
+    "license": "MIT",
+    "notices": "licenses/npm/queue-microtask@1.2.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "queue-tick@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/queue-tick@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "random-access-file@4.1.2",
+    "license": "MIT",
+    "notices": "licenses/npm/random-access-file@4.1.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "random-access-storage@3.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/random-access-storage@3.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "random-iterate@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/random-iterate@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "randombytes@2.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/randombytes@2.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "range-parser@1.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/range-parser@1.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "rc@1.2.8",
+    "license": "(BSD-2-Clause OR MIT OR Apache-2.0)",
+    "notices": "licenses/npm/rc@1.2.8",
+    "originalNoticeFiles": 3
+  },
+  {
+    "name": "react@19.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/react@19.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "react-dom@19.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/react-dom@19.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "readable-stream@3.6.2",
+    "license": "MIT",
+    "notices": "licenses/npm/readable-stream@3.6.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "record-cache@1.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/record-cache@1.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "require-addon@1.3.0",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/require-addon@1.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "run-parallel@1.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/run-parallel@1.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "run-parallel-limit@1.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/run-parallel-limit@1.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "run-series@1.1.9",
+    "license": "MIT",
+    "notices": "licenses/npm/run-series@1.1.9",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "safe-buffer@5.2.1",
+    "license": "MIT",
+    "notices": "licenses/npm/safe-buffer@5.2.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "safer-buffer@2.1.2",
+    "license": "MIT",
+    "notices": "licenses/npm/safer-buffer@2.1.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "sax@1.6.1",
+    "license": "BlueOak-1.0.0",
+    "notices": "licenses/npm/sax@1.6.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "scheduler@0.28.0",
+    "license": "MIT",
+    "notices": "licenses/npm/scheduler@0.28.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "semver@7.8.5",
+    "license": "ISC",
+    "notices": "licenses/npm/semver@7.8.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "shebang-command@2.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/shebang-command@2.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "shebang-regex@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/shebang-regex@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "signal-exit@3.0.7",
+    "license": "ISC",
+    "notices": "licenses/npm/signal-exit@3.0.7",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "simple-concat@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/simple-concat@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "simple-get@4.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/simple-get@4.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "smart-buffer@4.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/smart-buffer@4.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "socks@2.8.10",
+    "license": "MIT",
+    "notices": "licenses/npm/socks@2.8.10",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "speed-limiter@1.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/speed-limiter@1.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "split@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/split@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ssh2@1.17.0",
+    "license": "MIT",
+    "notices": "licenses/npm/ssh2@1.17.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "streamx@2.28.0",
+    "license": "MIT",
+    "notices": "licenses/npm/streamx@2.28.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "string_decoder@1.3.0",
+    "license": "MIT",
+    "notices": "licenses/npm/string_decoder@1.3.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "string2compact@2.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/string2compact@2.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ipaddr.js@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/ipaddr.js@2.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "strip-final-newline@3.0.0",
+    "license": "MIT",
+    "notices": "licenses/npm/strip-final-newline@3.0.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "strip-json-comments@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/strip-json-comments@2.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "tar-fs@2.1.5",
+    "license": "MIT",
+    "notices": "licenses/npm/tar-fs@2.1.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "tar-stream@2.2.0",
+    "license": "MIT",
+    "notices": "licenses/npm/tar-stream@2.2.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "teex@1.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/teex@1.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "text-decoder@1.2.7",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/text-decoder@1.2.7",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "through@2.3.8",
+    "license": "MIT",
+    "notices": "licenses/npm/through@2.3.8",
+    "originalNoticeFiles": 2
+  },
+  {
+    "name": "throughput@1.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/throughput@1.0.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "thunky@1.1.0",
+    "license": "MIT",
+    "notices": "licenses/npm/thunky@1.1.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "timeout-refresh@1.0.3",
+    "license": "MIT",
+    "notices": "licenses/npm/timeout-refresh@1.0.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "torrent-discovery@11.0.21",
+    "license": "MIT",
+    "notices": "licenses/npm/torrent-discovery@11.0.21",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "torrent-piece@4.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/torrent-piece@4.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "tunnel-agent@0.6.0",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/tunnel-agent@0.6.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "tweetnacl@0.14.5",
+    "license": "Unlicense",
+    "notices": "licenses/npm/tweetnacl@0.14.5",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "uint8-util@2.3.2",
+    "license": "MIT",
+    "notices": "licenses/npm/uint8-util@2.3.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "unordered-array-remove@1.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/unordered-array-remove@1.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "unordered-set@2.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/unordered-set@2.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ut_metadata@5.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/ut_metadata@5.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ut_pex@5.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/ut_pex@5.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "utf-8-validate@6.0.6",
+    "license": "MIT",
+    "notices": "licenses/npm/utf-8-validate@6.0.6",
+    "originalNoticeFiles": 2
+  },
+  {
+    "name": "util-deprecate@1.0.2",
+    "license": "MIT",
+    "notices": "licenses/npm/util-deprecate@1.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "utp-native@2.5.3",
+    "license": "MIT",
+    "notices": "licenses/npm/utp-native@2.5.3",
+    "originalNoticeFiles": 2
+  },
+  {
+    "name": "web-streams-polyfill@3.3.3",
+    "license": "MIT",
+    "notices": "licenses/npm/web-streams-polyfill@3.3.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "webrtc-polyfill@1.2.2",
+    "license": "MIT",
+    "notices": "licenses/npm/webrtc-polyfill@1.2.2",
+    "originalNoticeFiles": 0
+  },
+  {
+    "name": "webtorrent@3.0.21",
+    "license": "MIT",
+    "notices": "licenses/npm/webtorrent@3.0.21",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "which@2.0.2",
+    "license": "ISC",
+    "notices": "licenses/npm/which@2.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "which-runtime@1.4.0",
+    "license": "Apache-2.0",
+    "notices": "licenses/npm/which-runtime@1.4.0",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "wrappy@1.0.2",
+    "license": "ISC",
+    "notices": "licenses/npm/wrappy@1.0.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "ws@8.21.3",
+    "license": "MIT",
+    "notices": "licenses/npm/ws@8.21.3",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "xml2js@0.6.2",
+    "license": "MIT",
+    "notices": "licenses/npm/xml2js@0.6.2",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "xmlbuilder@11.0.1",
+    "license": "MIT",
+    "notices": "licenses/npm/xmlbuilder@11.0.1",
+    "originalNoticeFiles": 1
+  },
+  {
+    "name": "zustand@5.0.15",
+    "license": "MIT",
+    "notices": "licenses/npm/zustand@5.0.15",
+    "originalNoticeFiles": 1
+  }
+]

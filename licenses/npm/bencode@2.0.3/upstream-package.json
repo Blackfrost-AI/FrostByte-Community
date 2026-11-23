@@ -1,0 +1,21 @@
+{
+  "name": "bencode",
+  "version": "2.0.3",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Mark Schmale",
+      "email": "masch@masch.it",
+      "url": "http://masch.it/"
+    },
+    {
+      "name": "Jonas Hermsmeier",
+      "email": "jhermsmeier@gmail.com",
+      "url": "https://jhermsmeier.de/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/themasch/node-bencode.git"
+  }
+}

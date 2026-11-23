@@ -1,0 +1,135 @@
+name: Package private Windows build
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-package-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    if: github.event.repository.private == true
+    # FrostByte ships a single edition (Founders Edition retired — see
+    # docs/FOUNDERS-EDITION-RETIRED.md). Produces private Actions artifacts.
+    runs-on: windows-2025
+    timeout-minutes: 40
+    env:
+      CI: 'true'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      FROSTBYTE_TEST_SPARK: ''
+      FROSTBYTE_EDITION: community
+      # electron-builder 26.15.x's bundled NSIS decoder cannot decode BCJ2.
+      ELECTRON_BUILDER_7Z_FILTER: BCJ
+    steps:
+      - name: Check out frozen source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.source_commit }}
+          persist-credentials: false
+      - name: Verify frozen source identity
+        shell: bash
+        env:
+          SOURCE_COMMIT: ${{ inputs.source_commit }}
+        run: |
+          [[ "$SOURCE_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Resolve package release profile
+        id: release
+        shell: bash
+        run: node scripts/release.mjs profile >> "$GITHUB_OUTPUT"
+      - name: Install npm with strict lifecycle-script enforcement
+        run: npm install --global npm@11.17.0 --ignore-scripts --no-audit --no-fund
+      - name: Install native Windows dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Enforce production dependency advisory policy
+        run: npm run audit:production
+      - name: Verify Windows runtime paths and arguments
+        run: node --test tests/windows-runtime.test.js
+      - name: Check saved-directory model discovery
+        run: node --test tests/model-library.test.js
+      - name: Check release hardening configuration
+        run: npm run test:release
+      - name: Build hardened Windows installers
+        run: npm run dist:win
+      - name: Verify native IPFS transfers and AEON capabilities
+        run: npm run test:ipfs
+      - name: Verify packaged startup, isolated installer, and source desktop fixtures
+        shell: pwsh
+        run: |
+          $installer = (Get-ChildItem "${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-win-x64-setup.exe" -File | Select-Object -First 1).FullName
+          npm run test:packaged -- ${{ steps.release.outputs.packaged_test_argument }} "${{ steps.release.outputs.directory }}/win-unpacked" --installer $installer --isolated-installer-check `
+            tests/e2e/renderer-trust.spec.js `
+            tests/e2e/device-approvals.spec.js `
+            tests/e2e/model-scan.spec.js `
+            tests/e2e/discovery-drop.spec.js `
+            tests/e2e/aeon-ipfs.spec.js `
+            tests/e2e/hf-picker.spec.js `
+            tests/e2e/spark-onboarding.spec.js `
+            tests/e2e/spark-pairing.spec.js `
+            tests/e2e/publisher.spec.js `
+            tests/e2e/windows-compat.spec.js `
+            tests/e2e/updates-hybrid.spec.js
+      - name: Verify edition gating
+        # community.spec.js asserts the retired Founders chrome is absent.
+        shell: pwsh
+        run: >-
+          npm run test:packaged --
+          ${{ steps.release.outputs.packaged_test_argument }}
+          "${{ steps.release.outputs.directory }}/win-unpacked"
+          tests/e2e/community.spec.js
+      - name: Create installer checksums
+        shell: pwsh
+        run: |
+          $checksums = Get-ChildItem "${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-win-*" -File |
+            Where-Object { $_.Extension -in '.exe', '.zip' } |
+            Sort-Object Name |
+            ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name }
+          if ($checksums.Count -ne 2) { throw 'Expected the Windows installer and ZIP.' }
+          $checksums | Set-Content -Encoding utf8NoBOM "${{ steps.release.outputs.directory }}/SHA256SUMS-windows"
+      - name: Save private installers
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ steps.release.outputs.artifact_prefix }}-win-x64-${{ github.run_number }}
+          path: |
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-win-*.exe
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-win-*.zip
+            ${{ steps.release.outputs.directory }}/SHA256SUMS-windows
+            ${{ steps.release.outputs.directory }}/build-info-win32-x64.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Save fixture diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: windows-fixture-diagnostics-${{ github.run_number }}
+          path: test-results/
+          if-no-files-found: ignore
+      - name: Save fixture diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: windows-fixture-diagnostics-${{ github.run_number }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14

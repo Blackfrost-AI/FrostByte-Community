@@ -1,0 +1,15 @@
+{
+  "name": "cache-chunk-store",
+  "version": "3.2.2",
+  "license": "MIT",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/cache-chunk-store.git"
+  },
+  "homepage": "https://github.com/feross/cache-chunk-store"
+}

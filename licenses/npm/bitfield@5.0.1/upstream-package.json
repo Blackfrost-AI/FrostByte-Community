@@ -1,0 +1,10 @@
+{
+  "name": "bitfield",
+  "version": "5.0.1",
+  "license": "MIT",
+  "author": "Felix Boehm <me@feedic.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fb55/bitfield"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "k-rpc-socket",
+  "version": "1.11.1",
+  "license": "MIT",
+  "author": "Mathias Buus (@mafintosh)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/k-rpc-socket.git"
+  },
+  "homepage": "https://github.com/mafintosh/k-rpc-socket"
+}

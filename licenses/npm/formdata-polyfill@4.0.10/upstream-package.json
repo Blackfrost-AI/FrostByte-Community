@@ -1,0 +1,11 @@
+{
+  "name": "formdata-polyfill",
+  "version": "4.0.10",
+  "license": "MIT",
+  "author": "Jimmy Wärting",
+  "repository": {
+    "type": "git",
+    "url": "git+https://jimmywarting@github.com/jimmywarting/FormData.git"
+  },
+  "homepage": "https://github.com/jimmywarting/FormData#readme"
+}

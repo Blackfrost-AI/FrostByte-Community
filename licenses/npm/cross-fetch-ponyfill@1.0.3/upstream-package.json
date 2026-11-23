@@ -1,0 +1,11 @@
+{
+  "name": "cross-fetch-ponyfill",
+  "version": "1.0.3",
+  "license": "MIT",
+  "author": "ThaUnknown",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaUnknown/cross-fetch-ponyfill.git"
+  },
+  "homepage": "https://github.com/ThaUnknown/cross-fetch-ponyfill#readme"
+}

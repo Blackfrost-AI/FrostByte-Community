@@ -1,0 +1,14 @@
+{
+  "name": "torrent-discovery",
+  "version": "11.0.21",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/torrent-discovery.git"
+  }
+}

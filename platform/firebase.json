@@ -1,0 +1,23 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "hub",
+      "runtime": "nodejs22",
+      "ignore": ["node_modules", ".git", "*.log", ".env.local", "test"]
+    }
+  ],
+  "firestore": [
+    {
+      "database": "blackfrost-hub",
+      "rules": "firestore.rules",
+      "indexes": "firestore.indexes.json"
+    }
+  ],
+  "emulators": {
+    "functions": { "port": 5191 },
+    "firestore": { "port": 8190 },
+    "ui": { "enabled": false },
+    "singleProjectMode": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "notice": "PUBLIC TEST VECTOR ONLY. Never use this recovery phrase for a real identity.",
+  "source": "https://github.com/AEON-7/aeon-magick-ai-computer-control/blob/bdb3a571e98d719ba32780c81212c0a053a005e2/aeon-supervisor/src/publisher.rs",
+  "generatedWith": "Python cryptography 49.0.0 Ed25519; raw AEON message, independently of FrostByte signing code",
+  "mnemonic": "alpha deal scrub asthma idea logic bright thought alpha deal scrub asthma idea logic bright thought alpha deal scrub asthma idea logic bright truly",
+  "cid": "QmbsqVAgHZ7dJ4XZi9sZPSHmGkeMJfZ66JstsZaA1x4sM4",
+  "name": "publisher-interop-fixture",
+  "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "addedAtMs": 1700000000000,
+  "messageHex": "61656f6e2d7075626c6973682f310a516d627371564167485a37644a34585a6939735a5053486d476b654d4a665a36364a7374735a6141317834734d340a7075626c69736865722d696e7465726f702d666978747572650a616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161610a31373030303030303030303030",
+  "pubKey": "ea4a6c63e29c520abef5507b132ec5f9954776aebebe7b92421eea691446d22c",
+  "pubSig": "Ofz+GFGplMeC/FUpb/BYCPueXaQcOZKg1K6PmH/dkKbb6irv+IChXjJgbuWuhTq6f84o8S69sQtmYbUnxsosCQ=="
+}

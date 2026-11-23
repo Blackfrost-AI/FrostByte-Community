@@ -1,0 +1,13 @@
+{
+  "name": "piece-length",
+  "version": "2.0.1",
+  "license": "MIT",
+  "author": [
+    "Jimmy Wärting <jimmy@warting.se>",
+    "Michael Rhodes"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/michaelrhodes/piece-length.git"
+  }
+}

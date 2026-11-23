@@ -1,0 +1,11 @@
+{
+  "name": "tar-stream",
+  "version": "2.2.0",
+  "license": "MIT",
+  "author": "Mathias Buus <mathiasbuus@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mafintosh/tar-stream.git"
+  },
+  "homepage": "https://github.com/mafintosh/tar-stream"
+}

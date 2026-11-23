@@ -1,0 +1,11 @@
+{
+  "name": "utf-8-validate",
+  "version": "6.0.6",
+  "license": "MIT",
+  "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/websockets/utf-8-validate.git"
+  },
+  "homepage": "https://github.com/websockets/utf-8-validate"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "bufferutil",
+  "version": "4.1.0",
+  "license": "MIT",
+  "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/websockets/bufferutil"
+  },
+  "homepage": "https://github.com/websockets/bufferutil"
+}

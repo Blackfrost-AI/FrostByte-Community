@@ -1,0 +1,46 @@
+node_modules/
+*.log
+.DS_Store
+test-results/
+playwright-report/
+dist/
+build/icon.iconset/
+build/spark-companion/
+build/ipfs-runtime/
+build/llama-runtime/
+build/cache/
+.scratch/
+.shadow/
+node_modules
+site
+build/aeon-image-kit/
+build/__pycache__/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.mobileprovision
+*.private-key
+.firebase/
+.cache/
+
+# Build byproduct: the pack step drops a copy of the edition manifest at the
+# repo root. The tracked source of truth is src/shared/edition-manifest.cjs.
+/edition-manifest.cjs
+
+
+# Nested git repository — deployed separately to Blackfrost-AI/frostbyte-site.
+site/
+# Local scratch/backup artifacts.
+.backup/
+.security-worktree-*/
+
+# Owner-only bootstrap credentials (0600 files; never commit, never log).
+.secrets/
+
+# local release cross-package scratch
+.build/
+.receipts/

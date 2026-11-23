@@ -1,0 +1,171 @@
+name: Package private Linux build
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact reviewed 40-character source commit to package
+        required: true
+        type: string
+
+# This lane builds and validates private Actions artifacts only. It never
+# creates a release, publishes a package, or installs outside its disposable VM.
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-package-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    if: github.event.repository.private == true
+    # FrostByte ships a single edition (Founders Edition retired — see
+    # private retirement handoff, 2026-11-09). Produces private Actions artifacts.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      CI: 'true'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      FROSTBYTE_TEST_SPARK: ''
+      FROSTBYTE_EDITION: community
+    steps:
+      - name: Check out frozen source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.source_commit }}
+          persist-credentials: false
+      - name: Verify frozen source identity
+        shell: bash
+        env:
+          SOURCE_COMMIT: ${{ inputs.source_commit }}
+        run: |
+          [[ "$SOURCE_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Resolve package release profile
+        id: release
+        shell: bash
+        run: node scripts/release.mjs profile >> "$GITHUB_OUTPUT"
+      - name: Require native Linux x64
+        run: node -e "if (process.platform !== 'linux' || process.arch !== 'x64') throw new Error('This package requires a native Linux x64 runner')"
+      - name: Install desktop qualification dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends dbus-x11 gnome-keyring libsecret-tools xvfb fuse3
+      - name: Install npm with strict lifecycle-script enforcement
+        run: npm install --global npm@11.17.0 --ignore-scripts --no-audit --no-fund
+      - name: Install locked native Linux dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Enforce production dependency advisory policy
+        run: npm run audit:production
+      - name: Run backend and release checks
+        run: npm test
+      - name: Build hardened AppImage and Debian package
+        run: npm run dist:linux
+      - name: Verify native IPFS transfers and AEON capabilities
+        run: npm run test:ipfs
+      - name: Verify packages, workflows, and GNOME keyring persistence
+        shell: bash
+        run: |
+          shopt -s nullglob
+          appimages=("${{ steps.release.outputs.directory }}"/${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.AppImage)
+          debs=("${{ steps.release.outputs.directory }}"/${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.deb)
+          test "${#appimages[@]}" -eq 1
+          test "${#debs[@]}" -eq 1
+          keyring_home="$(mktemp -d)"
+          chmod 700 "$keyring_home"
+          HOME="$keyring_home" XDG_CONFIG_HOME="$keyring_home/.config" \
+            dbus-run-session -- bash -euo pipefail -c '
+              # A headless job has no PAM session. Create/unlock the disposable
+              # login keyring and start Secret Service in the same invocation.
+              eval "$(printf %s frostbyte-ci-keyring | gnome-keyring-daemon --daemonize --components=secrets --unlock)"
+              export XDG_CURRENT_DESKTOP=GNOME
+              export FROSTBYTE_TEST_LINUX_PASSWORD_STORE=gnome-libsecret
+              printf %s ready | secret-tool store --label="FrostByte CI keyring probe" application frostbyte-ci purpose packaged-test
+              test "$(secret-tool lookup application frostbyte-ci purpose packaged-test)" = ready
+              timeout --foreground --signal=TERM --kill-after=10s 15m \
+                xvfb-run --auto-servernum npm run test:packaged -- \
+                ${{ steps.release.outputs.packaged_test_argument }} \
+                "${{ steps.release.outputs.directory }}/linux-unpacked" \
+                --installer "$1" --installer "$2" \
+                tests/e2e/renderer-trust.spec.js \
+                tests/e2e/device-approvals.spec.js \
+                tests/e2e/model-scan.spec.js \
+                tests/e2e/privacy-feedback.spec.js \
+                tests/e2e/discovery-drop.spec.js \
+                tests/e2e/app.spec.js \
+                tests/e2e/item-controls.spec.js \
+                tests/e2e/aeon-ipfs.spec.js \
+                tests/e2e/devices.spec.js \
+                tests/e2e/hf-picker.spec.js \
+                tests/e2e/spark-onboarding.spec.js \
+                tests/e2e/spark-pairing.spec.js \
+                ' bash "${appimages[0]}" "${debs[0]}"
+      - name: Verify edition gating
+        # community.spec.js asserts the retired Founders chrome is absent.
+        shell: bash
+        run: |
+          keyring_home="$(mktemp -d)"
+          chmod 700 "$keyring_home"
+          HOME="$keyring_home" XDG_CONFIG_HOME="$keyring_home/.config" \
+            xvfb-run --auto-servernum npm run test:packaged -- \
+            ${{ steps.release.outputs.packaged_test_argument }} \
+            "${{ steps.release.outputs.directory }}/linux-unpacked" \
+            tests/e2e/community.spec.js
+      - name: Install, launch, and remove Debian package in the disposable VM
+        shell: bash
+        # The executable name and retained config dir are edition-specific, so
+        # both are resolved from the profile outputs instead of being hardcoded.
+        run: |
+          shopt -s nullglob
+          debs=("${{ steps.release.outputs.directory }}"/${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.deb)
+          test "${#debs[@]}" -eq 1
+          sudo apt-get install --yes "./${debs[0]}"
+          executable="$(command -v ${{ steps.release.outputs.linux_executable }})"
+          test -x "$executable"
+          xvfb-run --auto-servernum npm run test:packaged -- --require-linux-sandbox "$executable" \
+            tests/e2e/updates-hybrid.spec.js
+          retained="$HOME/.config/${{ steps.release.outputs.linux_executable }}/linux-uninstall-retention-check"
+          mkdir -p "$(dirname "$retained")"
+          printf %s retained > "$retained"
+          sudo apt-get remove --yes ${{ steps.release.outputs.linux_executable }}
+          test "$(cat "$retained")" = retained
+          test ! -e "/usr/bin/${{ steps.release.outputs.linux_executable }}"
+          rm "$retained"
+      - name: Create and verify package checksums
+        working-directory: ${{ steps.release.outputs.directory }}
+        run: |
+          sha256sum ${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.AppImage ${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.deb > SHA256SUMS-linux
+          test "$(wc -l < SHA256SUMS-linux)" -eq 2
+          sha256sum --check SHA256SUMS-linux
+      - name: Save private Linux packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ steps.release.outputs.artifact_prefix }}-linux-x64-${{ github.run_number }}
+          path: |
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.AppImage
+            ${{ steps.release.outputs.directory }}/${{ steps.release.outputs.artifact_prefix }}-*-linux-x64.deb
+            ${{ steps.release.outputs.directory }}/SHA256SUMS-linux
+            ${{ steps.release.outputs.directory }}/build-info-linux-x64.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Save fixture diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: linux-fixture-diagnostics-${{ github.run_number }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14

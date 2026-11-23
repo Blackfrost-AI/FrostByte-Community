@@ -1,0 +1,4 @@
+# Optional Linux power policy for frostbyte-hostd.
+# Replace SERVICE_USER with the account running the user service, validate with
+# visudo -c -f, and install as /etc/sudoers.d/frostbyte-hostd-power mode 0440.
+SERVICE_USER ALL=(root) NOPASSWD: /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot

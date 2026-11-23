@@ -1,0 +1,14 @@
+{
+  "name": "torrent-piece",
+  "version": "4.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/torrent-piece.git"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "abort-controller",
+  "version": "3.0.0",
+  "license": "MIT",
+  "author": "Toru Nagashima (https://github.com/mysticatea)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mysticatea/abort-controller.git"
+  },
+  "homepage": "https://github.com/mysticatea/abort-controller#readme"
+}

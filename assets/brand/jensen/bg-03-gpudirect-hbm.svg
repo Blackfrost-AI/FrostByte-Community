@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="laneGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#76b900" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#76b900" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#9be600" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+  <!-- GPUDirect RDMA Zero-Copy Parallel Dataflow Lanes -->
+  <g fill="none" stroke="url(#laneGrad)" stroke-width="1.5">
+    <path d="M460 280 H1080 L1140 240 H1520"/>
+    <path d="M460 340 H1080 L1140 310 H1520"/>
+    <path d="M460 400 H1520"/>
+    <path d="M460 460 H1520"/>
+    <path d="M460 520 H1520"/>
+    <path d="M460 580 H1520"/>
+    <path d="M460 640 H1080 L1140 670 H1520"/>
+    <path d="M460 700 H1080 L1140 740 H1520"/>
+  </g>
+  <!-- 3D-Stacked HBM3e Memory Towers -->
+  <g fill="none" stroke="#76b900" stroke-opacity="0.22" stroke-width="1.2">
+    <g transform="translate(1160,210)">
+      <rect x="0" y="0" width="120" height="24" rx="3"/>
+      <rect x="0" y="30" width="120" height="24" rx="3"/>
+      <rect x="0" y="60" width="120" height="24" rx="3"/>
+      <rect x="0" y="90" width="120" height="24" rx="3"/>
+      <rect x="0" y="120" width="120" height="24" rx="3"/>
+      <rect x="0" y="150" width="120" height="24" rx="3"/>
+      <rect x="-12" y="182" width="144" height="16" rx="2" stroke="#d8ded2" stroke-opacity="0.2"/>
+    </g>
+    <g transform="translate(1330,210)">
+      <rect x="0" y="0" width="120" height="24" rx="3"/>
+      <rect x="0" y="30" width="120" height="24" rx="3"/>
+      <rect x="0" y="60" width="120" height="24" rx="3"/>
+      <rect x="0" y="90" width="120" height="24" rx="3"/>
+      <rect x="0" y="120" width="120" height="24" rx="3"/>
+      <rect x="0" y="150" width="120" height="24" rx="3"/>
+      <rect x="-12" y="182" width="144" height="16" rx="2" stroke="#d8ded2" stroke-opacity="0.2"/>
+    </g>
+    <g transform="translate(1160,560)">
+      <rect x="0" y="0" width="120" height="24" rx="3"/>
+      <rect x="0" y="30" width="120" height="24" rx="3"/>
+      <rect x="0" y="60" width="120" height="24" rx="3"/>
+      <rect x="0" y="90" width="120" height="24" rx="3"/>
+      <rect x="0" y="120" width="120" height="24" rx="3"/>
+      <rect x="0" y="150" width="120" height="24" rx="3"/>
+      <rect x="-12" y="182" width="144" height="16" rx="2" stroke="#d8ded2" stroke-opacity="0.2"/>
+    </g>
+    <g transform="translate(1330,560)">
+      <rect x="0" y="0" width="120" height="24" rx="3"/>
+      <rect x="0" y="30" width="120" height="24" rx="3"/>
+      <rect x="0" y="60" width="120" height="24" rx="3"/>
+      <rect x="0" y="90" width="120" height="24" rx="3"/>
+      <rect x="0" y="120" width="120" height="24" rx="3"/>
+      <rect x="0" y="150" width="120" height="24" rx="3"/>
+      <rect x="-12" y="182" width="144" height="16" rx="2" stroke="#d8ded2" stroke-opacity="0.2"/>
+    </g>
+  </g>
+  <!-- Tensor Packet Pulses -->
+  <g fill="#9be600" fill-opacity="0.24">
+    <rect x="780" y="396" width="38" height="8" rx="4"/>
+    <rect x="960" y="456" width="54" height="8" rx="4"/>
+    <rect x="860" y="516" width="44" height="8" rx="4"/>
+    <rect x="1040" y="576" width="34" height="8" rx="4"/>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+{
+  "name": "ip-address",
+  "version": "10.7.4",
+  "license": "MIT",
+  "author": "Beau Gunderson <beau@beaugunderson.com> (https://beaugunderson.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beaugunderson/ip-address.git"
+  }
+}

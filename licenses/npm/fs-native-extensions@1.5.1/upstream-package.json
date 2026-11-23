@@ -1,0 +1,11 @@
+{
+  "name": "fs-native-extensions",
+  "version": "1.5.1",
+  "license": "Apache-2.0",
+  "author": "Kasper Isager Dalsgarð <kasper@funktionel.co>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/fs-native-extensions.git"
+  },
+  "homepage": "https://github.com/holepunchto/fs-native-extensions#readme"
+}

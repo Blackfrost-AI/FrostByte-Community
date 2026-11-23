@@ -1,0 +1,7 @@
+{
+  "name": "pump",
+  "version": "3.0.4",
+  "license": "MIT",
+  "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
+  "repository": "git://github.com/mafintosh/pump.git"
+}

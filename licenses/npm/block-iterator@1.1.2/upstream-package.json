@@ -1,0 +1,11 @@
+{
+  "name": "block-iterator",
+  "version": "1.1.2",
+  "license": "MIT",
+  "author": "ThaUnknown",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaUnknown/block-iterator.git"
+  },
+  "homepage": "https://github.com/ThaUnknown/block-iterator#readme"
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "exceptions": [
+    {
+      "advisory": "GHSA-2p57-rm9w-gvfp",
+      "package": "ip",
+      "version": "2.0.1",
+      "nodes": [
+        {
+          "path": "node_modules/ip",
+          "version": "2.0.1"
+        }
+      ],
+      "severity": "high",
+      "affectedPackages": [
+        "bittorrent-tracker",
+        "ip",
+        "torrent-discovery",
+        "webtorrent"
+      ],
+      "owner": "Blackfrost-AI maintainers",
+      "reviewExpires": "2026-12-12",
+      "reason": "Frost/Byte uses the WebTorrent client. The affected ip call is confined to bittorrent-tracker's UDP tracker-server parser, which the application does not instantiate. Re-review upstream availability and reachability before this date."
+    }
+  ]
+}

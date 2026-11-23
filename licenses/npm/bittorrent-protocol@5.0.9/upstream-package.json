@@ -1,0 +1,14 @@
+{
+  "name": "bittorrent-protocol",
+  "version": "5.0.9",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/bittorrent-protocol.git"
+  }
+}

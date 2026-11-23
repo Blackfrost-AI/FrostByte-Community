@@ -1,0 +1,15 @@
+{
+  "name": "chrome-dns",
+  "version": "1.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/chrome-dns.git"
+  },
+  "homepage": "https://github.com/feross/chrome-dns"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "require-addon",
+  "version": "1.3.0",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/require-addon.git"
+  },
+  "homepage": "https://github.com/holepunchto/require-addon#readme"
+}

@@ -1,0 +1,100 @@
+name: Development checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native-macos-package:
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/package-macos.yml
+    with:
+      source_commit: ${{ github.sha }}
+
+  native-windows-package:
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/package-windows.yml
+    with:
+      source_commit: ${{ github.sha }}
+
+  native-linux-package:
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/package-linux.yml
+    with:
+      source_commit: ${{ github.sha }}
+
+  local-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CI: 'true'
+      # Node fixtures use loopback HTTP/SSH/P2P and temporary storage only.
+      # Live Hub checks, physical Spark tests, and macOS Keychain pairing are separate.
+      FROSTBYTE_TEST_SPARK: ''
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install npm with strict lifecycle-script enforcement
+        run: npm install --global npm@11.17.0 --ignore-scripts --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Enforce production dependency advisory policy
+        run: npm run audit:production
+      - name: Check release version consistency
+        run: FROSTBYTE_EDITION=community npm run release:check
+      - name: Check app entry-point syntax
+        run: |
+          node --check src/main/index.js
+          node --check src/preload/index.cjs
+          node --check src/renderer/app.js
+          python3 -m py_compile build/spark-onboard.py build/mac-onboard.py
+          python3 tests/mac-installer.test.py
+      - name: Check release hardening and signing profiles
+        run: |
+          gpg --version
+          npm run test:release
+      - name: IPFS runtime and isolated transfer tests
+        run: |
+          npm run build:ipfs
+          npm run test:ipfs
+      - name: Run local engine and manager checks
+        run: |
+          npm run test:engine
+          npm run test:managers
+          npm run test:reliability
+          npm run test:catalog-import
+          npm run test:path-capabilities
+          npm run test:privacy
+      - name: Run Hub selection and discovery fixtures
+        run: |
+          npm run test:hf-options
+          npm run test:discovery
+          npm run test:hybrid
+      - name: Check portable paths and launch arguments
+        run: node --test tests/windows-runtime.test.js
+      - name: Run companion, SSH, setup, and recovery fixtures
+        run: npm run test:spark
+      - name: Exercise renderer trust and real device approval workflows
+        run: xvfb-run --auto-servernum npm run test:e2e -- tests/e2e/renderer-trust.spec.js tests/e2e/device-approvals.spec.js
+      - name: Exercise AEON theme, local IPFS transfers, and desktop navigation
+        run: |
+          xvfb-run --auto-servernum npm run test:e2e -- tests/e2e/publisher.spec.js tests/e2e/aeon-ipfs.spec.js
+          xvfb-run --auto-servernum npm run test:e2e -- tests/e2e/app.spec.js --grep 'boots every view'
+      - name: Exercise Blackfrost appearance, bulk actions and no-collection welcome
+        run: xvfb-run --auto-servernum npm run test:e2e -- tests/e2e/blackfrost-theme.spec.js tests/e2e/limits-bulk.spec.js tests/e2e/privacy-feedback.spec.js

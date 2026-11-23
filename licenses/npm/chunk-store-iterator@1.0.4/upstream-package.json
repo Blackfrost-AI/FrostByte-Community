@@ -1,0 +1,11 @@
+{
+  "name": "chunk-store-iterator",
+  "version": "1.0.4",
+  "license": "MIT",
+  "author": "ThaUnknown",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaUnknown/chunk-store-iterator.git"
+  },
+  "homepage": "https://github.com/ThaUnknown/chunk-store-iterator#readme"
+}

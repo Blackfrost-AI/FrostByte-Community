@@ -1,0 +1,11 @@
+{
+  "name": "bare-stream",
+  "version": "2.13.4",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-stream.git"
+  },
+  "homepage": "https://github.com/holepunchto/bare-stream#readme"
+}

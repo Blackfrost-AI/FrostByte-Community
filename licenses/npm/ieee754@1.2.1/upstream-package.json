@@ -1,0 +1,17 @@
+{
+  "name": "ieee754",
+  "version": "1.2.1",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org"
+  },
+  "contributors": [
+    "Romain Beauxis <toots@rastageeks.org>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/ieee754.git"
+  }
+}

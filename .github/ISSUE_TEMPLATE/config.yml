@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Blackfrost-AI/FrostByte-Community/blob/main/SECURITY.md
+    about: Report privately per SECURITY.md — never as a public issue.
+  - name: Question / support
+    url: mailto:support@blackfrostai.com
+    about: Licensing, access, privacy or general support questions.

@@ -1,0 +1,15 @@
+{
+  "name": "run-parallel-limit",
+  "version": "1.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/run-parallel-limit.git"
+  },
+  "homepage": "https://github.com/feross/run-parallel-limit"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "napi-build-utils",
+  "version": "2.0.0",
+  "license": "MIT",
+  "author": "Jim Schlight",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inspiredware/napi-build-utils.git"
+  },
+  "homepage": "https://github.com/inspiredware/napi-build-utils#readme"
+}

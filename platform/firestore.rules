@@ -1,0 +1,128 @@
+rules_version = '2';
+
+// Blackfrost Hub — deny by default.
+//
+// The Hub API is the only writer. Client SDK access is limited to a user
+// reading their own profile document, and even that is read-only: tier, billing
+// state, and org membership are server-owned and must never be settable from a
+// client (a client that could write `tier` could grant itself Pro).
+//
+// Tenant isolation: `blackfrost-hub` belongs exclusively to the FrostByte
+// Identity Platform tenant. The placeholder frostbyte-0ji2f is
+// substituted by scripts/stamp-firestore-rules.mjs (validated against
+// /^[A-Za-z0-9_-]{4,64}$/) before `firebase deploy --only firestore:rules`.
+// Root-pool and anonymous tokens are refused here even if they somehow obtain
+// a valid ID token for the same Firebase project.
+//
+// Deployed to the `hub` database only. The `(default)` database carries live
+// commerce records and is governed by its own ruleset.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isFrostByteTenant() {
+      return isSignedIn()
+        && 'firebase' in request.auth.token
+        && request.auth.token.firebase.get('sign_in_provider', '') != 'anonymous'
+        && request.auth.token.firebase.get('tenant', '') == 'frostbyte-0ji2f';
+    }
+
+    function isSelf(uid) {
+      return isFrostByteTenant() && request.auth.uid == uid;
+    }
+
+    // Users may read their own profile. Nothing else about them is
+    // client-readable: subscriptions and entitlements are served by the API so
+    // that billing state has exactly one source of truth.
+    match /users/{uid} {
+      allow get, list: if isSelf(uid);
+      allow write: if false;
+    }
+
+    // Server-only collections. Reads go through the API, which enforces tier
+    // and rate limits; a direct client read would bypass both. Admin records,
+    // overrides, moderation, featured pins, system config, hardware profiles,
+    // saved models, the Stripe ledger, and quarantine are accessed exclusively
+    // through Cloud Functions with the Admin SDK.
+    match /subscriptions/{uid} {
+      allow read, write: if false;
+    }
+
+    match /entitlements/{uid} {
+      allow read, write: if false;
+    }
+
+    match /orgs/{orgId} {
+      allow read, write: if false;
+    }
+
+    match /apiKeys/{keyHash} {
+      allow read, write: if false;
+    }
+
+    match /usage/{docId} {
+      allow read, write: if false;
+    }
+
+    match /discoveryCache/{docId} {
+      allow read, write: if false;
+    }
+
+    match /auditLog/{docId} {
+      allow read, write: if false;
+    }
+
+    match /admins/{uid} {
+      allow read, write: if false;
+    }
+
+    match /entitlementOverrides/{uid} {
+      allow read, write: if false;
+    }
+
+    match /frostnetModeration/{docId} {
+      allow read, write: if false;
+    }
+
+    match /frostnetFeatured/{docId} {
+      allow read, write: if false;
+    }
+
+    match /systemConfig/{docId} {
+      allow read, write: if false;
+    }
+
+    match /hardwareProfiles/{docId} {
+      allow read, write: if false;
+    }
+
+    match /savedModels/{docId} {
+      allow read, write: if false;
+    }
+
+    match /stripeEvents/{eventId} {
+      allow read, write: if false;
+    }
+
+    match /quarantinePreTenant/{uid} {
+      allow read, write: if false;
+    }
+
+    match /desktopAuthCodes/{codeHash} {
+      allow read, write: if false;
+    }
+
+    match /desktopSessions/{sessionId} {
+      allow read, write: if false;
+    }
+
+    // Anything not explicitly matched above is denied.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

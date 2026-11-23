@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="Raspberry Pi board illustration">
+<rect width="480" height="300" fill="#fff"/>
+<ellipse cx="239" cy="242" rx="149" ry="14" fill="#17291a" opacity=".1"/>
+<g transform="translate(103 64)"><rect width="271" height="171" rx="13" fill="#2b7855" stroke="#174f38" stroke-width="3"/>
+<g fill="#eee7c8" stroke="#b0a481"><circle cx="13" cy="13" r="6"/><circle cx="256" cy="13" r="6"/><circle cx="13" cy="156" r="6"/><circle cx="256" cy="156" r="6"/></g>
+<rect x="27" y="10" width="175" height="14" rx="3" fill="#26352b"/><path d="M36 13v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8m10-8v8" stroke="#ddc479" stroke-width="4"/>
+<rect x="82" y="57" width="67" height="66" rx="4" fill="#28362f" stroke="#acc5b3"/><rect x="161" y="57" width="36" height="52" rx="3" fill="#28362f"/>
+<g fill="#c8d0cf" stroke="#77867f" stroke-width="2"><rect x="218" y="41" width="63" height="40" rx="3"/><rect x="218" y="89" width="63" height="40" rx="3"/><rect x="26" y="155" width="34" height="22" rx="3"/><rect x="80" y="157" width="27" height="16" rx="2"/><rect x="122" y="157" width="27" height="16" rx="2"/></g>
+<g fill="#294738"><rect x="233" y="49" width="38" height="23"/><rect x="233" y="96" width="38" height="23"/></g><g fill="#d6ce98"><rect x="27" y="58" width="22" height="10"/><rect x="27" y="82" width="22" height="10"/><rect x="168" y="129" width="23" height="9"/></g>
+</g></svg>

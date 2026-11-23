@@ -1,0 +1,13 @@
+{
+  "name": "bep53-range",
+  "version": "2.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Julen Garcia Leunda",
+    "email": "hicom150@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/bep53-range.git"
+  }
+}

@@ -1,0 +1,776 @@
+/*
+ * Founders Leather (jensen) — "Jensen is NVIDIA".
+ * The NVIDIA brand system on full-grain black cafe-racer leather: NVIDIA green
+ * (#76B900), the NVIDIA eye as the brand mark, green scrollbars and buttons,
+ * Space Grotesk wide-tracked geometric typography, and 8 per-tab NVIDIA
+ * architectural innovation backdrops. Community creation — NVIDIA trademarks
+ * belong to NVIDIA Corporation; not affiliated with or endorsed by NVIDIA.
+ */
+
+@font-face {
+  font-family: "SpaceGroteskUI";
+  src: url("../../assets/fonts/SpaceGrotesk.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+[data-theme="jensen"] {
+  --void: #060806;
+  --abyss: #0A0C09;
+  --surface: #121510;
+  --surface-hi: #191D16;
+  --border: #262C22;
+  --border-strong: #3A4433;
+  --text: #F2F5EE;
+  --text-dim: #BAC4B2;
+  --text-faint: #8E9A86;
+  --lime: #76B900;            /* NVIDIA green — the brand color */
+  --lime-hi: #94E01A;
+  --lime-lo: #5A8F00;
+  --lime-dim: #8FD400;
+  --nvidia-green: #76B900;
+  --nvidia-black: #0A0C09;
+  --lime-glow: #76B9001F;
+  --lime-line: #76B90059;
+  --up: #76B900;
+  --down: #5CE1E6;
+  --info: #7CC4FA;
+  --warn: #F5B942;
+  --danger: #FF7A7A;
+  --display: "SpaceGroteskUI", "Inter", system-ui, -apple-system, sans-serif;
+  --ui: "SpaceGroteskUI", "Inter", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r: 6px;
+  --jensen-leather-grain: url("../../assets/brand/jensen/leather-grain.svg");
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-01-dgx-spark.svg");
+  --jensen-leather-panel: linear-gradient(160deg, #161A13F0 0%, #0E110CEB 100%);
+  --jensen-stitch-line: #D8DED21C;
+  --jensen-zipper-gleam: linear-gradient(90deg, #8E9A8638, #DDE4D655 48%, #76B90050 78%, #8E9A8620);
+}
+
+/* Per-tab architectural innovation SVG backdrops */
+[data-theme="jensen"][data-active-tab="dashboard"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-01-dgx-spark.svg");
+}
+[data-theme="jensen"][data-active-tab="discover"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-02-nvlink-fabric.svg");
+}
+[data-theme="jensen"][data-active-tab="transfers"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-03-gpudirect-hbm.svg");
+}
+[data-theme="jensen"][data-active-tab="library"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-04-nemotron-open.svg");
+}
+[data-theme="jensen"][data-active-tab="catalog"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-05-cuda-grid.svg");
+}
+[data-theme="jensen"][data-active-tab="hf"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-06-tensor-core.svg");
+}
+[data-theme="jensen"][data-active-tab="spark"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-07-grace-blackwell.svg");
+}
+[data-theme="jensen"][data-active-tab="settings"] {
+  --jensen-tab-backdrop: url("../../assets/brand/jensen/bg-08-omniverse-grid.svg");
+}
+
+[data-theme="jensen"] body {
+  font-family: var(--ui);
+  font-weight: 450;
+  letter-spacing: 0.005em;
+}
+
+[data-theme="jensen"] :is(button, input, select, textarea) {
+  font-family: var(--ui);
+}
+
+[data-theme="jensen"] :is(code, pre, kbd, .mono, .omnisearch input, .search input) {
+  font-family: var(--mono);
+}
+
+[data-theme="jensen"] .app {
+  background-color: var(--abyss);
+  background-image:
+    linear-gradient(125deg, #070906F2 0%, #0B0E09CF 52%, #080B07BA 100%),
+    var(--jensen-leather-grain);
+  background-size: auto, 120px 120px;
+  background-repeat: no-repeat, repeat;
+}
+
+[data-theme="jensen"] .main {
+  background-color: transparent;
+  background-image:
+    var(--jensen-tab-backdrop),
+    radial-gradient(circle at 82% 22%, #76B90014 0%, transparent 56%);
+  background-position: right center, center;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+[data-theme="jensen"] .titlebar {
+  background:
+    linear-gradient(180deg, #161A13F5, #0B0D09F2),
+    var(--jensen-leather-grain) 0 0 / 120px 120px repeat;
+  border-bottom: 1px solid #3A4433;
+  box-shadow: inset 0 -1px 0 #76B9002E;
+}
+
+[data-theme="jensen"] .brand {
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+[data-theme="jensen"] .brand b {
+  font-weight: 700;
+  color: var(--text);
+}
+[data-theme="jensen"] .brand i {
+  color: var(--lime);
+  padding: 0 3px;
+}
+[data-theme="jensen"] .brand s {
+  font-weight: 600;
+  color: var(--lime);
+}
+/* Brand mark — the NVIDIA eye. "To us, Jensen is NVIDIA." */
+[data-theme="jensen"] .brand-jensen {
+  width: 32px;
+  height: 24px;
+  color: var(--lime);
+  filter: drop-shadow(0 0 6px #76B90045);
+}
+[data-theme="jensen"] .brand-jensen-tag {
+  align-self: center;
+  color: var(--lime);
+  font-family: var(--display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--lime-line);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 9px;
+  white-space: nowrap;
+}
+
+/* NVIDIA-green scrollbars — the brand reaches even the chrome */
+[data-theme="jensen"] * {
+  scrollbar-color: var(--lime-lo) var(--abyss);
+}
+[data-theme="jensen"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+[data-theme="jensen"] ::-webkit-scrollbar-track {
+  background: var(--abyss);
+  border-left: 1px solid #161A13;
+}
+[data-theme="jensen"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--lime-lo), var(--lime-dim));
+  border-radius: 6px;
+  border: 2px solid var(--abyss);
+}
+[data-theme="jensen"] ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
+[data-theme="jensen"] ::-webkit-scrollbar-corner { background: var(--abyss); }
+
+/* Leather jacket lapel sidebar with subtle saddle-stitch inner seam */
+[data-theme="jensen"] .sidebar {
+  background:
+    linear-gradient(175deg, #151912F5 0%, #090B08FA 100%),
+    var(--jensen-leather-grain) 0 0 / 120px 120px repeat;
+  border-right: 1px solid #353F2E;
+  box-shadow: inset -1px 0 0 #000000B0, inset -3px 0 0 var(--jensen-stitch-line);
+}
+
+[data-theme="jensen"] .navlabel {
+  font: 700 9px var(--display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding-top: 15px;
+  padding-bottom: 8px;
+}
+
+[data-theme="jensen"] .nav {
+  height: 33px;
+  font-size: 12px;
+  margin: 2px 8px;
+  padding: 0 11px;
+  border-radius: 6px;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="jensen"] .nav.on {
+  background: linear-gradient(110deg, #76B90029 0%, #1B2215E6 85%);
+  border-left: 2px solid var(--lime);
+  box-shadow: inset 0 1px 0 #9BE60028, 0 3px 10px #00000055;
+  color: var(--text);
+}
+
+[data-theme="jensen"] .nav.on .ic {
+  color: var(--lime);
+  opacity: 1;
+}
+
+[data-theme="jensen"] .viewhead {
+  background: linear-gradient(180deg, #131710E8, #0D100BE0);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid #2E3728;
+  box-shadow: inset 0 -1px 0 #76B9001C;
+}
+
+[data-theme="jensen"] .viewhead h2 {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Leather-stitched cards & panels with gunmetal zipper top edge */
+[data-theme="jensen"] :is(
+  .card, .hf-detail, .hf-option, .spark-card, .spark-detail, .spark-setup,
+  .inventory-section, .inventory-item, .transfer-group, .modal, .drawer,
+  .ud-card
+) {
+  background:
+    var(--jensen-leather-panel),
+    var(--jensen-leather-grain) 0 0 / 120px 120px repeat;
+  border-color: #30392A;
+  box-shadow:
+    inset 0 1px 0 #DDE5D614,
+    0 10px 26px #00000048;
+}
+
+[data-theme="jensen"] .card h4:not(.jensen-tribute-title) {
+  font-family: var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+[data-theme="jensen"] .btn {
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  border-color: #3B4634;
+}
+
+/* Primary button — flat NVIDIA green with near-black text */
+[data-theme="jensen"] .btn.primary {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #0A0C09;
+  font-weight: 700;
+  box-shadow: 0 2px 12px var(--lime-glow);
+}
+
+[data-theme="jensen"] .btn.primary:hover {
+  background: var(--lime-hi);
+  border-color: var(--lime-hi);
+  box-shadow: 0 2px 18px rgba(118, 185, 0, 0.38);
+}
+
+[data-theme="jensen"] .btn:not(.primary):hover {
+  border-color: var(--lime-lo);
+  color: var(--lime-hi);
+}
+
+[data-theme="jensen"] :is(input, select, textarea, button):focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
+
+[data-theme="jensen"] :is(.omnisearch, .search) {
+  background: #080A07;
+  border-color: var(--border-strong);
+}
+
+[data-theme="jensen"] .settings-nav {
+  background: #10130EE8;
+  border-right-color: #2E3728;
+}
+
+[data-theme="jensen"] .settings-body {
+  background:
+    var(--jensen-tab-backdrop) right center / cover no-repeat,
+    linear-gradient(145deg, #090B08D8, #0C0F0AE8);
+}
+
+[data-theme="jensen"] table.grid thead th {
+  background: #0E120C;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+}
+
+[data-theme="jensen"] :is(table.grid, .transfer-content, .library-content) {
+  background: #0A0C09E6;
+}
+
+/* ==========================================================================
+   Settings -> Interface: Commemorative Jensen Huang Tribute & 2021-2026 Timeline
+   ========================================================================== */
+
+.jensen-tribute-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #76B90066 !important;
+  padding: 20px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.jensen-tribute-card[hidden] {
+  display: none !important;
+}
+
+/* Community-creation / rights disclaimer — always visible on this page */
+.jensen-rights-notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid #6B5A22;
+  border-left: 3px solid #C9A227;
+  border-radius: 6px;
+  background: rgba(201, 162, 39, 0.07);
+  padding: 12px 14px;
+}
+.jensen-rights-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: #C9A227;
+  margin-top: 1px;
+}
+.jensen-rights-text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #D8CBA0;
+}
+.jensen-rights-text strong { color: #E8DDB8; }
+
+/* NVIDIA × Jensen hero lockup */
+.jensen-lockup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #2D3726;
+}
+.jensen-nvidia-logo {
+  width: 150px;
+  height: auto;
+  display: block;
+  /* Original artwork is black; invert to white for the dark leather surface. */
+  filter: brightness(0) invert(1);
+}
+.jensen-lockup-x {
+  color: var(--lime);
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+}
+.jensen-lockup-jensen {
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.jensen-lockup-tag {
+  margin-left: auto;
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--lime-line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: rgba(118, 185, 0, 0.08);
+}
+@media (max-width: 760px) {
+  .jensen-lockup-tag { margin-left: 0; }
+}
+
+.jensen-tribute-stitch {
+  border: 1px dashed #9BE60030;
+  border-radius: 6px;
+  padding: 16px;
+  background: linear-gradient(145deg, #0D110AE6 0%, #141910D9 100%);
+}
+
+.jensen-tribute-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #2D3726;
+}
+
+.jensen-tribute-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 700 10px var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+  background: #76B9001A;
+  border: 1px solid #76B9004D;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+[data-theme="jensen"] .card h4.jensen-tribute-title,
+.jensen-tribute-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--text);
+}
+
+.jensen-tribute-sub {
+  margin: 6px 0 0;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  line-height: 1.55;
+  max-width: 72ch;
+}
+
+.jensen-era-badge {
+  font: 600 11px var(--mono);
+  color: var(--warn);
+  background: #F5B94214;
+  border: 1px solid #F5B94245;
+  border-radius: 6px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+/* Portrait Gallery */
+.jensen-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .jensen-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jensen-photo-frame {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #080A07;
+  border: 1px solid #394332;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 1px 0 #FFFFFF18;
+}
+
+[data-theme="jensen"] #sec-interface {
+  max-width: 920px;
+}
+
+.jensen-photo-frame img {
+  width: 100%;
+  height: 228px;
+  object-fit: cover;
+  object-position: center 8%;
+  display: block;
+  border-bottom: 1px solid #2A3324;
+}
+
+.jensen-photo-frame figcaption {
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.jensen-photo-caption {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.jensen-photo-credit {
+  font: 400 10px var(--mono);
+  color: var(--text-faint);
+}
+
+/* Appreciation Quote & Signature Block */
+.jensen-appreciation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  background: #090C08CC;
+  border-left: 3px solid var(--lime);
+  border-top: 1px solid #283122;
+  border-right: 1px solid #283122;
+  border-bottom: 1px solid #283122;
+}
+
+.jensen-appreciation p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  flex: 1 1 360px;
+}
+
+.jensen-appreciation p strong {
+  color: var(--text);
+}
+
+.jensen-signature-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.jensen-signature-img {
+  height: 40px;
+  width: auto;
+  filter: invert(0.92) sepia(0.28) saturate(2.6) hue-rotate(44deg) brightness(1.04);
+  opacity: 0.92;
+}
+
+.jensen-signature-label {
+  font: 500 10px var(--mono);
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Interactive 5-Year Timeline (2021-2026) */
+.jensen-timeline-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.jensen-timeline-head h5 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.jensen-year-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jensen-year-pill {
+  background: #10140E;
+  border: 1px solid #333D2C;
+  color: var(--text-dim);
+  font: 600 11px var(--mono);
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.jensen-year-pill:hover {
+  border-color: var(--lime);
+  color: var(--text);
+}
+
+.jensen-year-pill[aria-selected="true"] {
+  background: var(--lime);
+  border-color: #9BE600;
+  color: #070B02;
+  font-weight: 700;
+}
+
+.jensen-timeline-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .jensen-timeline-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jensen-milestone {
+  background: #0D100BE8;
+  border: 1px solid #2B3425;
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jensen-milestone[hidden] {
+  display: none !important;
+}
+
+.jensen-milestone-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.jensen-milestone-year {
+  font: 700 13px var(--mono);
+  color: var(--lime);
+}
+
+.jensen-milestone-date {
+  font: 500 10.5px var(--mono);
+  color: var(--text-faint);
+}
+
+.jensen-milestone-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.jensen-milestone-row {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.jensen-milestone-tag {
+  display: inline-block;
+  font: 700 9.5px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.jensen-milestone-tag.impact {
+  color: var(--down);
+  background: #5CE1E617;
+  border: 1px solid #5CE1E640;
+}
+
+.jensen-milestone-tag.oss {
+  color: var(--lime);
+  background: #76B9001A;
+  border: 1px solid #76B9004D;
+}
+
+/* 8-Tab Innovation Backdrop Atlas */
+.jensen-backdrop-atlas {
+  border-top: 1px solid #283122;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jensen-atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+@media (max-width: 960px) {
+  .jensen-atlas-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.jensen-atlas-btn {
+  text-align: left;
+  background: #0B0E09;
+  border: 1px solid #2C3526;
+  border-radius: 5px;
+  padding: 7px 9px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jensen-atlas-btn:hover {
+  border-color: var(--lime);
+  background: #131810;
+}
+
+.jensen-atlas-tab {
+  font: 700 10px var(--mono);
+  color: var(--lime);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.jensen-atlas-name {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.35;
+}
+
+.jensen-tribute-disclaimer {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="jensen"] :is(.app, .main, .settings-body, table.grid, .transfer-content, .library-content) {
+    background: var(--abyss);
+    background-image: none;
+  }
+  [data-theme="jensen"] :is(
+    .titlebar, .sidebar, .settings-nav, .viewhead, .card, .hf-detail, .hf-option,
+    .spark-card, .spark-detail, .spark-setup, .inventory-section, .inventory-item,
+    .transfer-group, .modal, .drawer, .ud-card
+  ) {
+    background: var(--surface);
+    background-image: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="jensen"] *,
+  [data-theme="jensen"] *::before,
+  [data-theme="jensen"] *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

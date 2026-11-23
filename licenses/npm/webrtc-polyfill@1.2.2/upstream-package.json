@@ -1,0 +1,8 @@
+{
+  "name": "webrtc-polyfill",
+  "version": "1.2.2",
+  "license": "MIT",
+  "author": "ThaUnknown",
+  "repository": "https://github.com/ThaUnknown/webrtc-polyfill.git",
+  "homepage": "https://github.com/ThaUnknown/webrtc-polyfill#readme"
+}

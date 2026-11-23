@@ -1,0 +1,8 @@
+{"indexes": [], "fieldOverrides": [
+  {"collectionGroup":"releases","fieldPath":"*","indexes":[]},
+  {"collectionGroup":"manifests","fieldPath":"*","indexes":[]},
+  {"collectionGroup":"submissions","fieldPath":"*","indexes":[]},
+  {"collectionGroup":"listings","fieldPath":"*","indexes":[]},
+  {"collectionGroup":"listings","fieldPath":"tokens","indexes":[{"arrayConfig":"CONTAINS","queryScope":"COLLECTION"}]},
+  {"collectionGroup":"rates","fieldPath":"expires_at","ttl":true,"indexes":[]}
+]}

@@ -1,0 +1,11 @@
+{
+  "name": "bare-fs",
+  "version": "4.8.1",
+  "license": "Apache-2.0",
+  "author": "Holepunch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/bare-fs.git"
+  },
+  "homepage": "https://github.com/holepunchto/bare-fs#readme"
+}

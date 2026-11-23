@@ -1,0 +1,11 @@
+{
+  "name": "mkdirp-classic",
+  "version": "0.5.3",
+  "license": "MIT",
+  "author": "Mathias Buus (@mafintosh)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/mkdirp-classic.git"
+  },
+  "homepage": "https://github.com/mafintosh/mkdirp-classic"
+}

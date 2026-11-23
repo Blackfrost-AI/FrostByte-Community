@@ -1,0 +1,11 @@
+{
+  "name": "get-stdin",
+  "version": "10.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com"
+  },
+  "repository": "sindresorhus/get-stdin"
+}

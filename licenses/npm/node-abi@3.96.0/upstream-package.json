@@ -1,0 +1,11 @@
+{
+  "name": "node-abi",
+  "version": "3.96.0",
+  "license": "MIT",
+  "author": "Lukas Geiger",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electron/node-abi.git"
+  },
+  "homepage": "https://github.com/electron/node-abi#readme"
+}

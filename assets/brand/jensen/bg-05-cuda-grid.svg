@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="glow5" cx="75%" cy="48%" r="48%">
+      <stop offset="0%" stop-color="#76b900" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0c09" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#glow5)"/>
+  <!-- CUDA Cooperative Thread Array / SIMT Warp Grid -->
+  <g fill="none" stroke="#76b900" stroke-opacity="0.2" stroke-width="1.2">
+    <rect x="850" y="190" width="620" height="620" rx="16"/>
+    <!-- 3x3 Cooperative Thread Blocks -->
+    <g stroke-opacity="0.18">
+      <rect x="880" y="220" width="176" height="176" rx="8"/>
+      <rect x="1072" y="220" width="176" height="176" rx="8"/>
+      <rect x="1264" y="220" width="176" height="176" rx="8"/>
+      <rect x="880" y="412" width="176" height="176" rx="8"/>
+      <rect x="1072" y="412" width="176" height="176" rx="8" stroke="#9be600" stroke-opacity="0.34" stroke-width="1.6"/>
+      <rect x="1264" y="412" width="176" height="176" rx="8"/>
+      <rect x="880" y="604" width="176" height="176" rx="8"/>
+      <rect x="1072" y="604" width="176" height="176" rx="8"/>
+      <rect x="1264" y="604" width="176" height="176" rx="8"/>
+    </g>
+    <!-- Active SIMT 32-Thread Warp Execution Lanes inside Center CTA -->
+    <g stroke="#9be600" stroke-opacity="0.25" stroke-width="1">
+      <path d="M1092 440H1228 M1092 462H1228 M1092 484H1228 M1092 506H1228 M1092 528H1228 M1092 550H1228 M1092 570H1228"/>
+      <path d="M1114 428V576 M1138 428V576 M1160 428V576 M1182 428V576 M1206 428V576"/>
+    </g>
+  </g>
+</svg>

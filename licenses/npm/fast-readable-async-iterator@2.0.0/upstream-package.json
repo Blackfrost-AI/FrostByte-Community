@@ -1,0 +1,11 @@
+{
+  "name": "fast-readable-async-iterator",
+  "version": "2.0.0",
+  "license": "MIT",
+  "author": "ThaUnknown_",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaUnknown/fast-readable-async-iterator.git"
+  },
+  "homepage": "https://github.com/ThaUnknown/fast-readable-async-iterator#readme"
+}

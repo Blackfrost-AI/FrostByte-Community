@@ -1,0 +1,20 @@
+{
+  "name": "bittorrent-lsd",
+  "version": "2.0.3",
+  "license": "MIT",
+  "author": {
+    "name": "WebTorrent LLC",
+    "email": "feross@webtorrent.io",
+    "url": "https://webtorrent.io"
+  },
+  "contributors": [
+    {
+      "name": "Julen Garcia Leunda",
+      "email": "hicom150@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webtorrent/bittorrent-lsd.git"
+  }
+}

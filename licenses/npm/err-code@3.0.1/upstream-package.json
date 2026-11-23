@@ -1,0 +1,10 @@
+{
+  "name": "err-code",
+  "version": "3.0.1",
+  "license": "MIT",
+  "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IndigoUnited/js-err-code.git"
+  }
+}

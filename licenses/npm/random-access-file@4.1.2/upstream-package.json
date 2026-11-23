@@ -1,0 +1,11 @@
+{
+  "name": "random-access-file",
+  "version": "4.1.2",
+  "license": "MIT",
+  "author": "Mathias Buus (@mafintosh)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/random-access-storage/random-access-file.git"
+  },
+  "homepage": "https://github.com/random-access-storage/random-access-file"
+}

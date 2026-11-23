@@ -1,0 +1,16 @@
+{
+  "name": "asn1",
+  "version": "0.2.6",
+  "license": "MIT",
+  "author": "Joyent (joyent.com)",
+  "contributors": [
+    "Mark Cavage <mcavage@gmail.com>",
+    "David Gwynne <loki@animata.net>",
+    "Yunong Xiao <yunong@joyent.com>",
+    "Alex Wilson <alex.wilson@joyent.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joyent/node-asn1.git"
+  }
+}

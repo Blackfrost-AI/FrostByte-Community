@@ -1,0 +1,11 @@
+{
+  "name": "is-file",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Joseph Spencer",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsdevel/node-is-file.git"
+  }
+}

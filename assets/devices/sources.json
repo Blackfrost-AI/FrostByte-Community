@@ -1,0 +1,329 @@
+{
+  "retrieved": "2026-09-12",
+  "usage": "Product identification in the private FrostByte beta. Manufacturer images retain their respective copyrights. PC photos are representative; Apple photos represent an enclosure family, not a specific color or configuration.",
+  "images": {
+    "mac-mini-2024": {
+      "file": "mac-mini-2024.png",
+      "label": "Mac mini (2024)",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 800,
+      "height": 152,
+      "source": "https://support.apple.com/en-us/102852",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-mini/mac-mini-2024.png",
+      "credit": "Apple",
+      "sha256": "9228d8a1fbc8fb2b39faef40ab0d02cf066bf90a9932194a64edd07ff53ad216",
+      "bytes": 43819
+    },
+    "mac-mini-unibody": {
+      "file": "mac-mini-unibody.png",
+      "label": "Mac mini, earlier enclosure",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1200,
+      "height": 200,
+      "source": "https://support.apple.com/en-us/102852",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-mini/mac-mini-2023-m2.png",
+      "credit": "Apple",
+      "sha256": "70f3bd441cb6a5ec4eaef374cdab61f44636bc43191bf620a33fe8a9a5dccda1",
+      "bytes": 93107
+    },
+    "mac-mini-2018": {
+      "file": "mac-mini-2018.png",
+      "label": "Mac mini (2018)",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1200,
+      "height": 200,
+      "source": "https://support.apple.com/en-us/102852",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-mini/mac-mini-2018.png",
+      "credit": "Apple",
+      "sha256": "ffd0a534ebc19a59524169f5f66cb222b025d0c0c70185e6a12b0b8ccf3095ed",
+      "bytes": 92996
+    },
+    "mac-studio": {
+      "file": "mac-studio.png",
+      "label": "Mac Studio",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1800,
+      "height": 426,
+      "source": "https://support.apple.com/en-us/102231",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-studio/mac-studio-2025-m4-max.png",
+      "credit": "Apple",
+      "sha256": "235476a56190088e6bda25456ae9488084013cc8558501c593f5e2eef8374ec0",
+      "bytes": 480877
+    },
+    "mac-pro-tower": {
+      "file": "mac-pro-tower.jpg",
+      "label": "Mac Pro tower",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 528,
+      "height": 400,
+      "source": "https://support.apple.com/en-us/102887",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-pro/id-mac-pro-2019.jpg",
+      "credit": "Apple",
+      "sha256": "3e0cbd1d5a3aec71a3ee90d88e58c34e962905ca405d8840db4f517a73bd6ccb",
+      "bytes": 60417
+    },
+    "mac-pro-rack": {
+      "file": "mac-pro-rack.jpg",
+      "label": "Mac Pro rack",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 528,
+      "height": 280,
+      "source": "https://support.apple.com/en-us/102887",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-pro/id-mac-pro-2019-rack.jpg",
+      "credit": "Apple",
+      "sha256": "a30d960b34bad9af1c507e39fac8b70fa1c18c21ffb1ec5fa153bf7f7665754b",
+      "bytes": 67255
+    },
+    "mac-pro-2013": {
+      "file": "mac-pro-2013.jpg",
+      "label": "Mac Pro (Late 2013)",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 260,
+      "height": 400,
+      "source": "https://support.apple.com/en-us/102887",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-pro/id-mac-pro-2013.jpg",
+      "credit": "Apple",
+      "sha256": "e0e02212d467bbab1791dbe5f1c381dccafe39d926894fb0bb2d4a674b8e1169",
+      "bytes": 16842
+    },
+    "mac-pro-classic": {
+      "file": "mac-pro-classic.jpg",
+      "label": "Mac Pro, classic tower",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 580,
+      "height": 400,
+      "source": "https://support.apple.com/en-us/102887",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/mac-pro/id-mac-pro-2009-2012.jpg",
+      "credit": "Apple",
+      "sha256": "c6cf0a574d57d16ece0f8b0f13eb43478b1ed1e456e9d91989f6fc50f33a2c19",
+      "bytes": 70451
+    },
+    "macbook-pro-14": {
+      "file": "macbook-pro-14.png",
+      "label": "MacBook Pro 14-inch",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1412,
+      "height": 548,
+      "source": "https://support.apple.com/en-us/108052",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/macbook-pro/macbook-pro-14in-2024-m4-pro-m4-max-colors.png",
+      "credit": "Apple",
+      "sha256": "65afc684d7fa8c693a4fb662067aa42fd3761c07b09b4e1226ae6e146412a06d",
+      "bytes": 168877
+    },
+    "macbook-pro-16": {
+      "file": "macbook-pro-16.png",
+      "label": "MacBook Pro 16-inch",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1536,
+      "height": 630,
+      "source": "https://support.apple.com/en-us/108052",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/macbook-pro/macbook-pro-16in-2024-colors.png",
+      "credit": "Apple",
+      "sha256": "cba3ad8b2752de21a666ff800242779f6deea653b9ccdaddf37549d7a8703558",
+      "bytes": 216366
+    },
+    "macbook-air": {
+      "file": "macbook-air.png",
+      "label": "MacBook Air 13-inch",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1944,
+      "height": 660,
+      "source": "https://support.apple.com/en-us/102869",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/macbook-air/2025-macbook-air-13in-colors.png",
+      "credit": "Apple",
+      "sha256": "373b406c9e0e2902810ff6a0b65672fc63a000fd52b8976bdb0963daf21368df",
+      "bytes": 315213
+    },
+    "macbook-air-15": {
+      "file": "macbook-air-15.png",
+      "label": "MacBook Air 15-inch",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 2070,
+      "height": 741,
+      "source": "https://support.apple.com/en-us/102869",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/macbook-air/2025-macbook-air-15in-colors.png",
+      "credit": "Apple",
+      "sha256": "0be7e291edf3666a56555c79cf12dbe9e1acb2799857fbaa46bfc71cea1d19f8",
+      "bytes": 360311
+    },
+    "macbook-air-wedge": {
+      "file": "macbook-air-wedge.jpg",
+      "label": "MacBook Air, wedge enclosure",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1200,
+      "height": 420,
+      "source": "https://support.apple.com/en-us/102869",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/macbook-air/macbook-air-2020-device.jpg",
+      "credit": "Apple",
+      "sha256": "571bd632fae20bd7babd32cbee727c76b9cb4ce8418c78190ef4680aeacaf2c3",
+      "bytes": 225426
+    },
+    "imac-24": {
+      "file": "imac-24.png",
+      "label": "iMac 24-inch",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 1104,
+      "height": 540,
+      "source": "https://support.apple.com/en-us/108054",
+      "imageUrl": "https://cdsassets.apple.com/live/7WUAS350/images/imac/imac-24in-2024-four-ports-colors.png",
+      "credit": "Apple",
+      "sha256": "653be1c049eb16ad69bd6f1f4883fee00c28d9ed3e8566b5a9949fe40b665cf4",
+      "bytes": 112136
+    },
+    "dgx-spark": {
+      "file": "dgx-spark.png",
+      "label": "NVIDIA DGX Spark",
+      "inset": [
+        36.222,
+        8.722,
+        36.097,
+        8.847
+      ],
+      "width": 800,
+      "height": 800,
+      "source": "https://www.pny.com/dgx-spark",
+      "imageUrl": "https://d2vfia6k6wrouk.cloudfront.net/productimages/ef15a000-baca-4109-a81e-b2f9010d00f9/images/spark-3qtr-right.png",
+      "credit": "NVIDIA / PNY",
+      "sha256": "73af49e5298fad55dccdb6f2edab5351bc465e14ac2fd2acafcc4c7e1b99ff88",
+      "bytes": 57480
+    },
+    "asus-gx10": {
+      "file": "asus-gx10.png",
+      "label": "ASUS Ascent GX10",
+      "inset": [
+        31.906,
+        12.531,
+        31.906,
+        12.531
+      ],
+      "width": 640,
+      "height": 640,
+      "source": "https://press.asus.com/media/photos/171/albums/1157/",
+      "imageUrl": "https://press.asus.com/assets/w_640,h_640/d4cc50f6-cc21-4301-a0a9-197b98ed796a/ASUS%20Ascent%20GX10.png",
+      "credit": "ASUSTeK Computer",
+      "sha256": "49150a341dcb5ce46aa0081d704b4820f841dce1fa231f41ed1d46f0738a9307",
+      "bytes": 117180
+    },
+    "dell-gb10": {
+      "file": "dell-gb10.png",
+      "label": "Dell Pro Max with GB10",
+      "inset": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "width": 796,
+      "height": 402,
+      "source": "https://www.dell.com/en-us/shop/desktop-computers/dell-pro-max-with-gb10/spd/dell-pro-max-fcm1253-micro/xcto_fcm1253_usx",
+      "imageUrl": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/desktops/dell-pro-max/fcm1253/media-gallery/desktop-dell-pro-max-fcm1253-micro-bk-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=402&wid=796&qlt=100,1&resMode=sharp2&size=796,402&chrss=full",
+      "credit": "Dell",
+      "sha256": "03034411cdec1ee6de3d48049812ba428cb27471dc7c4df3e66bd95af48193b9",
+      "bytes": 290850
+    },
+    "pc-laptop": {
+      "file": "pc-laptop.png",
+      "label": "Representative Windows laptop",
+      "inset": [
+        0.0,
+        12.675,
+        10.974,
+        16.475
+      ],
+      "width": 500,
+      "height": 213,
+      "source": "https://www.dell.com/support/product-details/en-us/product/xps-13-9340-laptop/overview",
+      "imageUrl": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/xps-notebooks/13-9340/spi/13-9340-oled/silver/notebook-xps-13-9340-t-oled-silver-relsize-500-ng.psd?fmt=jpg&hei=213&wid=500",
+      "credit": "Dell",
+      "sha256": "fb5e786c84d96c510949fdd63203a237ca169008ac6e9a20937d1e5942e70f6c",
+      "bytes": 107474
+    },
+    "pc-desktop": {
+      "file": "pc-desktop.png",
+      "label": "Representative desktop PC",
+      "inset": [
+        0.0,
+        19.871,
+        3.406,
+        20.271
+      ],
+      "width": 500,
+      "height": 304,
+      "source": "https://www.dell.com/support/product-details/en-us/product/dell-pro-qct1250-desktop/overview",
+      "imageUrl": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/desktops/dell-pro/qct1250/spi/desktop-pro-qct1250-tower-odd-black-relsize-500-ng.psd?fmt=jpg&hei=304&wid=500",
+      "credit": "Dell",
+      "sha256": "104dda69dc2f3aa45fc50337705e06d6fc725aa2a562efdaf198a4e3fe8d49b5",
+      "bytes": 29714
+    }
+  }
+}
