@@ -1,6 +1,6 @@
 // Legal versions must match legal.json. The legacy validators are retained for
 // historical report compatibility; the v1 desktop has no report transport.
-export const TERMS_VERSION = 'frostbyte-terms-2026-10-13-v1';
+export const TERMS_VERSION = 'frostbyte-terms-2026-11-23-v1';
 export const PRIVACY_VERSION = 'frostbyte-privacy-2026-10-12-v1';
 export const DIAGNOSTICS_VERSION = 'frostbyte-diagnostics-v1';
 export const COUNTERS = Object.freeze([

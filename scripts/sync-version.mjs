@@ -56,7 +56,7 @@ assert.match(renderer, /privacyNote\.textContent = `FrostByte \$\{activeVersion\
 assert.match(renderer, /#updates-version[\s\S]{0,300}?state\.version/, 'settings Updates must show the runtime version');
 
 const legal = JSON.parse(read('src/shared/legal.json'));
-assert.equal(legal.termsVersion, 'frostbyte-terms-2026-10-13-v1', 'versioned legal acceptance record must remain immutable until a legal revision');
+assert.equal(legal.termsVersion, 'frostbyte-terms-2026-11-23-v1', 'versioned legal acceptance record must remain immutable until a legal revision (owner-approved 2026-11-23 publication-date revision)');
 assert.equal(legal.privacyVersion, 'frostbyte-privacy-2026-10-12-v1', 'versioned legal acceptance record must remain immutable until a legal revision');
 assert.ok(legal.terms.includes('FrostByte 1.0 Terms'), 'legal notice text is a frozen acceptance record, not an active product label');
 

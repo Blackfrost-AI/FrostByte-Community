@@ -59,7 +59,7 @@ Community packaging uses `npm run dist:mac:community`,
 must match the target OS and architecture. Never commit `dist/`, installed
 dependencies, local state, tokens, private keys or signing credentials.
 
-For the owner-approved October 13, 2026 release, reuse the existing signing
+For the owner-approved 2.0.0 release, reuse the existing signing
 approach: Developer ID signed Mac app/DMG without Apple notarization, unsigned
 Windows Authenticode, and Blackfrost OpenPGP-signed SHA-256 sums for all six files.
 This is a disclosed release-specific exception, not a claim that the strict

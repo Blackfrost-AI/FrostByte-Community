@@ -187,7 +187,7 @@ test('displayed legal document versions match the consent gate and describe the 
   const legal = JSON.parse(fs.readFileSync(new URL('../src/shared/legal.json', import.meta.url), 'utf8'));
   assert.equal(legal.termsVersion, TERMS_VERSION);
   assert.equal(legal.privacyVersion, PRIVACY_VERSION);
-  assert.match(legal.terms, /Friday 16 October 2026/);
+  assert.match(legal.terms, /Monday 23 November 2026/);
   assert.match(legal.terms, /Blackfrost AI\/SI/);
   assert.match(legal.privacy, /No analytics, automatic diagnostic reports or in-app feedback collection/);
   assert.match(legal.privacy, /previously submitted|already submitted/);

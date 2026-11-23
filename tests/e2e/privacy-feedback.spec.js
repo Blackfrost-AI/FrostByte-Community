@@ -40,7 +40,8 @@ test.describe.serial(`FrostByte ${PRODUCT_VERSION} welcome, no collection, and G
     await expect(page.locator('#welcome-title')).toContainText(`FrostByte ${PRODUCT_VERSION}`);
     await expect(page.locator('#welcome-version')).toHaveText(`VERSION ${PRODUCT_VERSION}`);
     await expect(page.locator('#welcome')).toContainText('No data collection.');
-    await expect(page.locator('#welcome')).toContainText('Community source publication is in preparation');
+    await expect(page.locator('#welcome')).toContainText('Community source goes public on Monday');
+    await expect(page.locator('#welcome')).toContainText('23 November 2026');
     await expect(page.locator('#welcome')).toContainText('Blackfrost AI/SI');
     await expect(page.locator('#welcome-diagnostics')).toHaveCount(0);
     expect(await app.evaluate(() => Boolean(globalThis.privacyMain.engine))).toBe(false);

@@ -22,7 +22,7 @@ test('Community 1.0 grants Apache-2.0 without relicensing historical Founders', 
   assert.match(read('NOTICE'), /Private historical Founders/);
   const legal = JSON.parse(read('src/shared/legal.json'));
   assert.match(legal.terms, /do not add restrictions to, or revoke, rights granted by Apache-2.0/);
-  assert.match(legal.terms, /Friday 16 October 2026/);
+  assert.match(legal.terms, /Monday 23 November 2026/);
 });
 
 test('desktop and companion include the Community license and notice', () => {

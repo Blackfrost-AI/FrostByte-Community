@@ -60,7 +60,7 @@ test('active product-facing docs use V2.0 identity', () => {
 
 test('versioned legal acceptance record is preserved, not silently rewritten', () => {
   const legal = JSON.parse(read('src/shared/legal.json'));
-  assert.equal(legal.termsVersion, 'frostbyte-terms-2026-10-13-v1');
+  assert.equal(legal.termsVersion, 'frostbyte-terms-2026-11-23-v1');
   assert.equal(legal.privacyVersion, 'frostbyte-privacy-2026-10-12-v1');
   assert.match(legal.terms, /FrostByte 1\.0 Terms/);
   const nativeReview = read('src/main/native-review.js');

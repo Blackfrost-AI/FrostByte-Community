@@ -592,7 +592,7 @@ async function assertNativeLaunch(target = executable, { appImage = false, requi
         if (!welcome.includes(`Welcome to FrostByte ${sourceMetadata.version}.`)
           || !welcome.includes(`VERSION ${sourceMetadata.version}`)
           || !welcome.includes('No data collection.')
-          || !welcome.includes('Community source publication is in preparation') || !welcome.includes('Blackfrost AI/SI')) {
+          || !welcome.includes('Community source goes public on Monday') || !welcome.includes('23 November 2026') || !welcome.includes('Blackfrost AI/SI')) {
           throw new Error(`The packaged v${sourceMetadata.version} welcome or source-publication announcement is missing.`);
         }
         const welcomeVersionBadge = (await page.locator('#welcome-version').textContent())?.trim();
