@@ -1,7 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateRemoteFrame, RemoteChatStream, ASSISTANT_CAPABILITY } from '../src/main/assistant-remote.js';
+import { validateRemoteFrame, RemoteChatStream, remoteDeviceModels, ASSISTANT_CAPABILITY } from '../src/main/assistant-remote.js';
+import { DeviceRegistry } from '../src/main/devices.js';
 import { sanitizeSparkResponse } from '../src/main/spark-schema.js';
+
+test('paired device models are requested over the saved connection of that device', async () => {
+  const store = { state: {}, settings: { sparkHost: '' }, getSettings() { return { ...this.settings }; }, setSettings(patch) { Object.assign(this.settings, patch); }, _flush() {} };
+  const devices = new DeviceRegistry({ store, request: async () => ({}) });
+  const id = devices.save({ mode: 'ssh', host: 'studio' }, 'studio');
+  const model = { id: 'm_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', name: 'qwen', provider: 'ollama', deviceId: 'local', state: 'ready', capabilities: ['chat'], contextChars: 32000 };
+  const calls = [];
+  const request = async (profile, payload) => {
+    calls.push({ profile, action: payload.action });
+    return payload.action === 'status' ? { capabilities: { assistant: ASSISTANT_CAPABILITY } } : { models: [model] };
+  };
+  const result = await remoteDeviceModels(devices, request, id);
+  assert.deepEqual(calls, ['status', 'assistant:models'].map(action => ({ profile: devices.profile(id), action })));
+  assert.deepEqual(result.models.map(row => [row.name, row.deviceId]), [['qwen', id]]);
+});
 
 test('remote discovery response is typed and bounded', () => {
   const model = { id: 'm_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', name: 'qwen', provider: 'ollama', deviceId: 'remote', state: 'ready', capabilities: ['chat'], contextChars: 32000 };

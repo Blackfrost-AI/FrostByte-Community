@@ -1,11 +1,10 @@
 import path from 'node:path';
 import { app, ipcMain } from 'electron';
 import { AssistantService } from './assistant-service.js';
-import { runtimeModels, RUNTIME_NAMES, MANAGED_PROVIDER, modelId, runtimeModel } from './assistant-runtimes.js';
+import { runtimeModels, RUNTIME_NAMES, MANAGED_PROVIDER, runtimeModel } from './assistant-runtimes.js';
 import { ManagedLlamaRuntime, llamaManifestRoot, verifyLlamaRuntime } from './llama-runtime.js';
 import { sparkRequest } from './spark.js';
-import { sanitizeSparkResponse } from './spark-schema.js';
-import { RemoteChatStream } from './assistant-remote.js';
+import { RemoteChatStream, remoteDeviceModels } from './assistant-remote.js';
 import { streamChatCompletion } from './assistant-chat.js';
 
 export function registerAssistant({ handle, devices, modelLibrary }) {
@@ -38,13 +37,7 @@ export function registerAssistant({ handle, devices, modelLibrary }) {
       return { models: rows.flatMap(row => row.models), runtimes: rows.map(row => ({ provider: row.provider, status: row.status })) };
     },
     listDevices: async () => devices.list().map(device => ({ id: device.id, name: device.hostLabel || device.host || 'Paired device' })),
-    remote: async id => {
-      const device = devices.get(id);
-      const status = sanitizeSparkResponse('status', await sparkRequest(device, { action: 'status' }, { timeout: 12000 }));
-      if (status.capabilities?.assistant !== 1) throw new Error('Update this device to use the assistant.');
-      const response = sanitizeSparkResponse('assistant:models', await sparkRequest(device, { action: 'assistant:models' }, { timeout: 15000 }));
-      return { ...response, models: response.models.map(model => ({ ...model, deviceId: id, id: modelId(id, model.provider, model.name) })) };
-    },
+    remote: id => remoteDeviceModels(devices, sparkRequest, id),
     chat: async (request, options) => {
       if (request.model.deviceId === 'local') {
         if (request.model.provider === MANAGED_PROVIDER) {
@@ -56,7 +49,7 @@ export function registerAssistant({ handle, devices, modelLibrary }) {
       }
       const deviceId = request.model.deviceId;
       const approval = devices.approvalSnapshot(deviceId);
-      const device = devices.get(deviceId);
+      const device = devices.profile(deviceId);
       const stream = new RemoteChatStream({ stream: options.stream, send: async payload => sparkRequest(device, payload, { timeout: 15000 }) });
       remoteStreams.set(options.stream, stream);
       // Stop must tear down the SSH channel so the companion sees the socket
