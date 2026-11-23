@@ -148,6 +148,18 @@ async function storageFixture(t, { missingExternal = false, saved, slowHF = fals
 
 const hfRequest = { action: 'hf:add', repoId: 'fixture/storage', revision: 'a'.repeat(40), files: [{ path: 'config.json', size: 0 }] };
 
+test('companion answers a client that half-closes after sending its request', { timeout: 30000 }, async t => {
+  const f = await storageFixture(t);
+  const reply = await new Promise((resolve, reject) => {
+    const socket = net.connect({ path: path.join(f.state, 'control.sock'), allowHalfOpen: true }); let output = '';
+    socket.setTimeout(10000, () => socket.destroy(new Error('Spark fixture request timed out.')));
+    socket.on('error', reject); socket.on('data', chunk => { output += chunk; });
+    socket.on('connect', () => socket.end(JSON.stringify({ action: 'status' }) + '\n'));
+    socket.on('end', () => { socket.destroy(); resolve(output); });
+  });
+  assert.equal(JSON.parse(reply).ok, true);
+});
+
 test('HF peer lookup requires explicit sharing and an exact verified public HF file', { timeout: 30000 }, async t => {
   const f = await storageFixture(t);
   await f.rpc(hfRequest);

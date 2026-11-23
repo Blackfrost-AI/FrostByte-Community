@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
+import { fileURLToPath } from 'node:url';
 import { generateSparkKeyPair } from '../src/main/spark.js';
 import { SparkSetup, SPARK_PROBE_COMMAND, SPARK_FOLDERS_COMMAND, SPARK_PAIR_COMMAND } from '../src/main/spark-setup.js';
 import { SPARK_RPC_COMMAND } from '../src/main/spark-pairing.js';
@@ -423,4 +424,36 @@ request=json.loads(raw);c.sendall((json.dumps({'ok':True,'data':{'hostname':'soc
   assert.equal(run('add').status, 0); assert.equal(run('remove').status, 0);
   await fs.unlink(file); const outside = path.join(home, 'authorized-keys-target'); await fs.writeFile(outside, 'unchanged'); await fs.symlink(outside, file);
   assert.notEqual(run('add').status, 0); assert.equal(await fs.readFile(outside, 'utf8'), 'unchanged');
+});
+test('shipped pairing helper relays the reply of the real companion', { timeout: 60000 }, async t => {
+  // Keep the companion socket below macOS's short AF_UNIX path limit.
+  const home = await fs.realpath(await fs.mkdtemp(path.join(process.platform === 'darwin' ? '/private/tmp' : os.tmpdir(), 'fb-pair-')));
+  t.after(() => fs.rm(home, { recursive: true, force: true }));
+  await fs.mkdir(path.join(home, '.ssh'));
+  const file = path.join(home, '.ssh/authorized_keys');
+  await fs.writeFile(file, '');
+  const publicKey = generateSparkKeyPair('frostbyte-test').public.trim();
+  const added = spawnSync('/bin/sh', ['-c', SPARK_PAIR_COMMAND], { input: JSON.stringify({ action: 'add', publicKey }), env: { ...process.env, HOME: home }, encoding: 'utf8' });
+  assert.equal(added.status, 0, added.stderr);
+  const helper = path.join(home, '.ssh/frostbyte', (await fs.readFile(file, 'utf8')).match(/\.ssh\/frostbyte\/(bridge-[a-f0-9]{24}\.py)/)[1]);
+  const companion = spawn(process.execPath, [fileURLToPath(new URL('../src/agent/server.js', import.meta.url))], {
+    env: { ...process.env, FROSTBYTE_AGENT_HOME: path.join(home, '.local/share/frostbyte-beta/state'), FROSTBYTE_DOWNLOAD_DIR: path.join(home, 'models'), FROSTBYTE_AGENT_TEST: '1' },
+    stdio: ['ignore', 'pipe', 'pipe'] });
+  t.after(async () => {
+    if (companion.exitCode !== null || companion.signalCode !== null) return;
+    const closed = once(companion, 'exit'); companion.kill('SIGTERM'); await closed;
+  });
+  let ready = '', log = '';
+  companion.stderr.on('data', chunk => { log += chunk; });
+  await new Promise((resolve, reject) => {
+    companion.once('exit', code => reject(new Error(`Companion exited with ${code}: ${log}`)));
+    companion.stdout.on('data', chunk => { ready += chunk; if (ready.includes('agent ready')) resolve(); });
+  });
+  // `status` awaits real I/O in the companion, so its reply arrives after the helper has sent the whole request.
+  const reply = spawnSync('python3', [helper], { cwd: home, input: JSON.stringify({ action: 'status' }),
+    env: { ...process.env, HOME: home, SSH_ORIGINAL_COMMAND: SPARK_RPC_COMMAND }, encoding: 'utf8', timeout: 30000 });
+  assert.equal(reply.status, 0, reply.stderr);
+  const result = JSON.parse(reply.stdout);
+  assert.equal(result.ok, true);
+  assert.equal(typeof result.data.protocolVersion, 'number');
 });
