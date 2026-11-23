@@ -146,7 +146,7 @@ async function main() {
       if (!q) { console.error('hf search "<query>"'); process.exit(2); }
       requireNetwork(offline, 'hf search');
       const limit = Number(flagValue(args, '--limit', 15));
-      const results = await hfSearch({ query: q, limit, token });
+      const results = await hfSearch(q, { limit });
       print(results, true);
       return;
     }
@@ -154,7 +154,7 @@ async function main() {
       const repoId = pos[2];
       if (!repoId) { console.error('hf info <owner/repo>'); process.exit(2); }
       requireNetwork(offline, 'hf info');
-      const info = await hfModelInfo(repoId, token);
+      const info = await hfModelInfo(repoId, { token });
       print(info, true);
       return;
     }
@@ -162,7 +162,7 @@ async function main() {
       const repoId = pos[2];
       if (!repoId) { console.error('hf options <owner/repo>'); process.exit(2); }
       requireNetwork(offline, 'hf options');
-      const info = await hfModelInfo(repoId, token);
+      const info = await hfModelInfo(repoId, { token });
       const options = buildHfOptions(info.files || []);
       print({ id: info.id, sha: info.sha, options }, true);
       return;
@@ -173,7 +173,7 @@ async function main() {
       requireNetwork(offline, 'hf serve');
       const target = flagValue(args, '--target', 'local') === 'spark' ? 'spark' : 'local';
       const localPath = flagValue(args, '--local-path', '');
-      const info = await hfModelInfo(repoId, token);
+      const info = await hfModelInfo(repoId, { token });
       const recipes = serveOptions(info, { target, localPath, includeAlternatives: true });
       print({ id: info.id, ...recipes }, true);
       return;

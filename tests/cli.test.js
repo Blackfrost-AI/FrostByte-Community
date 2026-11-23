@@ -20,6 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { RECIPE_SCHEMA, RECIPE_VERSION } from '../src/shared/recipe-manifest.js';
+import { hfFetchStub, HF_FIXTURE_MODEL } from './helpers/hf-fetch.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const CLI = path.join(here, '..', 'src', 'cli', 'index.js');
@@ -226,6 +227,23 @@ test('bundle seed is local-only and works with --offline', () => {
   const out = JSON.parse(r.stdout);
   assert.equal(out.seeding, './bundle');
   assert.equal(out.port, 6881);
+});
+
+test('hf commands send the requested query and limit, and authenticate repository reads', t => {
+  const hf = hfFetchStub(t);
+  const search = run(['hf', 'search', 'qwen', 'coder', '--limit', '5'], hf.env);
+  assert.equal(search.status, 0, search.stderr);
+  for (const sub of ['info', 'options', 'serve']) {
+    const r = run(['hf', sub, HF_FIXTURE_MODEL, '--token', 'hf_fixture'], hf.env);
+    assert.equal(r.status, 0, r.stderr);
+    assert.equal(JSON.parse(r.stdout).id, HF_FIXTURE_MODEL);
+  }
+
+  const [searched, ...inspected] = hf.requests();
+  const query = new URL(searched.url).searchParams;
+  assert.equal(query.get('search'), 'qwen coder');
+  assert.equal(query.get('limit'), '5');
+  assert.deepEqual(inspected.map(request => request.authorization), Array(3).fill('Bearer hf_fixture'));
 });
 
 test('the CLI is installable as a `frostbyte` command', () => {

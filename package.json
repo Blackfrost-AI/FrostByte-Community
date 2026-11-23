@@ -66,7 +66,7 @@
     "frostbyte": "node src/cli/index.js",
     "mcp:start": "node src/mcp/server.js",
     "test:release-signing": "node --test tests/release-signing.test.js",
-    "test:cli": "node --test tests/cli.test.js"
+    "test:cli": "node --test tests/cli.test.js tests/mcp.test.js"
   },
   "dependencies": {
     "@scure/bip39": "^1.5.4",
