@@ -1,335 +1,146 @@
-# Frost/Byte
+<p align="center"><img src="docs/images/hero.svg" alt="FrostByte by Blackfrost_AI/SI — Find models. Download your way. Share on your terms." width="100%"></p>
 
-### Peer-to-peer sharing for models and the files worth keeping.
+<p align="center"><strong>A desktop home for your AI model downloads, library and connected devices.</strong><br>Hugging Face, BitTorrent and IPFS — together, with explicit sharing controls.</p>
 
-**by Blackfrost AI/SI · Community 2.0.0 · Apache-2.0**
+<p align="center"><a href="https://github.com/Blackfrost-AI/FrostByte-Community/releases">Download</a> · <a href="#your-model-workflow-in-one-place">Explore features</a> · <a href="#get-started">Get started</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
 
-FrostByte combines BitTorrent, Hugging Face and IPFS downloads with a local
-library, explicit sharing controls, and connected-device dashboards. The
-Blackfrost theme brings bundled artwork, Manrope typography, frosted glass and
-optional snowfall, with Reduce Motion and Reduce Transparency support.
+<p align="center">Community 2.0.0 · macOS / Windows / Linux · Apache-2.0<br><strong>Built by Blackfrost_AI/SI</strong></p>
 
-[Downloads (GitHub Releases)](https://github.com/Blackfrost-AI/FrostByte-Community/releases) ·
-[Release notes](docs/RELEASE-NOTES.md) ·
-[Privacy and feedback](docs/PRIVACY-AND-FEEDBACK.md)
+> **Publication status:** this repository and its downloads remain private until the owner authorizes publication. Mac artifacts are Developer ID signed but not notarized; Windows artifacts are not Authenticode-signed. Keep system protections enabled. See [downloads and verification](#download-and-verify).
 
-- Bulk selection supports hide, restore, remove, sharing and portable link/CSV
-  export. Removing history and deleting files remain separate reviewed actions.
-- Normal/unlimited mode stays separate from ALT limits and schedules. Sharing
-  capacity follows descriptor budgets rather than a fixed small item cap.
-- Device dashboards, approved LAN discovery and existing WireGuard overlays
-  keep credentials, routes and destination choices under your control.
-- No app analytics, automatic diagnostic reports or in-app feedback collection,
-  including previous opt-ins. Optional feedback opens GitHub without attachments.
-- First-launch notices are versioned and remembered locally. Review updated
-  notices yourself; installing an update does not accept them for you.
+![FrostByte Transfers panel displaying Hugging Face downloads and BitTorrent transfers with pause, resume and sharing controls](docs/images/transfers-preview.png)
 
-## License and source availability
+*Current renderer preview, cropped to the Transfers panel. All model entries, paths, speeds and progress are simulated demonstration data—not a performance benchmark or live download.*
 
-Community software and its bundled companion use [Apache-2.0](LICENSE);
-see [NOTICE](NOTICE) and [third-party notices](THIRD_PARTY_NOTICES.md).
-Third-party components and fonts retain their own licenses.
+## Your model workflow, in one place
 
-This repository is private while Community source publication is prepared.
-It opens to the public once release-readiness gates close. Updates and pull
-requests are managed regularly by Blackfrost AI/SI. The binary release does not
-change repository visibility. The npm package remains marked private to prevent
-accidental npm publication.
+Finding a model is only the beginning. FrostByte brings the download, local library,
+transfer controls and connected-device view into one desktop workspace.
 
-The six release files cover Apple silicon macOS, Windows x64 and Linux x64.
-The Mac app and DMG are Developer ID signed but **not Apple-notarized**; Windows
-packages are **not Authenticode-signed**. The existing Blackfrost OpenPGP key
-authenticates the combined SHA-256 list. A checksum signature is not OS approval.
-Keep system protections enabled and contact support if installation is blocked.
-Linux qualification uses x64 userspace in Docker on an arm64 host, not every
-native Linux kernel or distribution.
+| Find and download | Organize and share | Connect and chat |
+|---|---|---|
+| Browse Hugging Face and download repository files with revision tracking. | Keep downloaded models visible in your local library. | View supported connected devices and their transfer activity. |
+| Open torrents, magnets and IPFS CIDs through the appropriate download engine. | Pause, resume, set limits and manage transfer history separately from files. | Use per-device dashboards for models, resources and storage. |
+| Search recorded inventory and transfers across your devices. | Choose what to seed or publish; sharing is an explicit action. | Open **Assistant — Beta** for chat with supported running model services. |
 
-Founders is retired and remains private. Historical Founders artifacts and
-documentation keep their original terms and are not public Community downloads.
-The default build identity is Community. Historical Founders boundaries are
-recorded in a private retirement handoff retained by Blackfrost AI/SI.
+### Download through the right source
 
-See [development and release workflow](docs/DEVELOPMENT.md) before packaging.
-Versioned release artifacts are immutable. The internal `beta` update-feed
-identifier is retained only so older Community clients recognize the 1.0 update.
+- **Hugging Face:** repository browsing, resumable downloads, optional authentication for gated/private content, and revision pinning. A Hugging Face download is not automatically a torrent.
+- **BitTorrent:** magnet and `.torrent` support, file selection, bandwidth controls and seeding. Use only content you have permission to download and redistribute.
+- **IPFS:** CID downloads through the bundled Kubo runtime. Enabling IPFS starts a real network participant; review its settings before use.
+- **Model Share:** integrated AEON mirror workflows alongside the other download paths. Availability depends on the source and connected services.
 
-Search it. Pull it. Share it. Keep it alive.
+The top search bar searches your inventory and transfers. **It is not a public torrent search engine.**
 
-```bash
-npm ci                # Node 22.12+, installed on the target operating system
-npm run build:ipfs     # checksum-verified Kubo runtime for this platform
-npm start              # launch the app
-npm run test:engine    # headless P2P test — seeds a file, pulls it, verifies hashes
-```
+### Your devices, without losing the details
 
----
+![FrostByte Devices panel showing two synthetic devices with hardware summaries and dashboard links](docs/images/devices-preview.png)
 
-## New in Community 2.0.0
+*Current renderer preview with synthetic devices. No actual LAN scan, device connection or hardware measurement was used for this image.*
 
-- **Search** — the models tab is now Search: one place for your library,
-  Hugging Face, magnets and IPFS links.
-- **AI Assistant (Beta)** — a device-local chat sidebar that discovers models
-  served on your machines automatically; no endpoint typing. General chat
-  plumbing today, deeper integration later.
-- **Model integrity gates** — P2P model payloads are verified before they are
-  trusted: hash checks, origin signatures and safe-file screening on shared
-  content.
-- **My HF + AEON Model Share** — manage your Hugging Face downloads and pull
-  from the AEON mirror network alongside torrents and IPFS.
-- **Community accounts** — optional Blackfrost sign-in with handles, follows
-  and publishing, managed from the app.
-- **FrostNet** — a Coming Soon home for community activity; it will integrate
-  with what users share. Inactive placeholder in 2.0.0.
+See a device's activity, model inventory and storage in its own dashboard.
+Approved discovery and configured connections keep credentials and destination
+choices explicit. Connected-device views do **not** imply automatic file synchronization.
+See the [device guide](docs/DEVICES.md) for setup and supported connections.
 
-## What it is
+### A local assistant, with room to grow
 
-A peer-to-peer download and sharing app built around models. Torrents can contain
-any file type, including configs, updates, and archives. Search HuggingFace in its
-own tab, open a torrent, magnet or IPFS link, and choose what to share.
-The top bar finds your transfers and recorded downloads; it does not query a
-public torrent index. A community directory for legally shared open models is a
-future phase, described in [the discovery roadmap](docs/COMMUNITY-DISCOVERY.md).
+**Assistant — Beta** is a general-chat sidebar for supported model services running
+on this computer or configured devices. Discovery can surface supported running
+services without manually typing a local endpoint.
 
-It's the same idea LimeWire had for music, applied to model weights:
+It does not load every downloaded model into memory, guarantee support for every
+inference server, or provide antivirus scanning. Deeper download-management and
+hardware-aware assistance are future work—not promises about today's chat.
 
-- **Find your downloads** → search recorded inventory and current transfers across your devices
-- **Download** → pull the model from whoever's sharing it
-- **Seed** → hand out what you already have
-- **The box you leave on** → is the seedbox
+## Get started
 
-Models being **byte-for-byte identical** is what makes this work. A 60 GB file
-either hashes right or it doesn't, so BitTorrent's piece hashing is exactly the
-right tool — no different in kind from sharing any other large file, just
-bigger.
+1. **Install FrostByte** for your platform from [GitHub Releases](https://github.com/Blackfrost-AI/FrostByte-Community/releases). Review the verification and signing notes below.
+2. **Choose a source.** Browse Hugging Face, open a torrent or magnet, or add an IPFS CID. Choose the destination and files you want.
+3. **Manage your library.** Monitor transfers, pause or resume them, and opt into sharing supported content when you have redistribution rights.
 
-The always-on machine is the design center. Point it at your models, leave it
-running, and it keeps handing them out.
+Want to use another machine? Start with the [device guide](docs/DEVICES.md).
+Want every control explained? Read the [feature reference](docs/FEATURES.md).
 
----
+## Built around explicit controls
 
-## What it isn't
+- **Sharing is a choice.** Download history, file deletion and seeding are separate operations.
+- **No app analytics or automatic diagnostic uploads.** Optional feedback opens GitHub without attaching your logs. Network downloads and configured services still communicate with their respective peers/providers.
+- **Integrity is not the same as safety.** Hash checks detect byte mismatches; signatures require a trusted identity. File screening and provenance checks are not antivirus, and cannot guarantee a model is harmless.
+- **Accounts are optional for local workflows.** Community sign-in supports account-related features; it is not required just to open a torrent.
+- **Licenses travel with the content.** FrostByte's Apache-2.0 license does not relicense downloaded models or grant redistribution rights.
 
-- **Not a hosting service.** No servers, no uploaded copies. A catalog entry is
-  a magnet link. Delete the starter catalog and the app still works — paste any
-  magnet.
-- **Not distributed inference.** No sharding a model across machines, no
-  scheduling jobs. Peers share whole files.
-- **Existing peer networks.** BitTorrent and IPFS are separate transports.
-  IPFS CIDs and torrent infohashes identify different content structures.
-- **No ads or analytics.** No automatic diagnostics or in-app feedback
-  collection; optional feedback goes through GitHub. An optional Blackfrost
-  account unlocks community handles, follows and publishing; an optional
-  HuggingFace token unlocks models your HF account can access.
+Read [Security](SECURITY.md), [privacy and feedback](docs/PRIVACY-AND-FEEDBACK.md),
+and the [feature reference](docs/FEATURES.md) before relying on trust indicators.
 
----
+## Available now. Clearly marked next.
 
-## Using it
-
-**From HuggingFace — search, gated models, selective pulls.** The HuggingFace
-tab searches the live HF API directly; the HF CLI is not required. Sort across
-the Hub by downloads, likes, trending, last update, or creation date, in either
-direction. Filter by publisher, task, format, library, license, language, and
-access. Filter choices come from the Hub API and are cached for an hour.
-**Load more** follows the same search and filters. Model/license/task column
-sorts explicitly apply to loaded results. Pick a model, choose a version by format and size,
-then download. Split weights stay together; Safetensors and PyTorch choices
-include config and tokenizer files from their folder and its ancestors.
-A single available version comes preselected. **Customize files** offers
-filename search, file-type filters, size/name sorting, and select-shown/clear
-controls. In short windows, those controls scroll with the file list so they do
-not cover selectable rows. **Just configs & tokenizer** selects supporting files without weights.
-The **Version** selector loads repository branches and release tags. Downloads
-use HTTP by default, with optional **HF + device** for eligible public files:
-pinned to the chosen version's commit, resumable, and sharing
-the same bandwidth caps as the swarm (max 2 concurrent pulls). **Gated models
-work**: save a read token in Settings → HuggingFace (validated via whoami,
-OS-level encrypted storage, sent only to huggingface.co). A 401 means no
-token; a 403 means access wasn't granted — the transfer row says which.
-Interrupted pulls resume after restarting the app. Finished pulls get a **Share on swarm** button that hashes the file locally
-and starts serving it to peers. That's the intended loop: HF → this box →
-the swarm.
-
-**Connected devices.** Connect Macs and DGX machines by LAN address and login, or reuse
-saved SSH aliases. Guided setup installs each companion directly from the desktop
-app. Several devices can remain connected and download at once. Choose this
-computer or a saved device in the torrent popup or HF download footer, then one
-internal or mounted external folder for that download. Remote downloads continue
-after the controller disconnects, with separate inventories and transfer controls.
-See [device setup and limits](docs/DEVICES.md), including Mac awake/logged-in
-requirements and stock product photos.
-
-**Share something you have.** `Share a folder` → hashes it locally → gives you a
-magnet link. Give that link to whoever wants the model. This box keeps serving
-it, and comes back up seeding it after a restart.
-
-**Pull something.** Drop `.torrent` files or magnet links anywhere in the window,
-paste a magnet/infohash in the top search box, or click **Add download**. The
-review popup shows the file list, selected size, and a destination for this
-download. Select only the files you need; no content transfer starts until you
-confirm. A magnet preview fetches metadata from peers, so its file list may take
-time or be unavailable without peers. You can still start all files. Closing
-the popup cancels the preview. Multiple drops queue individual reviews.
-
-Selected-file progress and completion survive restarts. A partial download is
-shown as **selected files complete**, and does not claim to be a full seed.
-BitTorrent pieces may overlap neighboring files, so small portions of skipped
-files can be stored. Supported sources use the engine's BitTorrent v1-compatible
-metadata/magnets. Packaged apps register torrent and magnet handlers. The Windows
-installer adds Open With / Default Apps choices and preserves existing defaults.
-Opening a source from Explorer, Finder, or a browser enters the same review popup,
-including when FrostByte is already running. Selecting a default remains an OS choice.
-
-**Save torrent links.** `Torrents → Manage saved links` keeps manually saved magnet
-links and metadata. Import a JSON list URL or save a link yourself. Existing
-entries survive the navigation update; they are separate from downloaded inventory.
-
----
-
-## Screens
-
-| | |
+| Available in Community 2.0.0 | Coming next / not shipped |
 |---|---|
-| **HuggingFace** | Live HF search with gated chips, downloads, likes, licenses. Collapsible details with version cards, grouped split weights, download totals, and an optional custom file picker. HTTP transfers (max 2 at a time) share your bandwidth caps. |
-| **Transfers** | Default view, with grouped model and torrent progress. The top bar searches model/file names, folders and devices, including completed inventory after history is cleared. Device filters scope results; Pause/Resume results keeps each matching model intact. |
-| **My Models** | Downloaded models on this computer or Spark, with file locations, browsing, sharing switches and live upload statistics. |
-| **Torrents** | Other downloaded files, including documents, videos, software and archives. Filter by type, sort, or change a completed item's category in Options. |
-| **Settings** | Download folder, share-after-download (enforced), Blackfrost and original themes, catalog URL, where the JSON lives. |
+| Search, download engines, local library and transfer controls | A populated FrostNet community home and activity feed |
+| Connected-device dashboards and account-related workflows | Community discovery integrated with what people share |
+| General chat through **Assistant — Beta** | Deeper assistant actions and hardware-aware guidance |
 
-**Saved-link details.** Open a row under `Torrents → Manage saved links` for
-metadata, license notes, source and download controls. These bookmarks are local.
+**Not provided:** antivirus scanning or any guarantee of safe model execution.
 
-**Keyboard.** `Cmd/Ctrl+F` opens Transfers and focuses download search. Enter
-searches from any tab, or opens the review popup for a pasted magnet. Escape
-clears an active download search or closes the current popup. `Cmd/Ctrl+1/2/3`
-switches Transfers / My Models / Torrents; `Cmd/Ctrl+D` toggles alternative limits.
-List density remains in `Settings → Interface`.
+**FrostNet currently displays an inactive Coming Soon placeholder.**
+Follow the [community discovery roadmap](docs/COMMUNITY-DISCOVERY.md) and
+[release notes](docs/RELEASE-NOTES.md) for the distinction between plans and releases.
 
-**Settings.** Changes apply
-live unless marked *restart required*:
+## Download and verify
 
-| Section | What it actually does |
-|---|---|
-| **Connection** | UPnP/NAT-PMP port mapping (maps whatever port the engine bound — verified against a real router), max global connections, DHT toggle, extra trackers appended to every pull |
-| **Bandwidth** | Global up/down caps in KB/s, *alternative* limits with a manual turtle toggle (`Cmd/Ctrl+D` or the status bar) **and** a time-of-day schedule with a per-day picker — overnight windows belong to the day they start |
-| **Queueing & Seeding** | Max active downloads — overflow parks as *queued* and resumes FIFO as slots free; user pauses are never auto-resumed. Seeding goals: stop at ratio N or after M minutes (never touches things you explicitly share; files are kept) |
-| **Folders** | Download dir, move-completed-on-finish (cross-volume falls back to copy+delete), catalog URL |
-| **Interface** | Theme, confirmation thresholds for big pulls, confirm-quit-while-sharing, start-at-login |
-| **HuggingFace** | Token: validate-and-save (requires working OS encryption: Keychain on macOS, DPAPI on Windows), status display, remove |
-| **Privacy & Feedback** | No automatic diagnostics or in-app report collection; optional GitHub feedback and offline versioned terms/privacy documents |
+[**Get Community 2.0.0 →**](https://github.com/Blackfrost-AI/FrostByte-Community/releases/tag/v2.0.0)
 
-**Four densities** (comfortable → ultra), **Blackfrost**, and the original themes (Frost, Abyss,
-Malachite), persisted locally. The status bar shows live DHT node count and
-whether the listen port is open — a dead swarm reads as a warning, not silence.
+| Platform | Release formats | Signing status |
+|---|---|---|
+| macOS · Apple silicon | DMG / ZIP | Developer ID signed; **not notarized** |
+| Windows · x64 | EXE / ZIP | **Not Authenticode-signed** |
+| Linux · x64 | AppImage / deb | Verify signed checksums |
 
----
+Each release includes a SHA-256 list, its OpenPGP signature and the release public
+key. Follow [verification guidance](SECURITY.md) and independently check the key
+fingerprint. A signed checksum is **not OS approval**. If installation is blocked,
+keep protections enabled and contact **support@blackfrostai.com**.
 
-See [local data, consent and GitHub feedback](docs/PRIVACY-AND-FEEDBACK.md) for the
-v1.0 privacy boundary, legacy opt-in behavior and necessary network requests.
+Linux qualification uses x64 userspace in Docker on an arm64 host; it does not
+establish support for every native kernel or distribution. Release artifacts are
+immutable. Current `main` includes a November 23 legal revision that is **not yet
+embedded in the original v2.0.0 installers**.
 
-## Layout
+## Build it. Improve it. Make it yours.
 
-```
-src/
-  main/
-    index.js      Electron main — window, menus, IPC
-    torrent.js    WebTorrent wrapper (runs in plain Node, so it's testable)
-    catalog.js    merges starter + remote + user entries
-    store.js      settings and library as plain JSON
-  preload/
-    index.cjs     the renderer's entire view of the outside world
-  renderer/
-    index.html · styles.css · app.js
-catalog/starter.json     empty by default; add or import your own entries
-scripts/
-  test-engine.js         headless end-to-end P2P test
-  preview.html           render the UI in a browser against stubbed data
-docs/
-  HANDOFF.md             read this first — state, landmines, open items
-  PLAN.md                where this is going, and the honest gaps
-  01-limewire-research.md        why the UI looks the way it does
-  02-tech-landscape-research.md  the P2P / model-sharing landscape, with sources
+Use Node.js **22.12 or newer** on the target operating system:
+
+```sh
+npm ci
+npm run build:ipfs  # download the checksum-verified Kubo runtime
+npm start
 ```
 
----
+```sh
+npm test
+npm run test:engine # real peer-to-peer transfer and hash verification
+```
 
-## macOS build and installation
+See [Development](docs/DEVELOPMENT.md) for prerequisites and packaging,
+[Contributing](CONTRIBUTING.md) for the DCO workflow, and
+[Code of Conduct](CODE_OF_CONDUCT.md) for community expectations.
 
-The Apple Silicon app includes the Frost/Byte logo and native Dock icon. Build a
-DMG and ZIP with `npm run dist:mac`, then drag **FrostByte** from the DMG into
-**Applications**. This is an ad-hoc signed local build; public distribution still
-requires Developer ID signing and notarization.
+Useful contributions include reproducible bug reports, accessibility improvements,
+platform testing and clearer documentation. Report vulnerabilities through
+[Security](SECURITY.md), not public issues. If FrostByte is useful to you, a star
+helps other people find it—real community support, not a prerequisite to participate.
 
-Run `npm run test:packaged -- /Applications/FrostByte.app` to verify the installed
-copy. See [packaging instructions](docs/PACKAGING.md) for output paths, profile
-preservation, and release signing. Original artwork and prompts are in
-[assets/brand](assets/brand/README.md).
+## License and credits
 
-## Windows build and installation
+Built and maintained by **Blackfrost_AI/SI**, with community contributions including
+the AEON Model Share integration.
 
-Use a native Windows x64 checkout with Node 22.12+ and npm 11.17+: run `npm ci`, then
-`npm run dist:win`. Do not copy Mac `node_modules`; the networking binaries must
-match Windows. The build creates a ZIP and a per-user NSIS setup executable.
-Run setup as your normal Windows user; it requests no administrator elevation.
-This private beta is unsigned and does not claim Windows publisher verification.
+Community code and its bundled companion are [Apache-2.0](LICENSE).
+[NOTICE](NOTICE), [third-party notices](THIRD_PARTY_NOTICES.md), and bundled component
+and font licenses remain applicable. Historical Founders software, artifacts and
+private documentation retain their original terms; they are not Community downloads.
 
-Local destinations read **This PC**. Saved HF tokens and pairing keys use
-Electron safeStorage with Windows DPAPI; a profile copied from another account
-or operating system may require reconnecting. See [Windows packaging and
-verification](docs/PACKAGING.md#windows-x64) for artifacts, association behavior,
-and native test commands. Upgrades preserve existing torrent/magnet defaults
-and app data. Release acceptance evidence is retained in the private release
-archive; published checksums and their OpenPGP signatures accompany every
-GitHub Release.
-
-## Verification
-
-On macOS, run `npm run test:all` for the full check: engine + managers + reliability regressions + download-choice checks + live HuggingFace + the actual Electron UI. On Windows, use the native checks in [PACKAGING.md](docs/PACKAGING.md#windows-x64); Linux companion tests retain their Unix requirements. Run `npm run test:e2e` for desktop workflows alone. The Electron tests use an isolated temporary profile and small temporary files; native file-picker results are supplied automatically. Live HF checks need internet access.
-
-The desktop suite exercises all six views, settings and catalog editing, real P2P pause/resume, safe moves, selective HF downloads, restart-resume, HF → swarm sharing, and removal across another restart. Downloaded bytes are checked against their source hashes. Screenshots land in `test-results/screenshots/`.
-
-Community 2.0.0 shipped with the full desktop suite green (unit + packaged
-end-to-end), bundle/DMG/ZIP integrity checks, and installed-app verification.
-Physical Spark inventory, sharing, restart and retained-file hashes have been
-verified across real devices. Apple notarization and Windows Authenticode
-signing remain open production-signing items; the OpenPGP-signed checksum list
-authenticates every published artifact in the meantime.
-
-`scripts/preview.html` renders the UI against a stubbed API in any browser, so
-you can work on the interface without launching Electron or contacting HF. Serve
-the repository with `python3 -m http.server 8000 --bind 127.0.0.1`, then open
-`http://127.0.0.1:8000/scripts/preview.html`. The module-based renderer needs HTTP
-in a regular browser.
-
----
-
-## Notes from building it
-
-Three things bit us, all worth knowing:
-
-- **`webtorrent@2.8.5` crashes on `seed()`.** `parse-torrent` returns `infoHash`
-  as a hex string, but webtorrent calls `arr2hex(parsedTorrent.infoHash)`, and
-  `uint8-util`'s `arr2hex` reads `.buffer` off its argument — `undefined` on a
-  string. It throws from inside a microtask, so it looks like a silent crash.
-  Fixed in webtorrent 3, which is what we depend on.
-- **The renderer uses ES modules and a sandboxed CommonJS preload.**
-  Keep the preload bridge explicit and preserve context isolation.
-- **`[hidden]` loses to `display:flex`.** Every view is `display:flex`, so
-  without `[hidden]{display:none !important}` all of them render stacked.
-
----
-
-## The look
-
-Classic LimeWire had it right about one thing: a dense, sortable grid of what's
-out there on other machines *is* the product. So the palette keeps the lime
-(`#22D511`, still LimeWire's brand green) as the single accent on a near-black
-canvas, the data columns are monospace with tabular figures, and the chrome is
-ours rather than the platform's.
-
-What we left behind: Java Swing chrome that rendered differently on every OS,
-bundled adware (FrostWire shipped an Ask.com toolbar and later a browser
-hijacker — there's no bundled anything here), and any central point of failure.
-
----
-
-*Keep the models alive.*
+The repository stays private until explicitly opened. The npm package is marked
+private to prevent accidental publication; a binary release does not change source
+repository visibility.
