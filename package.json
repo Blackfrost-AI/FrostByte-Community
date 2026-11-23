@@ -74,7 +74,7 @@
     "create-torrent": "6.1.3",
     "ip-address": "10.7.4",
     "junk": "4.0.1",
-    "multiformats": "14.0.5",
+    "multiformats": "14.0.6",
     "parse-torrent": "^11.0.24",
     "ssh2": "^1.17.0",
     "webtorrent": "^3.0.21"
