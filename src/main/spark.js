@@ -227,11 +227,13 @@ export async function sparkRequest(profile, request, options = {}) {
   const managed = await ensureRestrictedPairing(profile, options);
   if (managed) {
     try {
-      const data = await restrictedRpc(profile, request, { ...requestTimeout, ...options });
       if (request.action === 'assistant:chat:start') {
-        if (data.code || data.stderr) throw new Error('The device could not start this chat. Update its companion.');
-        return data;
+        // The pairing helper relays chat frames as they arrive; there is no single JSON reply to parse.
+        const started = await sparkExecute(profile, SPARK_RPC_COMMAND, { ...requestTimeout, ...options, input: encodeSparkRequest(request) });
+        if (started.code || started.stderr) throw new Error('The device could not start this chat. Update its companion.');
+        return started;
       }
+      const data = await restrictedRpc(profile, request, { ...requestTimeout, ...options });
       return sanitizeSparkResponse(request.action, data);
     }
     finally { if (request.action === 'pairing:revoke') restrictedPairings.delete(pairingIdentity(profile)); }
