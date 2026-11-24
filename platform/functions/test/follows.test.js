@@ -30,7 +30,7 @@ async function bindKey(request, identity, token) {
   const { challengeId, nonce } = challenge.json();
   const bind = await request({
     method: 'POST', url: '/v1/me/publisher-key',
-    body: { pubKey: identity.pubKey, challengeId, signature: identity.signHex(nonce) },
+    body: { pubKey: identity.pubKey, challengeId, signature: identity.signHex(`frostbyte-bind/1\n${identity.pubKey}\n${nonce}`) },
     token,
   });
   assert.equal(bind.statusCode, 200);

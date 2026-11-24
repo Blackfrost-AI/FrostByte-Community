@@ -558,3 +558,116 @@ test('N6: malformed safetensors that is really a pickle still routes to the walk
   assert.equal(result.format, 'pickle');
   assert.equal(result.verdict, 'risky-format');
 });
+
+/* ---------------- external security report regressions (Joey, 2.0.0) ------- */
+
+function zipOf(entries) {
+  // entries: [{name, data}] stored, no descriptor — same layout zipfile reads.
+  const chunks = [], cds = [];
+  let offset = 0;
+  for (const { name, data } of entries) {
+    const nb = Buffer.from(name);
+    const lh = Buffer.alloc(30);
+    lh.writeUInt32LE(0x04034b50, 0); lh.writeUInt16LE(20, 4); lh.writeUInt16LE(0, 8);
+    lh.writeUInt32LE(data.length, 18); lh.writeUInt32LE(data.length, 22);
+    lh.writeUInt16LE(nb.length, 26);
+    chunks.push(lh, nb, data);
+    const cd = Buffer.alloc(46);
+    cd.writeUInt32LE(0x02014b50, 0); cd.writeUInt16LE(20, 4); cd.writeUInt16LE(20, 6);
+    cd.writeUInt32LE(data.length, 20); cd.writeUInt32LE(data.length, 24);
+    cd.writeUInt16LE(nb.length, 28); cd.writeUInt32LE(offset, 42);
+    cds.push(cd, nb);
+    offset += 30 + nb.length + data.length;
+  }
+  const cdBuf = Buffer.concat(cds);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt16LE(entries.length, 8); end.writeUInt16LE(entries.length, 10);
+  end.writeUInt32LE(cdBuf.length, 12); end.writeUInt32LE(offset, 16);
+  return Buffer.concat([...chunks, cdBuf, end]);
+}
+
+function npyOf(descr, payload) {
+  const dict = Buffer.from(`{'descr': '${descr}', 'fortran_order': False, 'shape': (1,), }`, 'latin1');
+  const pad = 64 - ((10 + dict.length) % 64);
+  const hdr = Buffer.concat([dict, Buffer.alloc(pad - 1), Buffer.from('\n', 'latin1')]);
+  const head = Buffer.alloc(10);
+  head[0] = 0x93; head.write('NUMPY', 1, 'latin1'); head[6] = 1; head[7] = 0;
+  head.writeUInt16LE(hdr.length, 8);
+  return Buffer.concat([head, hdr, payload]);
+}
+
+test('npz: benign data.pkl does not vouch for an object-dtype .npy member (report #1)', async t => {
+  const zip = zipOf([
+    { name: 'weights/data.pkl', data: benignPickle() },
+    { name: 'arr_0.npy', data: npyOf('|O', maliciousPickle()) },
+  ]);
+  const result = await analyzeFileSafety(await tmp(t, 'evil.npz', zip));
+  assert.equal(result.verdict, 'risky-format');
+  assert.ok(result.findings.some(f => /os\.system/.test(f.detail)));
+});
+
+test('npz with numeric .npy members stays safe-format', async t => {
+  const zip = zipOf([
+    { name: 'weights/data.pkl', data: benignPickle() },
+    { name: 'arr_0.npy', data: npyOf('<f4', Buffer.alloc(4)) },
+  ]);
+  const result = await analyzeFileSafety(await tmp(t, 'ok.npz', zip));
+  assert.equal(result.verdict, 'safe-format');
+});
+
+test('standalone object-dtype .npy is walked; numeric .npy is data-only (report #1)', async t => {
+  const evil = await analyzeFileSafety(await tmp(t, 'evil.npy', npyOf('|O', maliciousPickle())));
+  assert.equal(evil.verdict, 'risky-format');
+  const ok = await analyzeFileSafety(await tmp(t, 'ok.npy', npyOf('<f8', Buffer.alloc(8))));
+  assert.equal(ok.verdict, 'safe-format');
+  assert.equal(ok.format, 'numpy');
+});
+
+test('gzip/zlib-wrapped joblib pickle is decompressed and classified risky (report #1)', async t => {
+  const gz = await analyzeFileSafety(await tmp(t, 'evil.joblib', zlib.gzipSync(maliciousPickle())));
+  assert.equal(gz.verdict, 'risky-format');
+  const zl = await analyzeFileSafety(await tmp(t, 'evil2.bin', zlib.deflateSync(maliciousPickle())));
+  assert.equal(zl.verdict, 'risky-format');
+  // benign compressed pickle stays safe (wrapper finding alone must not downgrade)
+  const okGz = await analyzeFileSafety(await tmp(t, 'ok.joblib', zlib.gzipSync(benignPickle())));
+  assert.equal(okGz.verdict, 'safe-format');
+});
+
+test('compressed wrapper exceeding the scan budget fails closed, never safe (report #1)', async t => {
+  // A gzip bomb: highly compressible zeros well past the pickle scan cap.
+  const bomb = zlib.gzipSync(Buffer.alloc(MAX_PICKLE_SCAN_BYTES + 1024));
+  const result = await analyzeFileSafety(await tmp(t, 'bomb.bin', bomb));
+  assert.equal(result.verdict, 'unknown');
+  assert.ok(result.findings.some(f => /budget/i.test(f.detail)));
+});
+
+test('npy header evasions fail closed: escaped dtype, duplicate descr, adjacent literals (review #1)', async t => {
+  const evil = maliciousPickle();
+  const raw = (descrText) => {
+    const dict = Buffer.from(`{'descr': ${descrText}, 'fortran_order': False, 'shape': (1,), }`, 'latin1');
+    const pad = 64 - ((10 + dict.length) % 64);
+    const hdr = Buffer.concat([dict, Buffer.alloc(pad - 1), Buffer.from('\n', 'latin1')]);
+    const head = Buffer.alloc(10);
+    head[0] = 0x93; head.write('NUMPY', 1, 'latin1'); head[6] = 1; head[7] = 0;
+    head.writeUInt16LE(hdr.length, 8);
+    return Buffer.concat([head, hdr, evil]);
+  };
+  for (const [label, descrText] of [
+    ['escaped', "'\\x7cO'"],
+    ['unicode-escaped', "'\\u007cO'"],
+    ['adjacent-literals', "'|' 'O'"],
+  ]) {
+    const r = await analyzeFileSafety(await tmp(t, `ev-${label}.npy`, raw(descrText)));
+    assert.notEqual(r.verdict, 'safe-format', label);
+  }
+  // Duplicate key: numpy keeps the LAST (object) — must not pass as numeric.
+  const dup = raw("'<f8', 'fortran_order': False, 'shape': (1,), 'descr': '|O'");
+  const dupResult = await analyzeFileSafety(await tmp(t, 'ev-dup.npy', dup));
+  assert.notEqual(dupResult.verdict, 'safe-format');
+});
+
+test('gzip-compressed hostile pickle is caught even with a neutral extension (review #5)', async t => {
+  const r = await analyzeFileSafety(await tmp(t, 'payload.dat', zlib.gzipSync(maliciousPickle())));
+  assert.equal(r.verdict, 'risky-format');
+});

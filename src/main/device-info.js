@@ -1,5 +1,6 @@
 /** Read a small allowlist of hardware facts. No serials, UUIDs, MAC addresses, or cloud lookup. */
 import os from 'node:os';
+import path from 'node:path';
 import fs from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -60,13 +61,23 @@ export async function readDeviceInfo({ platform = process.platform, architecture
     // this does not grant the container GPU access or require NVIDIA drivers in it.
     let gpus = []; try { gpus = JSON.parse(env.FROSTBYTE_HOST_GPUS || '[]'); } catch {}
     if (!Array.isArray(gpus) || !gpus.length) {
-      const names = await command('nvidia-smi', ['--query-gpu=name', '--format=csv,noheader']);
+      // Absolute system paths only — same bare-name planting defense as the
+      // Windows PowerShell launch below. First installed location wins.
+      let names = '';
+      for (const bin of ['/usr/bin/nvidia-smi', '/usr/local/bin/nvidia-smi', '/opt/bin/nvidia-smi']) {
+        try { names = await command(bin, ['--query-gpu=name', '--format=csv,noheader']); break; } catch {}
+      }
       gpus = names.split('\n').filter(Boolean).slice(0, 16).map(name => ({ name, source: 'system' }));
     }
     Object.assign(info, { vendor, modelIdentifier, reportedModel: env.FROSTBYTE_HOST_MODEL || modelIdentifier || deviceTree, chip: os.cpus()[0]?.model || '', osVersion, gpus, cpuCores: physicalCores || cpuCores });
   } else if (platform === 'win32') {
     // Explicit properties keep serial numbers and hardware UUIDs out of the process output.
-    const output = await command('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', "$c=Get-CimInstance Win32_ComputerSystem -Property Manufacturer,Model,SystemFamily,PCSystemType; $e=Get-CimInstance Win32_SystemEnclosure -Property ChassisTypes; $p=@(Get-CimInstance Win32_Processor -Property Name,NumberOfCores); $g=@(Get-CimInstance Win32_VideoController -Property Name | ForEach-Object { @{name=$_.Name;source='system'} }); @{vendor=$c.Manufacturer;model=$c.Model;family=$c.SystemFamily;systemType=$c.PCSystemType;chassis=@($e.ChassisTypes);gpus=$g;chip=(($p | ForEach-Object {$_.Name}) -join ' + ');cpuCores=($p | Measure-Object -Property NumberOfCores -Sum).Sum}|ConvertTo-Json -Depth 4 -Compress"]);
+    // Security fix (external report #5): launch PowerShell by absolute system
+    // path, never by bare name — a bare-name lookup searches the app/CWD
+    // first on Windows and can execute a planted powershell.exe.
+    const systemRoot = env.SystemRoot || 'C:\\Windows';
+    const powershell = path.win32.join(systemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
+    const output = await command(powershell, ['-NoProfile', '-NonInteractive', '-Command', "$c=Get-CimInstance Win32_ComputerSystem -Property Manufacturer,Model,SystemFamily,PCSystemType; $e=Get-CimInstance Win32_SystemEnclosure -Property ChassisTypes; $p=@(Get-CimInstance Win32_Processor -Property Name,NumberOfCores); $g=@(Get-CimInstance Win32_VideoController -Property Name | ForEach-Object { @{name=$_.Name;source='system'} }); @{vendor=$c.Manufacturer;model=$c.Model;family=$c.SystemFamily;systemType=$c.PCSystemType;chassis=@($e.ChassisTypes);gpus=$g;chip=(($p | ForEach-Object {$_.Name}) -join ' + ');cpuCores=($p | Measure-Object -Property NumberOfCores -Sum).Sum}|ConvertTo-Json -Depth 4 -Compress"]);
     let hardware = {}; try { hardware = JSON.parse(output); } catch {}
     const portable = hardware.systemType === 2 || (Array.isArray(hardware.chassis) && hardware.chassis.some(type => [8, 9, 10, 11, 14, 30, 31, 32].includes(type)));
     const family = typeof hardware.family === 'string' && !/^(?:default string|to be filled by o\.e\.m\.|system family)$/i.test(hardware.family.trim()) ? hardware.family.trim() : '';

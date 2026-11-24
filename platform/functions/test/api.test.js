@@ -415,3 +415,38 @@ test('createUserIfAbsent inserts once and reports created only the first time', 
     assert.equal(r.user.email, 'fresh@example.com');
   }
 });
+/* ---- external security report #3: API keys must not act on session-only routes */
+
+test('an API key cannot set or release a handle, bind a publisher key, manage keys, or open billing (report #3)', async () => {
+  const { request } = await harness({ tier: 'plus', routes });
+  const created = await request({ method: 'POST', url: '/v1/api-keys', body: { label: 'ci' } });
+  const key = created.json().key;
+  const prefix = key.split('_')[1];
+  const asKey = { headers: { authorization: `Bearer ${key}` } };
+  const pubKey = 'ab'.repeat(32);
+
+  const attempts = [
+    { method: 'POST', url: '/v1/me/handle', body: { handle: 'evil_handle' } },
+    { method: 'DELETE', url: '/v1/me/handle' },
+    { method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey } },
+    { method: 'POST', url: '/v1/me/publisher-key', body: { pubKey, challengeId: 'x', signature: '00'.repeat(64) } },
+    { method: 'GET', url: '/v1/api-keys' },
+    { method: 'POST', url: '/v1/api-keys', body: { label: 'escalation' } },
+    { method: 'DELETE', url: `/v1/api-keys/${prefix}` },
+    { method: 'POST', url: '/v1/billing/portal' },
+    { method: 'DELETE', url: `/v1/me/publisher-key/${pubKey}` },
+  ];
+  for (const attempt of attempts) {
+    const res = await request({ ...attempt, ...asKey });
+    assert.equal(res.statusCode, 403, `${attempt.method} ${attempt.url} must refuse API keys`);
+    assert.equal(res.json().error.code, 'interactive_session_required');
+  }
+
+  // The same key still works on ordinary API-key routes (no over-block).
+  const me = await request({ url: '/v1/me', ...asKey });
+  assert.equal(me.statusCode, 200);
+
+  // And an interactive session still reaches the guarded routes.
+  const handle = await request({ method: 'POST', url: '/v1/me/handle', body: { handle: 'Good_Handle' } });
+  assert.equal(handle.statusCode, 200);
+});

@@ -342,6 +342,7 @@ export function createApp({
 
   router.post('/v1/me/handle', async ({ req, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: API keys must not set handles
     const body = await readJsonBody(req, MAX_BODY_BYTES);
     const check = validateHandle(body?.handle);
     if (!check.ok) throw badRequest(check.message, check.code);
@@ -359,6 +360,7 @@ export function createApp({
 
   router.delete('/v1/me/handle', async ({ identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: API keys must not release handles
     const result = await store.setHandle(caller.uid, '', { nowMs: now(), graceMs: HANDLE_GRACE_MS });
     if (!result.ok) throw notFound('No profile for this account yet.');
     await store.appendAudit({ action: 'user.handle.release', uid: caller.uid, actor: caller.authType });
@@ -373,6 +375,7 @@ export function createApp({
 
   router.post('/v1/me/publisher-key/challenge', async ({ req, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: binding needs an interactive session
     const body = await readJsonBody(req, MAX_BODY_BYTES);
     const check = validatePubKey(body?.pubKey);
     if (!check.ok) throw badRequest(check.message, check.code);
@@ -399,6 +402,7 @@ export function createApp({
 
   router.post('/v1/me/publisher-key', async ({ req, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: identity binding needs an interactive session
     const body = await readJsonBody(req, MAX_BODY_BYTES);
     const keyCheck = validatePubKey(body?.pubKey);
     if (!keyCheck.ok) throw badRequest(keyCheck.message, keyCheck.code);
@@ -422,7 +426,11 @@ export function createApp({
         format: 'der',
         type: 'spki',
       });
-      verified = cryptoVerify(null, Buffer.from(challenge.nonce, 'utf8'), publicKey, Buffer.from(signature, 'hex'));
+      // Domain-separated bind frame (matches desktop publisher.js): the
+      // signature covers frostbyte-bind/1\n<pubkey>\n<nonce>, never raw
+      // server bytes. Rejects legacy raw-nonce signatures.
+      const bindMessage = `frostbyte-bind/1\n${keyCheck.pubKey}\n${challenge.nonce}`;
+      verified = cryptoVerify(null, Buffer.from(bindMessage, 'utf8'), publicKey, Buffer.from(signature, 'hex'));
     } catch {
       verified = false;
     }
@@ -438,6 +446,7 @@ export function createApp({
 
   router.delete('/v1/me/publisher-key/:pubKey', async ({ params, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: unbinding identity needs an interactive session
     const check = validatePubKey(params.pubKey);
     if (!check.ok) throw badRequest(check.message, check.code);
     const result = await store.deletePublisherKey(check.pubKey, caller.uid, { nowMs: now() });
@@ -571,6 +580,7 @@ export function createApp({
 
   router.get('/v1/api-keys', async ({ identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: keys never list keys
     const keys = await store.listApiKeysForUser(caller.uid);
     return {
       limit: capabilitiesFor(caller.tier).apiKeys,
@@ -587,6 +597,7 @@ export function createApp({
 
   router.post('/v1/api-keys', async ({ req, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: an API key must never mint another key
     await consume({ store, uid: caller.uid, tier: caller.tier, bucket: 'writes', now });
 
     const limit = capabilitiesFor(caller.tier).apiKeys;
@@ -617,6 +628,7 @@ export function createApp({
 
   router.delete('/v1/api-keys/:prefix', async ({ params, identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: keys never revoke keys
     if (!/^[a-z0-9]{8}$/.test(params.prefix)) throw badRequest('Malformed key prefix.');
 
     const keys = await store.listApiKeysForUser(caller.uid);
@@ -821,6 +833,7 @@ export function createApp({
   /** Open the Stripe billing portal for self-serve plan management. */
   router.post('/v1/billing/portal', async ({ identity }) => {
     const caller = requireIdentity(identity);
+    requireFirebaseSession(caller); // session-only: billing portal needs an interactive session
     const { createPortalSession } = await import('./billing-checkout.js');
     return createPortalSession({ store, identity: caller, fetcher, now });
   });

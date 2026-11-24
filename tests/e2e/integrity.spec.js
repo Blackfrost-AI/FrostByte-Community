@@ -295,6 +295,23 @@ test('a completed p2p download is integrity-gated before it keeps seeding: risky
       { timeout: 30000 }).toBe(true);
     expect(fs.existsSync(path.join(destination, 'p2p-risky', 'evil.pkl'))).toBe(true);
     expect(Object.values((await getState()).aeonIntegrity).some(row => row.format === 'risky-format')).toBe(true);
+    // Security regression (external report #4): torrent:resume must not
+    // re-seed content the integrity gate stopped. The refusal is exact and
+    // the transfer stays paused; files are kept.
+    const resumeBlocked = await page.evaluate(async hash => {
+      const response = await window.frostbyte.resume(hash);
+      return { ok: response.ok, message: response.error || '' };
+    }, risky.infoHash);
+    expect(resumeBlocked.ok).toBe(false);
+    expect(resumeBlocked.message).toContain('risky format');
+    expect((await getState()).torrents.find(t => t.infoHash === risky.infoHash)?.paused).toBe(true);
+    // An uppercase variant must not dodge the gate (normalized like remove).
+    const upperBlocked = await page.evaluate(async hash => {
+      const response = await window.frostbyte.resume(hash);
+      return { ok: response.ok, message: response.error || '' };
+    }, risky.infoHash.toUpperCase());
+    expect(upperBlocked.ok).toBe(false);
+    expect((await getState()).torrents.find(t => t.infoHash === risky.infoHash)?.paused).toBe(true);
     // Control: a safe completion under the same settings keeps seeding.
     await addAndWaitDone(safe, seedSafe);
     await expect.poll(async () => Object.values((await getState()).aeonIntegrity).some(row => row.format === 'safe-format'),

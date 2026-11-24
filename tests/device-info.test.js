@@ -59,7 +59,22 @@ test('Windows laptop and desktop cards retain the reported model and every repor
     assert.equal(info.cpuCores, 16);
     assert.doesNotMatch(JSON.stringify(info), /private|serial|uuid/);
     assert.doesNotMatch(JSON.stringify(calls), /SerialNumber|IdentifyingNumber|UUID|Win32_ComputerSystemProduct/);
+    // Security regression (external report #5): PowerShell is launched by
+    // absolute system path, never by bare name (CWD/app-dir planting).
+    for (const [file] of calls) {
+      assert.notEqual(file, 'powershell.exe');
+      assert.match(file, /System32[\\/]WindowsPowerShell[\\/]v1\.0[\\/]powershell\.exe$/);
+    }
   }
+});
+
+test('Windows PowerShell honors an explicit SystemRoot and never falls back to a bare name', async () => {
+  const calls = [];
+  await readDeviceInfo({ platform: 'win32', env: { SystemRoot: 'D:\\WinRoot' }, run: async (file, args) => {
+    calls.push([file, args]); return { stdout: '{}' };
+  } });
+  assert.ok(calls.length > 0);
+  for (const [file] of calls) assert.equal(file, 'D:\\WinRoot\\System32\\WindowsPowerShell\\v1.0\\powershell.exe');
 });
 
 test('failed or incomplete GPU collection stays honest and fixed GB10 facts have provenance', async () => {

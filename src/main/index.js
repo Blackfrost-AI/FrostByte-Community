@@ -1727,8 +1727,13 @@ function startEngine() {
   }
   for (const item of store.getLibrary()) {
     if (saved.some(t => t.infohash === item.infohash)) continue;
-    // Confirmed-risky shared folders are never re-seeded at launch. Cache-only
-    // check: unscanned folders keep their previous behavior (never blocked).
+    // Confirmed-risky or origin-blocked shared folders are never re-seeded at
+    // launch. Cache-only check: unscanned folders keep their previous behavior
+    // (never blocked). Parity with the resume/share gates: BOTH verdicts.
+    if (originBlocksSharing(origins.get('shared:' + item.infohash))) {
+      note(`${item.name} was not re-shared: its origin check blocked sharing.`, 'warn');
+      continue;
+    }
     if (integrityBlocksSharing(integrity.get('shared:' + item.infohash))) {
       note(`${item.name} was not re-shared: its integrity scan found a risky file format.`, 'warn');
       continue;
@@ -2650,7 +2655,28 @@ handle('torrent:pause', async (infoHash) => {
   return currentState();
 });
 
-handle('torrent:resume', async (infoHash) => {
+handle('torrent:resume', async (rawInfoHash) => {
+  // Normalize exactly like torrent:remove — an uppercase/whitespace variant
+  // must not dodge the gate lookups below (engine matching is lenient).
+  if (typeof rawInfoHash !== 'string' || !/^[a-f0-9]{40}$/i.test(rawInfoHash.trim())) throw new Error('Invalid info hash.');
+  const infoHash = rawInfoHash.trim().toLowerCase();
+  // A share stopped by the integrity/origin gate must stay stopped: resume
+  // may not re-seed content a confirmed verdict blocked. Cache-only check
+  // over every recorded identity (mirrored by the completion/share gates),
+  // exactly like the restart re-seed gate — unscanned transfers are never
+  // blocked, but a recorded risky/blocked verdict refuses the resume.
+  const resuming = engine.list().find(item => item.infoHash === infoHash);
+  if (resuming) {
+    const gateIds = new Set(['shared:' + infoHash]);
+    if (resuming.inventoryId) gateIds.add(resuming.inventoryId);
+    const owned = inventory.list().find(item => item.infoHash === infoHash);
+    if (owned) gateIds.add(owned.id);
+    if (resuming.dataPath) gateIds.add(folderIntegrityId(resuming.dataPath));
+    for (const id of gateIds) {
+      if (originBlocksSharing(origins.get(id))) throw new Error(ORIGIN_SHARE_BLOCKED);
+      if (integrityBlocksSharing(integrity.get(id))) throw new Error(INTEGRITY_SHARE_BLOCKED);
+    }
+  }
   try {
     await applyTransferChanges([{ infoHash, paused: false }], () => engine.resume(infoHash));
     privacy.record('resume_ok');
@@ -3700,7 +3726,11 @@ handle('hub:bind-publisher', async () => {
   const { challengeId, nonce } = challenge?.data || {};
   if (!challengeId || typeof nonce !== 'string') throw refuse('Hub did not issue a binding challenge.', 'hub_error');
   let signature;
-  try { signature = publisher.signChallenge(nonce); }
+  try {
+    // Domain-separated bind frame: the Hub-supplied nonce is embedded, never
+    // signed raw. A hostile Hub cannot smuggle other protocol payloads.
+    signature = publisher.signChallenge(publisher.bindChallengeMessage(keyCheck.pubKey, nonce));
+  }
   catch (err) { throw refuse(err.message || 'Could not sign the binding challenge.', 'hub_publisher_locked'); }
   const res = await client.bindPublisherKey({ pubKey: keyCheck.pubKey, challengeId, signature }).catch(hubErr);
   const refreshed = await refreshVerifiedAccount(client);

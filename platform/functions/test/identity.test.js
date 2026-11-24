@@ -185,7 +185,7 @@ test('challenge → signature → bind happy path stores the binding', async () 
 
   const bind = await request({
     method: 'POST', url: '/v1/me/publisher-key',
-    body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) },
+    body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) },
   });
   assert.equal(bind.statusCode, 200);
   assert.equal(bind.json().pubKey, id.pubKey);
@@ -219,7 +219,7 @@ test('a bad signature burns the challenge — no replay, no brute force', async 
   // Even the CORRECT signature now fails: the challenge was burned.
   const retry = await request({
     method: 'POST', url: '/v1/me/publisher-key',
-    body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) },
+    body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) },
   });
   assert.equal(retry.statusCode, 400);
   assert.equal(retry.json().error.code, 'challenge_invalid');
@@ -230,7 +230,7 @@ test('a successful bind cannot be replayed with the same challenge', async () =>
   const id = makePublisherIdentity();
   const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
   const { challengeId, nonce } = challenge.json();
-  const body = { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) };
+  const body = { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) };
   assert.equal((await request({ method: 'POST', url: '/v1/me/publisher-key', body })).statusCode, 200);
   const replay = await request({ method: 'POST', url: '/v1/me/publisher-key', body });
   assert.equal(replay.statusCode, 400);
@@ -251,7 +251,7 @@ test('expired challenges are rejected', async () => {
   });
   const res = await request({
     method: 'POST', url: '/v1/me/publisher-key',
-    body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) },
+    body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) },
   });
   assert.equal(res.statusCode, 400);
   assert.equal(res.json().error.code, 'challenge_invalid');
@@ -265,7 +265,7 @@ test('a challenge for one key cannot bind a different key', async () => {
   const { challengeId, nonce } = challenge.json();
   const res = await request({
     method: 'POST', url: '/v1/me/publisher-key',
-    body: { pubKey: b.pubKey, challengeId, signature: b.sign(nonce) },
+    body: { pubKey: b.pubKey, challengeId, signature: b.sign(`frostbyte-bind/1\n${a.pubKey}\n${nonce}`) },
   });
   assert.equal(res.statusCode, 400);
   assert.equal(res.json().error.code, 'challenge_invalid');
@@ -278,7 +278,7 @@ test('one pubkey binds to one account; unbind tombstone allows rebind by another
 
   const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
   const { challengeId, nonce } = challenge.json();
-  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) } });
+  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) } });
 
   // Another account cannot even get a challenge for the bound key.
   const stolen = await store.setPublisherKey(id.pubKey, OTHER_UID, { nowMs: FIXED_NOW });
@@ -322,7 +322,7 @@ test('GET /v1/creators/:pubKey projects only public fields, never uid/email', as
   await request({ method: 'PATCH', url: '/v1/me', body: { bio: 'Making local models sing.', displayName: 'Crafter Prime' } });
   const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
   const { challengeId, nonce } = challenge.json();
-  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) } });
+  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) } });
 
   const res = await request({ url: `/v1/creators/${id.pubKey}`, auth: false });
   assert.equal(res.statusCode, 200);
@@ -356,7 +356,7 @@ test('by-handle lookup resolves to the active bound key; unbound creator 404s', 
 
   const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
   const { challengeId, nonce } = challenge.json();
-  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) } });
+  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) } });
 
   const res = await request({ url: '/v1/creators/by-handle/ALIAS_FINDER', auth: false });
   assert.equal(res.statusCode, 200);
@@ -370,11 +370,35 @@ test('unbind flips verified=false without erasing the alias projection', async (
   await request({ method: 'POST', url: '/v1/me/handle', body: { handle: 'still_here' } });
   const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
   const { challengeId, nonce } = challenge.json();
-  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(nonce) } });
+  await request({ method: 'POST', url: '/v1/me/publisher-key', body: { pubKey: id.pubKey, challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${nonce}`) } });
   await request({ method: 'DELETE', url: `/v1/me/publisher-key/${id.pubKey}` });
 
   const res = await request({ url: `/v1/creators/${id.pubKey}`, auth: false });
   assert.equal(res.statusCode, 200);
   assert.equal(res.json().verified, false);
   assert.equal(res.json().handle, 'still_here');
+});
+/* ---- external security report #2: bind signatures are domain-separated */
+
+test('a raw-nonce signature no longer binds; only the frostbyte-bind/1 frame does (report #2)', async () => {
+  const { request } = await harness();
+  const id = makePublisherIdentity();
+  const challenge = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
+  assert.equal(challenge.statusCode, 200);
+  const { nonce, challengeId } = challenge.json();
+
+  // Legacy raw-nonce signature (what a hostile Hub could request pre-fix).
+  const raw = await request({ method: 'POST', url: '/v1/me/publisher-key', body: {
+    pubKey: id.pubKey, challengeId, signature: id.sign(nonce),
+  } });
+  assert.equal(raw.statusCode, 400);
+
+  // Challenges are single-use (burned even on failed verify) — the framed
+  // bind signature succeeds on a fresh challenge.
+  const second = await request({ method: 'POST', url: '/v1/me/publisher-key/challenge', body: { pubKey: id.pubKey } });
+  const fresh = second.json();
+  const framed = await request({ method: 'POST', url: '/v1/me/publisher-key', body: {
+    pubKey: id.pubKey, challengeId: fresh.challengeId, signature: id.sign(`frostbyte-bind/1\n${id.pubKey}\n${fresh.nonce}`),
+  } });
+  assert.equal(framed.statusCode, 200);
 });

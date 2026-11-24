@@ -305,6 +305,44 @@ function walkPickle(bytes) {
   return { verdict: 'safe-format', findings };
 }
 
+/** .npy container: magic \x93NUMPY + version + header dict. Numeric dtypes are
+ * data-only (safe); an OBJECT dtype ('|O') stores elements as a pickle stream
+ * that np.load executes — the stream must be walked. Malformed = finding. */
+function inspectNpy(bytes) {
+  if (bytes.length < 10 || bytes[0] !== 0x93 || bytes.toString('latin1', 1, 6) !== 'NUMPY') {
+    return { finding: '.npy member has no NUMPY magic.' };
+  }
+  const major = bytes[6];
+  let headerLen, headerStart;
+  if (major === 1) { headerLen = bytes.readUInt16LE(8); headerStart = 10; }
+  else if (major === 2 || major === 3) {
+    if (bytes.length < 12) return { finding: '.npy header truncated.' };
+    headerLen = bytes.readUInt32LE(8); headerStart = 12;
+  } else return { finding: `Unsupported .npy version ${major}.` };
+  if (headerLen > MAX_HEADER_BYTES || headerStart + headerLen > bytes.length) return { finding: '.npy header length implausible or truncated.' };
+  const header = bytes.toString('latin1', headerStart, headerStart + headerLen);
+  // np.load evaluates this header with ast.literal_eval, which understands
+  // string escapes ('\x7cO' → '|O'), adjacent-literal concatenation and
+  // duplicate keys (LAST wins). Matching raw text would let those forms hide
+  // an object dtype behind a numeric-looking header. Refuse anything outside
+  // the strict canonical single-literal form instead of guessing.
+  const descrMatches = [...header.matchAll(/'descr'\s*:\s*'([^']*)'/g)];
+  if (!descrMatches.length) return { finding: '.npy header has no dtype descriptor.' };
+  if (descrMatches.length > 1) return { finding: '.npy header repeats the descr key; refusing to guess which one numpy keeps.' };
+  const descr = descrMatches[0][1];
+  if (descr.includes('\\')) return { finding: '.npy dtype descriptor uses string escapes; refusing to guess the decoded dtype.' };
+  // Object dtype (plain 'O' or '|O', possibly a structured field) → the data
+  // section is a pickle stream. Anything with an O field is object-bearing.
+  if (/(?:^|[|<>='(\[, ])O(?:$|[')\], ])/.test(descr) || descr === 'O' || descr === '|O') {
+    return { objectStream: bytes.subarray(headerStart + headerLen) };
+  }
+  // Adjacent string literals ('|' 'O') merge under literal_eval — anything
+  // but a single quoted value followed by ',' or '}' is non-canonical.
+  const after = header.slice(descrMatches[0].index + descrMatches[0][0].length).trimStart();
+  if (after[0] !== ',' && after[0] !== '}') return { finding: '.npy dtype descriptor is not a single canonical literal; refusing to guess.' };
+  return {}; // numeric dtype: data-only payload
+}
+
 /** Torch >= 1.6 saves a zip archive whose code lives in data.pkl. Walk every
  * pickle entry; stored and deflate entries only, everything else is unknown. */
 function zipPickleStreams(bytes) {
@@ -363,10 +401,27 @@ function zipPickleStreams(bytes) {
     if (local.flags !== flags || local.method !== method || local.csize !== csize || local.usize !== usize || local.name !== name) {
       throw new Error('zip central directory disagrees with local header');
     }
+    const entryBytes = () => {
+      if (method === 0) return bytes.subarray(local.dataStart, local.dataStart + csize);
+      if (method === 8) {
+        try { return zlib.inflateRawSync(bytes.subarray(local.dataStart, local.dataStart + csize), { maxOutputLength: MAX_PICKLE_SCAN_BYTES - totalInflated + 1 }); }
+        catch (error) {
+          if (error.code === 'ERR_BUFFER_TOO_LARGE') throw new Error('zip pickle streams exceed the scan budget');
+          throw error;
+        }
+      }
+      throw new Error(`unsupported zip compression ${method}`);
+    };
     if (/\.pkl$/i.test(name)) {
-      if (method === 0) addStream(bytes.subarray(local.dataStart, local.dataStart + csize));
-      else if (method === 8) addStream(zlib.inflateRawSync(bytes.subarray(local.dataStart, local.dataStart + csize), { maxOutputLength: MAX_PICKLE_SCAN_BYTES - totalInflated + 1 }));
-      else throw new Error(`unsupported zip compression ${method}`);
+      addStream(entryBytes());
+    } else if (/\.npy$/i.test(name)) {
+      // Security fix (external report #1): an .npy member whose dtype is
+      // object ('|O') stores its elements as a PICKLE stream after the
+      // header — np.load runs it without allow_pickle=False. A benign
+      // data.pkl must not vouch for a hostile arr_0.npy in the same .npz.
+      const npy = inspectNpy(entryBytes());
+      if (npy.objectStream) addStream(npy.objectStream);
+      else if (npy.finding) throw new Error(npy.finding);
     }
     cd += 46 + nameLen + extraLen + commentLen;
   }
@@ -375,27 +430,69 @@ function zipPickleStreams(bytes) {
   return streams;
 }
 
+const isNpyMagic = bytes => bytes.length >= 6 && bytes[0] === 0x93 && bytes.toString('latin1', 1, 6) === 'NUMPY';
+
 async function checkPickleFamily(reader, { extensionRoute = false } = {}) {
   // The extension is a routing hint, not proof. Sniff the magic so a renamed
   // pickle is still walked and a renamed data file is not misreported.
-  const head = await reader.at(0, Math.min(4, reader.size));
+  const head = await reader.at(0, Math.min(8, reader.size));
   const looksZip = head.length >= 4 && head.readUInt32LE(0) === 0x04034b50;
   const looksPickle = head.length >= 2 && head[0] === 0x80 && head[1] <= 5;
+  const looksNpy = isNpyMagic(head);
+  const looksCompressed = head.length >= 2 && ((head[0] === 0x1f && head[1] === 0x8b) || (head[0] === 0x78 && (head[1] === 0x01 || head[1] === 0x9c || head[1] === 0xda)));
   // Protocol-0/1 pickles are ASCII with no PROTO byte. A pickle-family
   // extension is authority enough to attempt the walk (it fails closed on
   // garbage); without that hint we stay unknown to avoid text-file noise.
-  if (!looksZip && !looksPickle && !extensionRoute) return result('unknown', 'pickle', [finding('structure', 'File does not look like a pickle or torch zip; renamed or unsupported container.')]);
+  if (!looksZip && !looksPickle && !looksNpy && !looksCompressed && !extensionRoute) return result('unknown', 'pickle', [finding('structure', 'File does not look like a pickle or torch zip; renamed or unsupported container.')]);
   if (reader.size > MAX_PICKLE_SCAN_BYTES) {
     return result('unknown', 'pickle', [finding('size', `Pickle-family file is too large to scan (${reader.size} bytes > ${MAX_PICKLE_SCAN_BYTES} cap).`)]);
   }
   const bytes = await reader.at(0, reader.size);
-  let streams;
-  if (bytes.length >= 4 && bytes.readUInt32LE(0) === 0x04034b50) {
-    try { streams = zipPickleStreams(bytes); }
-    catch (error) { return result('unknown', 'pickle', [finding('structure', `Zip container could not be inspected: ${error.message}.`)]); }
-    if (!streams.length) return result('unknown', 'pickle', [finding('structure', 'Zip container holds no pickle stream to inspect.')]);
-  } else streams = [bytes];
+  // joblib compresses its pickle with zlib/gzip by default. With a
+  // pickle-family extension hint, unwrap bounded compression layers and walk
+  // the payload — a compressed hostile pickle must not hide behind 'unknown'.
   const findings = [];
+  let payload = bytes;
+  // Compression magic is content proof, not an extension guess: unwrap even
+  // without a pickle-family extension hint so a renamed compressed pickle
+  // cannot hide behind 'unknown'.
+  for (let depth = 0; depth < 3; depth++) {
+    const gz = payload.length >= 2 && payload[0] === 0x1f && payload[1] === 0x8b;
+    const zl = payload.length >= 2 && payload[0] === 0x78 && (payload[1] === 0x01 || payload[1] === 0x9c || payload[1] === 0xda);
+    if (!gz && !zl) break;
+    try {
+      payload = gz
+        ? zlib.gunzipSync(payload, { maxOutputLength: MAX_PICKLE_SCAN_BYTES + 1 })
+        : zlib.inflateSync(payload, { maxOutputLength: MAX_PICKLE_SCAN_BYTES + 1 });
+    } catch (error) {
+      // zlib reports hitting maxOutputLength as ERR_BUFFER_TOO_LARGE — that
+      // is a scan-budget verdict, not a parse failure; say so honestly.
+      const detail = error.code === 'ERR_BUFFER_TOO_LARGE'
+        ? 'Decompressed pickle exceeds the scan budget.'
+        : `Compressed pickle wrapper could not be inspected: ${error.message}.`;
+      return result('unknown', 'pickle', [finding(error.code === 'ERR_BUFFER_TOO_LARGE' ? 'size' : 'structure', detail)]);
+    }
+    if (payload.length > MAX_PICKLE_SCAN_BYTES) {
+      return result('unknown', 'pickle', [finding('size', 'Decompressed pickle exceeds the scan budget.')]);
+    }
+    findings.push(finding('structure', `${gz ? 'gzip' : 'zlib'}-compressed pickle wrapper was decompressed and inspected.`));
+  }
+  let streams;
+  if (payload.length >= 4 && payload.readUInt32LE(0) === 0x04034b50) {
+    try { streams = zipPickleStreams(payload); }
+    catch (error) {
+      const budget = /scan budget/.test(error.message);
+      return result('unknown', 'pickle', [finding(budget ? 'size' : 'structure', `Zip container could not be inspected: ${error.message}.`)]);
+    }
+    if (!streams.length) return result('unknown', 'pickle', [finding('structure', 'Zip container holds no pickle stream to inspect.')]);
+  } else if (isNpyMagic(payload)) {
+    // A standalone .npy: numeric dtypes are data-only; an object dtype's data
+    // section is a pickle stream np.load executes — walk it.
+    const npy = inspectNpy(payload);
+    if (npy.objectStream) streams = [npy.objectStream];
+    else if (npy.finding) return result('unknown', 'pickle', [finding('structure', npy.finding)]);
+    else return result('safe-format', 'numpy', findings);
+  } else streams = [payload];
   let verdict = 'safe-format';
   for (const stream of streams) {
     let walked;
@@ -425,9 +522,10 @@ export async function analyzeFileSafety(filePath) {
     // given an unknown extension) must still be walked. Leading 0x80 PROTO or
     // a local-file zip magic routes to the pickle-family check regardless of
     // the filename; everything else keeps its extension route.
-    const head = await reader.at(0, Math.min(4, reader.size));
+    const head = await reader.at(0, Math.min(8, reader.size));
     const looksZip = head.length >= 4 && head.readUInt32LE(0) === 0x04034b50;
     const looksPickle = head.length >= 2 && head[0] === 0x80 && head[1] <= 5;
+    const looksNpy = isNpyMagic(head);
     // Data-only formats get their structural check FIRST: a legitimate small
     // safetensors whose header-length low byte is 0x80 must not be mistaken
     // for a PROTO opcode. Only a failed structural check falls back to the
@@ -435,10 +533,11 @@ export async function analyzeFileSafety(filePath) {
     if (extFormat === 'safetensors' || extFormat === 'gguf') {
       const structural = extFormat === 'safetensors' ? await checkSafetensors(reader) : await checkGguf(reader);
       if (structural.verdict !== 'unknown') return structural;
-      if (looksZip || looksPickle) return await checkPickleFamily(reader);
+      if (looksZip || looksPickle || looksNpy) return await checkPickleFamily(reader);
       return structural;
     }
-    if (looksZip || looksPickle) return await checkPickleFamily(reader, { extensionRoute: extFormat === 'pickle' });
+    const looksCompressed = head.length >= 2 && ((head[0] === 0x1f && head[1] === 0x8b) || (head[0] === 0x78 && (head[1] === 0x01 || head[1] === 0x9c || head[1] === 0xda)));
+    if (looksZip || looksPickle || looksNpy || looksCompressed) return await checkPickleFamily(reader, { extensionRoute: extFormat === 'pickle' });
     if (extFormat === 'pickle') return await checkPickleFamily(reader, { extensionRoute: true });
     return result('unknown', 'unknown', [finding('structure', `No structural check exists for "${ext || 'extensionless'}" files.`)]);
   } catch (error) {

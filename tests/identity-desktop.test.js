@@ -3,7 +3,7 @@
  * 1. hub-client account methods: routes, shapes, bearer, input guards.
  * 2. Drift guard: shared/identity-rules.js must behave identically to the
  *    backend platform/functions/src/identity.js (server is the authority).
- * 3. signChallenge: raw-nonce Ed25519 signing matches the server's SPKI verify.
+ * 3. signChallenge: domain-separated bind-frame signing matches the server's SPKI verify.
  * 4. normalizeHubAccount carries handle/bio with strict shape checks.
  */
 import test from 'node:test';
@@ -13,7 +13,7 @@ import { generateKeyPairSync, createPublicKey, verify as cryptoVerify, sign as c
 import { createHubClient } from '../src/main/hub-client.js';
 import { HUB_API_BASE } from '../src/main/hub-security.js';
 import { normalizeHubAccount } from '../src/main/hub-store.js';
-import { signChallenge } from '../src/main/publisher.js';
+import { signChallenge, bindChallengeMessage } from '../src/main/publisher.js';
 import * as shared from '../src/shared/identity-rules.js';
 import * as backend from '../platform/functions/src/identity.js';
 import { CLIENT_WRITABLE_USER_FIELDS as BACKEND_WRITABLE } from '../platform/functions/src/store/contract.js';
@@ -144,14 +144,15 @@ test('shared identity-rules mirror the backend validators exactly', () => {
 
 // ---- signChallenge matches the server's verification -------------------------
 
-test('signChallenge produces a hex Ed25519 signature the SPKI verifier accepts', () => {
+test('signChallenge signs the domain-separated bind frame the SPKI verifier accepts', () => {
   const { publicKey, privateKey } = generateKeyPairSync('ed25519');
   const spki = publicKey.export({ format: 'der', type: 'spki' });
   const pubHex = spki.subarray(spki.length - 32).toString('hex');
   const unlocked = { pubKey: pubHex, privateKey, publicKey };
   const nonce = 'ef'.repeat(32);
 
-  const sigHex = signChallenge(unlocked, nonce);
+  const message = bindChallengeMessage(pubHex, nonce);
+  const sigHex = signChallenge(unlocked, message);
   assert.match(sigHex, /^[a-f0-9]{128}$/);
 
   // Server-side reconstruction (platform app.js): fixed SPKI prefix + raw key.
@@ -159,9 +160,26 @@ test('signChallenge produces a hex Ed25519 signature the SPKI verifier accepts',
     key: Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), Buffer.from(pubHex, 'hex')]),
     format: 'der', type: 'spki',
   });
-  assert.ok(cryptoVerify(null, Buffer.from(nonce, 'utf8'), serverKey, Buffer.from(sigHex, 'hex')));
+  const bindMessage = `frostbyte-bind/1\n${pubHex}\n${nonce}`;
+  assert.ok(cryptoVerify(null, Buffer.from(bindMessage, 'utf8'), serverKey, Buffer.from(sigHex, 'hex')));
   // Tampered nonce must not verify.
-  assert.ok(!cryptoVerify(null, Buffer.from('00'.repeat(32), 'utf8'), serverKey, Buffer.from(sigHex, 'hex')));
+  assert.ok(!cryptoVerify(null, Buffer.from(`frostbyte-bind/1\n${pubHex}\n${'00'.repeat(32)}`, 'utf8'), serverKey, Buffer.from(sigHex, 'hex')));
+});
+
+test('signChallenge refuses raw nonces and foreign-protocol payloads (report #2)', () => {
+  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const spki = publicKey.export({ format: 'der', type: 'spki' });
+  const pubHex = spki.subarray(spki.length - 32).toString('hex');
+  const unlocked = { pubKey: pubHex, privateKey, publicKey };
+  const nonce = 'ab'.repeat(32);
+  // A hostile Hub can no longer get the identity key to sign anything but
+  // the exact bind frame for THIS key.
+  assert.throws(() => signChallenge(unlocked, nonce), /non-bind-domain/);
+  assert.throws(() => signChallenge(unlocked, 'aeon-delegate/1\nsome-payload'), /non-bind-domain/);
+  assert.throws(() => signChallenge(unlocked, `frostbyte-bind/1\n${'00'.repeat(32)}\n${nonce}`), /non-bind-domain/);
+  assert.throws(() => signChallenge(unlocked, `frostbyte-bind/2\n${pubHex}\n${nonce}`), /non-bind-domain/);
+  assert.throws(() => bindChallengeMessage(pubHex, 'not-hex'), /nonce/);
+  assert.throws(() => bindChallengeMessage('nope', nonce), /pubkey/);
 });
 
 test('signChallenge refuses locked sessions and oversized messages', () => {

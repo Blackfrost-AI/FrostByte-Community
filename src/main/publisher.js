@@ -177,13 +177,31 @@ export function verifyPublication({ cid, name, sha256, addedAtMs, pubKey, pubSig
 }
 
 /**
- * Sign a raw UTF-8 challenge message (ADR 003 account binding). Unlike
- * signPublication there is no digest structure: the server verifies the
- * signature over the exact nonce bytes it issued. Hex-encoded 64-byte sig.
+ * Sign an account-binding challenge (ADR 003). DOMAIN SEPARATION (security
+ * fix): the signed bytes are always `frostbyte-bind/1\n<pubkey>\n<nonce>` —
+ * never a raw server-supplied string. A hostile or compromised Hub can no
+ * longer obtain a publisher-key signature over arbitrary content (e.g. an
+ * `aeon-delegate/1` payload) by smuggling it into the challenge nonce.
+ * The server reconstructs the same framed message from the nonce it issued
+ * and the key being bound. Hex-encoded 64-byte Ed25519 sig.
  */
+export function bindChallengeMessage(pubKey, nonce) {
+  if (!/^[a-f0-9]{64}$/.test(pubKey || '')) throw new Error('Invalid publisher pubkey.');
+  if (typeof nonce !== 'string' || !/^[a-f0-9]{64}$/.test(nonce)) throw new Error('Invalid challenge nonce.');
+  return `frostbyte-bind/1\n${pubKey}\n${nonce}`;
+}
+
 export function signChallenge(unlocked, message) {
   if (!unlocked?.privateKey) throw new Error('Unlock the publisher identity before signing.');
   if (typeof message !== 'string' || !message || message.length > 512) throw new Error('Invalid challenge message.');
+  // Only the bind-domain frame may be signed with the identity key here.
+  // Reject anything that is not exactly frostbyte-bind/1 for THIS key and a
+  // canonical hex64 nonce — no foreign-protocol or malformed frames.
+  const parts = message.split('\n');
+  const expected = parts.length === 3 && /^[a-f0-9]{64}$/.test(parts[2])
+    ? bindChallengeMessage(unlocked.pubKey, parts[2])
+    : null;
+  if (!expected || message !== expected) throw new Error('Refusing to sign a non-bind-domain challenge with the publisher identity key.');
   const sig = cryptoSign(null, Buffer.from(message, TEXT), unlocked.privateKey);
   return sig.toString('hex');
 }
