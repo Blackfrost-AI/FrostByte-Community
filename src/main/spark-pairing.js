@@ -169,7 +169,7 @@ elif action in ACTIONS:
   if not stat.S_ISSOCK(st.st_mode) or st.st_uid!=os.getuid(): fail('Unsafe FrostByte companion socket.')
   client=socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)
   client.settimeout(30*60 if action in LONG and (action!='inventory:sharing' or request.get('enabled') is True) else 40)
-  client.connect(endpoint); client.sendall(raw.rstrip(b'\r\n')+b'\n'); client.shutdown(socket.SHUT_WR)
+  client.connect(endpoint); client.sendall(raw.rstrip(b'\r\n')+b'\n')
   output=bytearray()
   while True:
    chunk=client.recv(65536)

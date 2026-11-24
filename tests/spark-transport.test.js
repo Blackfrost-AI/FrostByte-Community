@@ -5,6 +5,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 import ssh2 from 'ssh2';
 import { inspectSparkHost, keyFingerprint, sparkExecute, sparkRequest, generateSparkKeyPair } from '../src/main/spark.js';
 import { SPARK_PAIR_COMMAND, SPARK_RPC_COMMAND } from '../src/main/spark-pairing.js';
+import { RemoteChatStream } from '../src/main/assistant-remote.js';
 
 const { Server, utils } = ssh2;
 const command = 'frostbyte-fixture-json';
@@ -85,10 +86,17 @@ async function fixture(t, { hold = false, privateKeyOnly = false, exitCode = 0, 
         stream.on('end', async () => {
           if (hold) return;
           if (responseDelayMs) await delay(responseDelayMs);
+          const request = managedRpc ? JSON.parse(record.input) : null;
+          if (request?.action === 'assistant:chat:start' && record.command === SPARK_RPC_COMMAND && restricted) {
+            // Like the pairing helper: bare NDJSON frames as they arrive, nothing on stderr.
+            const frames = [{ type: 'delta', text: 'Hel' }, { type: 'delta', text: 'lo' }, { type: 'done' }];
+            frames.forEach((frame, index) => stream.write(JSON.stringify({ stream: request.stream, seq: index + 1, ...frame }) + '\n'));
+            stream.exit(0); stream.end();
+            return;
+          }
           stream.stderr.write('fixture progress\n');
           let response, code = exitCode;
           if (managedRpc) {
-            const request = JSON.parse(record.input);
             if (record.command === SPARK_RPC_COMMAND && !restricted) {
               stream.stderr.write('command not found\n'); code = 127;
             } else if (record.command === SPARK_PAIR_COMMAND) {
@@ -216,6 +224,18 @@ test('legacy app keys migrate to the forced RPC command before status or revocat
   assert.equal((await sparkRequest({ ...profile }, { action: 'status' })).hostname, 'managed-fixture');
   assert.deepEqual(ssh.executed.slice(before).map(item => item.command), [SPARK_RPC_COMMAND], 'the restricted transport is cached across unlocked profile clones');
   assert.deepEqual(await sparkRequest(profile, { action: 'pairing:revoke' }), { revoked: true });
+});
+
+test('a chat on a managed pairing streams its frames instead of parsing them as one reply', { timeout: 20000 }, async t => {
+  const ssh = await fixture(t, { privateKeyOnly: true, managedRpc: true });
+  const { password: unused, ...base } = ssh.profile;
+  const profile = { ...base, privateKey: ssh.userKeys.private, runtime: 'docker' };
+  const events = [];
+  const chat = new RemoteChatStream({ stream: 's_12345678', send: async () => {} });
+  await sparkRequest(profile, { action: 'assistant:chat:start', stream: chat.id, model: { name: 'qwen', provider: 'ollama' }, messages: [{ role: 'user', content: 'Hi' }] }, {
+    onOutput: (value, source) => { if (source === 'stdout') chat.push(Buffer.from(value), event => events.push(event)); },
+  });
+  assert.deepEqual(events, [{ type: 'delta', text: 'Hel' }, { type: 'delta', text: 'lo' }, { type: 'done' }]);
 });
 
 

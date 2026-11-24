@@ -1,8 +1,19 @@
 import { StringDecoder } from 'node:string_decoder';
 import { randomBytes } from 'node:crypto';
+import { modelId } from './assistant-runtimes.js';
+import { sanitizeSparkResponse } from './spark-schema.js';
 
 export const ASSISTANT_CAPABILITY = 1;
 const streamId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{8,80}$/.test(value) ? value : null;
+
+/** Assistant models of one paired device, asked over that device's saved connection. */
+export async function remoteDeviceModels(devices, request, id) {
+  const profile = devices.profile(id);
+  const status = sanitizeSparkResponse('status', await request(profile, { action: 'status' }, { timeout: 12000 }));
+  if (status.capabilities?.assistant !== 1) throw new Error('Update this device to use the assistant.');
+  const response = sanitizeSparkResponse('assistant:models', await request(profile, { action: 'assistant:models' }, { timeout: 15000 }));
+  return { ...response, models: response.models.map(model => ({ ...model, deviceId: id, id: modelId(id, model.provider, model.name) })) };
+}
 
 /** Delimited, ordered companion frames. A remote peer cannot supply transport or credentials. */
 export function validateRemoteFrame(frame) {

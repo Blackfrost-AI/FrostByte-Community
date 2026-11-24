@@ -51,11 +51,11 @@ async function handleTool(name, args) {
     return { content: [{ type: 'text', text: JSON.stringify(res?.data ?? res, null, 2) }] };
   }
   if (name === 'hf_search') {
-    const results = await hfSearch({ query: args.query || '', limit: args.limit || 10, token: process.env.HF_TOKEN || '' });
+    const results = await hfSearch(args.query || '', { limit: args.limit || 10 });
     return { content: [{ type: 'text', text: JSON.stringify(results, null, 2) }] };
   }
   if (name === 'hf_model_options') {
-    const info = await hfModelInfo(args.repoId, process.env.HF_TOKEN || '');
+    const info = await hfModelInfo(args.repoId, { token: process.env.HF_TOKEN || '' });
     const options = buildHfOptions(info.files || []);
     const serve = serveOptions(info, { target: args.target === 'spark' ? 'spark' : 'local', localPath: args.localPath || '', includeAlternatives: true });
     return { content: [{ type: 'text', text: JSON.stringify({ id: info.id, sha: info.sha, options, serve }, null, 2) }] };

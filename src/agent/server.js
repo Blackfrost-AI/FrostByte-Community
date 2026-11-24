@@ -1176,12 +1176,18 @@ async function settleWork(set) {
   while (set.size) await Promise.allSettled([...set]);
 }
 
-const server = net.createServer(socket => {
+// A client may half-close once its request line is sent; the 2.0.0 pairing
+// helper installed on paired devices does. Keep the writable side open so the
+// reply still reaches it.
+const server = net.createServer({ allowHalfOpen: true }, socket => {
   acceptedSockets.add(socket);
-  let input = '', handled = false;
+  let input = '', handled = false, streaming = false;
   socket.setTimeout(30000, () => socket.destroy());
   socket.on('error', () => {});
   socket.once('close', () => { acceptedSockets.delete(socket); runningSockets.delete(socket); });
+  // Nothing left to answer, or a chat whose peer went away: close, which also
+  // cancels the generation below.
+  socket.on('end', () => { if (!handled || streaming) socket.destroy(); });
   socket.on('data', chunk => {
     if (handled) return;
     input += chunk;
@@ -1196,6 +1202,7 @@ const server = net.createServer(socket => {
       const request = JSON.parse(input.slice(0, end));
       const action = request.action;
       if (action === 'assistant:chat:start') {
+        streaming = true;
         // If the desktop disconnects mid-stream (Stop, quit, crash), abort the
         // companion-side generation instead of running it to completion.
         socket.once('close', () => { try { assistantChatCancel(request.stream); } catch { /* Stream already finished. */ } });
